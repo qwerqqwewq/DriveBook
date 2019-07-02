@@ -1,0 +1,16 @@
+@startuml
+    start
+    :用户登录页面;
+    if (是否拥有账号？) then (是)
+    repeat
+    :输入用户名、密码和验证码;
+    repeat while (用户名或密码或验证码错误？)
+    :登录成功;
+    :跳转到驾考宝典主界面;
+    end
+    else (否)
+    :点击注册按钮;
+    :跳转到用户时注册页面;
+    end
+    endif
+@enduml
