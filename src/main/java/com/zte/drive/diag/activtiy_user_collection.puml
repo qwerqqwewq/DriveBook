@@ -1,0 +1,25 @@
+@startuml
+title:收藏夹界面
+start
+if(用户是否登录成功) then(是)
+else(否)
+:重新进行登录;
+while(用户登录) is(失败)
+:用户重新登录;
+endwhile(成功)
+endif
+:收藏夹界面;
+:按所有，类别或者关键字查询收藏夹中内容;
+:显示收藏记录;
+fork
+:对试题进行练习;
+fork again
+:点击试题删除按钮;
+if(确定移除)then(是)
+:移除试题;
+else(否)
+:取消移除操作;
+endif
+end fork
+end
+@enduml
