@@ -1,6 +1,7 @@
 package com.zte.drive.test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -31,10 +32,7 @@ public class OptionUtil {
     static public List<String> separateOptions(String combinedOptions) {
         String [] split = combinedOptions.split("#");
         List<String> strings = new ArrayList<>();
-        for (int i = 0; i < split.length; i++) {
-            strings.add(split[i]);
-        }
-
+        strings.addAll(Arrays.asList(split));
         return strings;
     }
 
