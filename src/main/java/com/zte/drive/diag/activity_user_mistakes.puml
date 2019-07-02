@@ -1,0 +1,34 @@
+@startuml
+title 错题界面
+|前端|
+start
+if(用户是否登录成功) then(是)
+else(否)
+:重新进行登录;
+while(用户登录) is(失败)
+:用户重新登录;
+endwhile(成功)
+endif
+:错题界面;
+:错题查询;
+:按关键字，类别或者全部进行错题查询;
+:显示查询结果;
+fork
+:进行错题练习;
+fork again
+:用户点击试题删除;
+if(提示是否删除)then(是)
+:则移除试题;
+else(否)
+:则取消删除操作;
+endif
+fork again
+:向收藏夹添加试题;
+if(收藏夹已有试题)then(是)
+:添加失败,显示已有该试题;
+else(否)
+:添加成功;
+endif
+end fork
+end
+@enduml
