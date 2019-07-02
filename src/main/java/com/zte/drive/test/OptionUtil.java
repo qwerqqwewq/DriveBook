@@ -42,9 +42,9 @@ public class OptionUtil {
      */
     public static void main(String[] args) {
         List<String> strings = new ArrayList<>();
-        strings.add("A");
-        strings.add("B");
-        strings.add("C");
+        strings.add("A 李白");
+        strings.add("B 杜甫");
+        strings.add("C 杜牧");
         String combined = combineOptions(strings);
         System.out.println(combined);
         System.out.println(separateOptions(combined).toString());
