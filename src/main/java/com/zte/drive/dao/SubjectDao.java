@@ -10,15 +10,15 @@ import java.util.List;
  * Description:<描述>
  */
 public interface SubjectDao {
-    Subject selectById(Integer id);
+    public Subject selectById(Integer id);
 
-    List<Subject> selectAll();
+    public List<Subject> selectAll();
 
-    int insert(Subject  subject);
+    public int insertSubject(Subject  subject);
 
-    int update(Subject subject);
+    public int updateSubject(Subject subject);
 
-    int deleteById(Integer id);
+    public int deleteById(Integer id);
     
     
     

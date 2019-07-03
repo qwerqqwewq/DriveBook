@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-</beans>
+<mapper namespace="com.zte.drive.dao.AdminDao">
+    <!--根据ID查询id,pwd,name,registerDate-->
+    <select id="selectById" resultType="Admin">
+        SELECT id,pwd,name,registerDate FROM t_admin where id=#{id}
+    </select>
+
+    <!--查询所有的管理员-->
+    <select id="selectAll" resultType="Admin">
+        SELECT
+        id,pwd,name,registerDate
+        FROM
+        t_admin
+            </select>
+
+    <!--新增一个管理员-->
+    <insert id="insert" parameterType="Admin">
+        INSERT
+        INTO
+            t_admin
+            (pwd,name,registerDate)
+            VALUE
+            (#{pwd},#{name},#{registerDate})
+            </insert>
+
+    <!--更新一个管理员信息-->
+    <update id="update" parameterType="Admin">
+        UPDATE
+        t_admin
+        SET
+        name=#{name},pwd=#{pwd},registerDate=#{registerDate}
+        WHERE
+        managerId=#{managerId}
+           </update>
+
+    <!--根据ID删除一个管理员-->
+    <delete id="deleteById">
+        DELETE
+        FROM
+        t_manager
+        WHERE
+        managerId=#{managerId}
+            </delete>
+</mapper>
