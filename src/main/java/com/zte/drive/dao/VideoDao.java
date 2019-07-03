@@ -38,7 +38,7 @@ public interface VideoDao {
     public List<Video> selectAll();
 
     /**
-     * 查询从start到end的所有视频
+     * 查询从start到end的所有视频，start与end都是从0开始的，左闭右开
      * @param start
      * @param end
      * @return 视频列表
