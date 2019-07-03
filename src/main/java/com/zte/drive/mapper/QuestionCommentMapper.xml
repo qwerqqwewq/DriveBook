@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zte.drive.dao.QuestionCommentDao">
+
+    <!-- 插入某条评论 -->
+    <!-- int insert(QuestionComment questioncomment); -->
+    <insert id="insert" parameterType="QuestionComment" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO t_question_comment( uid, qid, parentId, content, commentDate )
+        VALUES( #{user.id}, #{question.id}, #{questionComment.id}, #{content}, #{commentDate} );
+    </insert>
+
+    <!-- 根据评论ID删除某条评论 -->
+    <!-- int deleteById(Integer id); -->
+    <delete id="deleteById" parameterType="Integer">
+        DELETE FROM t_question_comment
+        WHERE id = #{id};
+    </delete>
+
+    <!-- 查询所有评论 -->
+    <!-- List<QuestionComment> selectAll(); -->
+    <select id="selectAll" resultType="QuestionComment">
+        SELECT * FROM t_question_comment;
+    </select>
+
+    <!-- 查询某用户的所有评论 -->
+    <!-- List<QuestionComment> selectByUserId(Integer uid); -->
+    <select id="selectByUserId" resultType="QuestionComment">
+        SELECT * FROM t_question_comment WHERE uid = #{user.id};
+    </select>
+
+    <!-- 查询某题目下的所有评论 -->
+    <!-- List<QuestionComment> selectByQuestionId(Integer qid); -->
+    <select id="selectByQuestionId" resultType="QuestionComment">
+        SELECT * FROM t_question_comment WHERE qid = #{question.id};
+    </select>
+
+    <!-- 根据评论ID查询某条评论 -->
+    <!-- QuestionComment selectById(Integer id); -->
+    <select id="selectById" resultType="QuestionComment">
+        SELECT * FROM t_question_comment WHERE id = #{id};
+    </select>
+</mapper>
