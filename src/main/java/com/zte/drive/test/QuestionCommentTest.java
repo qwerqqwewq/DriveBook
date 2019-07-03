@@ -46,14 +46,14 @@ public class QuestionCommentTest {
         }
 
         // 测试List<QuestionComment> selectByUserId(Integer uid);
-        List<QuestionComment> questionComments2 = questionCommentDao.selectByUserId(1);
+        List<QuestionComment> questionComments2 = questionCommentDao.selectByUser(user);
         System.out.println( "测试查询某用户的所有评论，查询结果为：");
         for ( QuestionComment qc : questionComments2 ) {
             System.out.println(qc);
         }
 
         // 测试List<QuestionComment> selectByQuestionId(Integer qid);
-        List<QuestionComment> questionComments3 = questionCommentDao.selectByQuestionId(1);
+        List<QuestionComment> questionComments3 = questionCommentDao.selectByQuestion(question);
         System.out.println( "测试查询某题目下的所有评论，查询结果为：");
         for ( QuestionComment qc : questionComments3 ) {
             System.out.println(qc);

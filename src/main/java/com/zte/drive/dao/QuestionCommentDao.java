@@ -1,6 +1,8 @@
 package com.zte.drive.dao;
 
+import com.zte.drive.entity.Question;
 import com.zte.drive.entity.QuestionComment;
+import com.zte.drive.entity.User;
 
 import java.util.List;
 
@@ -32,17 +34,24 @@ public interface QuestionCommentDao {
 
     /**
      * 查询某用户的所有评论
-     * @param uid
+     * @param user
      * @return 评论列表
      */
-    List<QuestionComment> selectByUserId(Integer uid);
+    List<QuestionComment> selectByUser(User user);
 
     /**
      * 查询某题目下的所有评论
-     * @param qid
-     * @return
+     * @param question
+     * @return 评论列表
      */
-    List<QuestionComment> selectByQuestionId(Integer qid);
+    List<QuestionComment> selectByQuestion(Question question);
+
+    /**
+     * 查询某评论的所有子评论
+     * @param questionComment
+     * @return 评论列表
+     */
+    List<QuestionComment> selectByComment(QuestionComment questionComment);
 
     /**
      * 根据评论ID查询某条评论
