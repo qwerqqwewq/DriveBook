@@ -7,7 +7,7 @@
      * @return 插入行数
      */
     public int insertVideo(Video video);-->
-    <insert id="insertVideo" parameterType="Video" keyProperty="id" useGeneratedKeys="true>
+    <insert id="insertVideo" parameterType="Video" keyProperty="id" useGeneratedKeys="true">
         INSERT INTO t_video
         (title,intro,context,src)
         VALUES
