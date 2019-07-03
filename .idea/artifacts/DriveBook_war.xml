@@ -1,6 +1,15 @@
 <component name="ArtifactManager">
   <artifact type="war" name="DriveBook:war">
     <output-path>$PROJECT_DIR$/target</output-path>
+<<<<<<< HEAD
+=======
+    <properties id="maven-jee-properties">
+      <options>
+        <module>DriveBook</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+>>>>>>> 68d4ebe4db35d6dd2e8b2f00aa62cfbaf83a9a32
     <root id="archive" name="DriveBook-1.0-SNAPSHOT.war">
       <element id="artifact" artifact-name="DriveBook:war exploded" />
     </root>

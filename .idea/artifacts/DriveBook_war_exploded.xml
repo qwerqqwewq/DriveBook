@@ -1,6 +1,16 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="DriveBook:war exploded">
     <output-path>$PROJECT_DIR$/target/DriveBook-1.0-SNAPSHOT</output-path>
+<<<<<<< HEAD
+=======
+    <properties id="maven-jee-properties">
+      <options>
+        <exploded>true</exploded>
+        <module>DriveBook</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+>>>>>>> 68d4ebe4db35d6dd2e8b2f00aa62cfbaf83a9a32
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
