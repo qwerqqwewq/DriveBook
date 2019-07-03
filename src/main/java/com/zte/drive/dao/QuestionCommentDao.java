@@ -40,7 +40,7 @@ public interface QuestionCommentDao {
     List<QuestionComment> selectByUser(User user);
 
     /**
-     * 查询某题目下的所有评论
+     * 查询某题目下的所有非子评论
      * @param question
      * @return 评论列表
      */

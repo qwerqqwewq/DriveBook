@@ -28,10 +28,10 @@
         SELECT * FROM t_question_comment WHERE uid = #{id};
     </select>
 
-    <!-- 查询某题目下的所有评论 -->
+    <!-- 查询某题目下的所有非子评论 -->
     <!-- List<QuestionComment> selectByQuestion(Question question); -->
     <select id="selectByQuestion" parameterType="Question" resultType="QuestionComment">
-        SELECT * FROM t_question_comment WHERE qid = #{id};
+        SELECT * FROM t_question_comment WHERE qid = #{id} AND parentId = NULL;
     </select>
 
     <!-- 查询某评论的所有子评论 -->
