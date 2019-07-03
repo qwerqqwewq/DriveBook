@@ -3,6 +3,7 @@ package com.zte.drive.dao;
 import com.zte.drive.entity.Mistake;
 import com.zte.drive.entity.Question;
 import com.zte.drive.entity.Type;
+import com.zte.drive.entity.User;
 
 import java.util.List;
 
@@ -17,48 +18,48 @@ public interface MistakeDao {
      * @param mistake
      * @return  增加行数
      */
-     public int insert(Mistake mistake);
+      int insert(Mistake mistake);
 
     /**
      *根据用户id删除一条错题记录
-     * @param uid,id
+     * @param user,id
      * @return 删除行数
      */
-    public int delete(Integer uid,Integer id);
+      int delete(User user,Integer id);
 
 
     /**
      *  用户查询其所有错题记录
-    *@param uid
+    *@param user
      * @return 错题列表
     */
-    public List<Mistake> selectall(Integer uid);
+     List<Mistake> selectall(User user);
 
     /**
      * 用户按错题id查询错题
-     * @param uid,id
+     * @param user,id
      * @return 错题
      */
-    public Mistake selectById(Integer uid,Integer id);
+     Mistake selectById(User user,Integer id);
 
     /**
      * 按试题内容查询用户错题
-     * @param uid,content
+     * @param user,content
      * @return 错题集
      */
-    public List<Question> selectByContent(Integer uid,String content);
+     List<Mistake> selectByContent(User user,String content);
 
     /**
      *用户根据试题类型查询
      * @param type
      * @return 错题集
      */
-     public List<Question> selectByType(Integer uid,Type type);
+     List<Mistake> selectByType(User user,String type);
 
     /**
      * 用户查询最近错的前num道错题
-     * @param uid,num
+     * @param user,num
      * @return 错题集
      */
-    public List<Question> selectByTime(Integer uid,Integer num);
+     List<Mistake> selectByTime(User user,Integer num);
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zte.drive.dao.FavoritesDao">
+
+       <!--
+     /**
+     * @param favorites
+     * @return  添加行数
+     */
+       -->
+       <insert id="insert" parameterType="Favorites">
+              INSERT INTO
+              t_favorites
+              (id,uid,qid,createDate)
+              VALUE
+              (#{id},#{user.id},#{question.id},#{createDate})
+               </insert>
+
+       <!--
+       /**
+     * @param uid,id
+     * @return 删除行数
+     */
+       -->
+       <delete id="delete">
+              DELETE FROM t_favorites
+              WHERE
+              uid=#{arg0.id} AND id=#{arg1}
+               </delete>
+
+       <!--
+      /**
+     * @param uid
+     * @return 收藏列表
+     */
+       -->
+       <select id="select" resultType="Favorites" parameterType="User">
+              SELECT * FROM t_favorites
+              WHERE
+              uid=#{id}
+               </select>
+
+       <!--
+      /**
+     * @param uid
+     * @param num
+     * @return 收藏的前几条数据
+     */
+       -->
+       <select id="selectByNum" resultType="Favorites">
+              SELECT * FROM t_favorites
+              WHERE
+              uid=#{arg0.id}
+              ORDER BY createDate DESC
+              limit 0,#{arg1}
+               </select>
+       </mapper>

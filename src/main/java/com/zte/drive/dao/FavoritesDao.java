@@ -1,38 +1,38 @@
 package com.zte.drive.dao;
 
 import com.zte.drive.entity.Favorites;
+import com.zte.drive.entity.User;
 
 import java.util.List;
 
 /**
+ * @author  ç‹å“å›
  * Created by ASUS on 2019/7/3.
  */
 public interface FavoritesDao {
+
     /**
-     * Ôö¼ÓÒ»ÌõÊÕ²Ø¼ÇÂ¼
      * @param favorites
-     * @return Ôö¼ÓĞĞÊı
+     * @return  æ·»åŠ è¡Œæ•°
      */
-    public int insert(Favorites favorites);
+     int insert(Favorites favorites);
 
     /**
-     * É¾³ıÒ»ÌõÊÕ²Ø¼ÇÂ¼
-     * @param uid
-     * @return É¾³ıĞĞÊı
+     * @param user,id
+     * @return åˆ é™¤è¡Œæ•°
      */
-    public int delete(Integer uid);
+     int delete(User user,Integer id);
 
     /**
-     * ²éÑ¯ÓÃ»§ËùÓĞÊÕ²Ø
-     * @param uid
-     * @return ÊÕ²Ø¼Ğ
+     * @param user
+     * @return æ”¶è—åˆ—è¡¨
      */
-    public List<Favorites> select(Integer uid);
+     List<Favorites> select(User user);
 
     /**
-     *ÓÃ»§²éÑ¯Ç°Num¸öÊÕ²Ø
-     * @param uid,num
-     * @return ÊÕ²Ø¼Ğ
+     * @param user
+     * @param num
+     * @return æ”¶è—çš„å‰å‡ æ¡æ•°æ®
      */
-    public List<Favorites> selectByNum(Integer uid,Integer num);
+     List<Favorites> selectByNum(User user,Integer num);
 }
