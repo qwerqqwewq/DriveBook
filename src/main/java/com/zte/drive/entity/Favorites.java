@@ -6,7 +6,7 @@ import java.io.Serializable;
  * @author 王卓君
  * Created by ASUS on 2019/7/3.
  */
-public class Collection implements Serializable {
+public class Favorites implements Serializable {
     private Integer id;
 
     //外键映射成对象
@@ -15,10 +15,10 @@ public class Collection implements Serializable {
 
     private String createDate;
 
-    public Collection() {
+    public Favorites() {
     }
 
-    public Collection(Integer id,String createDate) {
+    public Favorites(Integer id, String createDate) {
         this.id = id;
         this.createDate=createDate;
     }

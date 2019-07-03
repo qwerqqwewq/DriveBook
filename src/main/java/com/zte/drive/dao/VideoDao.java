@@ -52,6 +52,4 @@ public interface VideoDao {
      */
     public Video selectById(Integer id);
 
-
-
 }
