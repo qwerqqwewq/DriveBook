@@ -6,6 +6,7 @@ import com.zte.drive.entity.Type;
 
 import java.util.List;
 
+
 /**
  * Created by ASUS on 2019/7/3.
  */
@@ -19,47 +20,45 @@ public interface MistakeDao {
      public int insert(Mistake mistake);
 
     /**
-     *删除一条错题记录
-     * @param id
+     *根据用户id删除一条错题记录
+     * @param uid,id
      * @return 删除行数
      */
-    public int delete(Integer id);
+    public int delete(Integer uid,Integer id);
 
 
     /**
-     *  查询所有错题记录
-    *@param
-     * @return 试题列表
+     *  用户查询其所有错题记录
+    *@param uid
+     * @return 错题列表
     */
-    public List<Question> selectall();
+    public List<Mistake> selectall(Integer uid);
 
     /**
-     * 按错题id查询错题
-     * @param id
+     * 用户按错题id查询错题
+     * @param uid,id
      * @return 错题
      */
-    public Question selectById(Integer id);
+    public Mistake selectById(Integer uid,Integer id);
 
     /**
-     * 按试题内容查询错题
-     * @param content
+     * 按试题内容查询用户错题
+     * @param uid,content
      * @return 错题集
      */
-    public List<Question> selectByContent(String content);
+    public List<Question> selectByContent(Integer uid,String content);
 
     /**
-     *根据试题类型查询
+     *用户根据试题类型查询
      * @param type
      * @return 错题集
      */
-     public List<Question> selectByType(Type type);
+     public List<Question> selectByType(Integer uid,Type type);
 
     /**
-     * 查询最近错的前num道错题
-     * @param
+     * 用户查询最近错的前num道错题
+     * @param uid,num
      * @return 错题集
      */
-    public List<Question> selectByTime(Integer num);
-
-
+    public List<Question> selectByTime(Integer uid,Integer num);
 }

@@ -7,11 +7,12 @@
      * @return 影响行数
      */
     public int insertImage(Image image);-->
-    <insert id="insertImage" parameterType="Image" keyProperty="id" useGeneratedKeys="true">
+    <insert id="insertImage" parameterType="Image" keyProperty="id" useGeneratedKeys="true" >
         INSERT INTO t_image
         (src)
         VALUES
         (#{src});
+
     </insert>
 
     <!-- /**

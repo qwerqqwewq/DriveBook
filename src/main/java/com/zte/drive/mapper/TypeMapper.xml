@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-</beans>
+<mapper namespace="com.zte.drive.dao.TypeDao">
+<!--    public Type selectById(Integer id);
+-->
+    <select id="selectById" resultType="type">
+
+    </select>
+
+    <!--    public List<Type> selectAll();
+-->
+    <select id="selectAll" resultType="type">
+
+    </select>
+
+    <!--    public int insertType(Type  type);
+-->
+    <insert id="insertType" parameterType="type"></insert>
+
+    <!--    public int updateType(Type type);
+-->
+    <update id="updateType" parameterType="type">
+
+    </update>
+
+    <!--    public int deleteById(Integer id);
+-->
+    <delete id="deleteById" >
+
+    </delete>
+</mapper>

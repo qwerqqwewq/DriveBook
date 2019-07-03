@@ -35,12 +35,12 @@ public class TypeServiceImpl implements TypeService {
     //
     @Override
     public void add(Type type) {
-        this.type.insert(type);
+        this.type.insertType(type);
     }
 
     @Override
     public void modify(Type type) {
-        this.type.update(type);
+        this.type.updateType(type);
     }
 
     @Override

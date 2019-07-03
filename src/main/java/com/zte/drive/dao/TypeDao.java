@@ -9,14 +9,14 @@ import java.util.List;
  * Description:<描述>
  */
 public interface TypeDao {
-    Type selectById(Integer id);
+    public Type selectById(Integer id);
 
-    List<Type> selectAll();
+    public List<Type> selectAll();
 
-    int insert(Type  type);
+    public int insertType(Type  type);
 
-    int update(Type type);
+    public int updateType(Type type);
 
-    int deleteById(Integer id);
+    public int deleteById(Integer id);
 
 }

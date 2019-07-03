@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zte.drive.dao.MistakeDao">
+
+       <!--/*
+       *用户插入一条错题
+       *@param mistake
+       *@return 增加行数
+       *主键自动增长，获取主键
+       */
+       -->
+       <insert id="insert" parameterType="Mistake" keyProperty="id" useGeneratedKeys="true">
+         INSERT
+         INTO
+         t_mistake
+         (id,user_id,question_id,createDate)
+         VALUES
+         (#{id},#{user.id},#{question.id},#{createDate})
+       </insert>
+
+       <!--
+        /**
+     *根据用户id删除一条错题记录
+     * @param uid,id
+     * @return 删除行数
+     */
+       -->
+       <delete id="delete">
+              DELETE  FROM
+              t_mistake
+              WHERE
+              uid=#{uid} AND  id=#{id}
+               </delete>
+
+       <!--
+          /**
+          *  用户查询其所有错题记录
+         *@param uid
+         * @return 错题列表
+         */
+       -->
+       <select id="selectall" resultType="Mistake">
+              SELECT * FROM  t_mistake
+               WHERE uid=#{id}
+               </select>
+
+
+      <!--
+         /**
+     * 用户按错题id查询错题
+     * @param uid,id
+     * @return 错题
+     */
+       -->
+     <select id="selectById" resultType="Mistake">
+            SELECT * FROM  t_mistake
+            WHERE uid=#{id} AND  id=#{id}
+             </select>
+
+       <!--  /**
+     * 按试题内容查询用户错题
+     * @param uid,content
+     * @return 错题集
+     */
+     -->
+       <select id="selectByContent" resultType="Mistake">
+              SELECT * FROM t_mistake m
+              LEFT JOIN t_question q
+              ON  m.qid=q.id
+              WHERE
+              m.uid=#{id}
+              AND
+              q.content LIKE CONCAT('%','${content}','%')
+               </select>
+
+       <!--
+        /**
+        *用户根据试题类型查询
+        * @param type
+        * @return 错题集
+        */
+       -->
+       <select id="selectByType" resultType="Mistake">
+              SELECT * FROM t_mistake m
+              LEFT JOIN t_question q on m.qid=q.id
+              WHERE  uid=#{uid}
+              AND
+              q.types LIKE CONCAT('%','${type}','%')
+               </select>
+
+       <!--
+         /**
+     * 用户查询最近错的前num道错题
+     * @param uid,num
+     * @return 错题集
+     */
+       -->
+       <select id="selectByTime" resultType="Mistake">
+              SELECT * FROM t_mistake
+              WHERE
+              uid=#{uid}
+              ORDER BY createDate DESC
+              limit 0,#{num}
+               </select>
+</mapper>
