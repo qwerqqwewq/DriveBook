@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zte.drive.dao.ImageDao">
+    <!-- /**
+     * 插入一张图片
+     * @param image 图片信息
+     * @return 影响行数
+     */
+    public int insertImage(Image image);-->
+    <insert id="insertImage" parameterType="Image" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO t_image
+        (src)
+        VALUES
+        (#{src});
+    </insert>
+
+    <!-- /**
+     * 删除一张图片
+     * @param id 图片id
+     * @return 影响行数
+     */
+    public int deleteImage(Integer id);-->
+    <delete id="deleteImage">
+        DELETE FROM t_image
+        WHERE id = #{id};
+    </delete>
+
+    <!-- /**
+     * 根据id选择一张图片
+     * @param id 图片id
+     * @return 选择的条目
+     */
+    public Image selectById(Integer id);-->
+    <select id="selectById" resultType="Image">
+        SELECT * from t_image
+        WHERE id=#{id};
+    </select>
+</mapper>
