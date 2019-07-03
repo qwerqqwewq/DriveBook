@@ -17,6 +17,7 @@ import java.util.List;
  * Description:UserService实现方法
  */
 @Service
+@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 public class UserAnswerServiceImpl implements UserAnswerService {
     @Autowired
     private UserAnswerDao userAnswerDao;
