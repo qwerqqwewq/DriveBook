@@ -1,7 +1,7 @@
 package com.zte.drive.entity;
 
 /**
- * @author 邓胜峰
+ * @author dsf
  * @date 2019-07-03 8:40
  * Description:表t_question_comment的实体类
  */

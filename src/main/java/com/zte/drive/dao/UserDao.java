@@ -5,7 +5,7 @@ import com.zte.drive.entity.User;
 import java.util.List;
 
 /**
- * @author 邓胜峰
+ * @author dsf
  * @date 2019-07-03 8:56
  * Description:User实体类的Dao方法
  */
@@ -13,34 +13,42 @@ public interface UserDao {
     /**
      * 新增一个用户
      * @param user
-     * @return
+     * @return 插入行数
      */
     int insert(User user);
 
     /**
      * 根据ID删除一个用户
      * @param id
-     * @return
+     * @return 删除行数
      */
     int deleteById(Integer id);
 
     /**
      * 更新一个用户的信息
      * @param user
-     * @return
+     * @return 更新行数
      */
     int update(User user);
 
     /**
      * 查询所有用户信息
-     * @return
+     * @return 用户列表
      */
     List<User> selectAll();
 
     /**
+     *
+     * @param start
+     * @param end
+     * @return 用户列表
+     */
+    List<User> selectByRange(int start, int end);
+
+    /**
      * 根据用户ID查询某个用户信息
      * @param id
-     * @return
+     * @return 用户
      */
     User selectById(Integer id);
 }

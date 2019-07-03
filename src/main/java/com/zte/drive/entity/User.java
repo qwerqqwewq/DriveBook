@@ -1,7 +1,7 @@
 package com.zte.drive.entity;
 
 /**
- * @author 邓胜峰
+ * @author dsf
  * @date 2019-07-03 8:18
  * Description:t_user表的实体对象
  */
