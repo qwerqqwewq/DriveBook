@@ -26,7 +26,7 @@ public interface UserAnswerDao {
     int deleteById(Integer id);
 
     /**
-     * 更新某条用户答案
+     * 更新某条用户答案，要求用户ID
      * @param userAnswer
      * @return 更新行数
      */

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zte.drive.dao.UserAnswerDao">
+
+    <!-- 插入一条用户答案 -->
+    <!-- int insert(UserAnswer userAnswer); -->
+    <insert id="insert" parameterType="UserAnswer" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO t_user_answer( uid, qid, answer )
+        VALUES( #{uid}, #{qid}, #{answer} );
+    </insert>
+
+    <!-- 根据ID删除某条用户答案 -->
+    <!-- int deleteById(Integer id); -->
+    <delete id="deleteById" parameterType="Integer">
+        DELETE FROM t_user_answer
+        WHERE id = #{id};
+    </delete>
+
+    <!-- 更新某条用户答案，要求用户答案ID -->
+    <!-- int update(UserAnswer userAnswer); -->
+    <update id="update" parameterType="UserAnswer">
+        UPDATE t_user_answer SET
+          uid = #{uid},
+          qid = #{qid},
+          answer = #{answer}
+        WHERE id = #{id};
+    </update>
+
+    <!-- 查询所有用户答案 -->
+    <!-- List<UserAnswer> selectAll(); -->
+    <select id="selectAll" resultType="UserAnswer">
+        SELECT * FROM t_user_answer;
+    </select>
+
+    <!-- 查询某用户的所有答案 -->
+    <!-- List<UserAnswer> selectByUserId(Integer uid); -->
+    <select id="selectByUserId" resultType="UserAnswer">
+        SELECT * FROM t_user_answer WHERE uid = #{uid};
+    </select>
+
+    <!-- 根据ID查询某条用户答案 -->
+    <!-- UserAnswer selectById(Integer id); -->
+    <select id="selectById" resultType="UserAnswer">
+        SELECT * FROM t_user_answer WHERE id = #{id};
+    </select>
+</mapper>

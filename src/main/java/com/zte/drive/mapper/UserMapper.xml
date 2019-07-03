@@ -1,13 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zte.drive.dao.UserDao">
+    <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.zte.drive.dao.UserDao">
 
     <!-- 新增一个用户 -->
     <!-- int insert(User user); -->
-    <insert id="insert" parameterType="User">
-        INSERT INTO t_user( id, pwd, name, registDate )
-        VALUES( #{id}, #{pwd}, #{name}, #{registDate} )
+    <insert id="insert" parameterType="User" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO t_user( pwd, name, registDate )
+        VALUES( #{pwd}, #{name}, #{registDate} );
     </insert>
+
+    <!-- 根据ID删除一个用户 -->
+    <!-- int deleteById(Integer id); -->
+    <delete id="deleteById" parameterType="Integer">
+        DELETE FROM t_user
+        WHERE id = #{id};
+    </delete>
+
+    <!-- 更新一个用户的信息，要求用户ID -->
+    <!-- int update(User user); -->
+    <update id="update" parameterType="User">
+        UPDATE t_user SET
+          pwd = #{pwd},
+          name = #{name},
+          registDate = #{registDate}
+        WHERE id = #{id};
+    </update>
+
+    <!-- 查询所有用户信息 -->
+    <!-- List<User> selectAll(); -->
+    <select id="selectAll" resultType="User">
+        SELECT * FROM t_user;
+    </select>
+
+    <!-- 查询从start到end的所有用户信息，左闭右开 -->
+    <!-- List<User> selectByRange(int start, int end); -->
+    <select id="selectByRange" resultType="User">
+        SELECT * FROM t_user WHERE id BETWEEN #{start} AND #{end};
+    </select>
+
+    <!-- 根据用户ID查询某个用户信息 -->
+    <!-- User selectById(Integer id); -->
+    <select id="selectById" resultType="User">
+        SELECT * FROM t_user WHERE id = #{id};
+    </select>
 </mapper>

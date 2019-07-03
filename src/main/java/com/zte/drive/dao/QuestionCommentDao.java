@@ -25,13 +25,6 @@ public interface QuestionCommentDao {
     int deleteById(Integer id);
 
     /**
-     * 更新某条评论信息
-     * @param questionComment
-     * @return 更新行数
-     */
-    int update(QuestionComment questionComment);
-
-    /**
      * 查询所有评论
      * @return 评论列表
      */
