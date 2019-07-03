@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-<<<<<<< HEAD
     <resourceExtensions />
     <wildcardResourcePatterns>
       <entry name="!?*.java" />
@@ -23,18 +22,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-=======
-    <annotationProcessing>
-      <profile name="Maven default annotation processors profile" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
->>>>>>> 68d4ebe4db35d6dd2e8b2f00aa62cfbaf83a9a32
-        <module name="DriveBook" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="DriveBook" target="1.7" />
+    <bytecodeTargetLevel target="1.7">
+      <module name="DriveBook" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

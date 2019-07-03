@@ -54,4 +54,14 @@ public class Favorites implements Serializable {
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
+
+    @Override
+    public String toString() {
+        return "Favorites{" +
+                "id=" + id +
+                ", user=" + user +
+                ", question=" + question +
+                ", createDate='" + createDate + '\'' +
+                '}';
+    }
 }

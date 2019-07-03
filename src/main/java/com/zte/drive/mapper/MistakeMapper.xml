@@ -13,7 +13,7 @@
          INSERT
          INTO
          t_mistake
-         (id,user_id,question_id,createDate)
+         (id,uid,qid,createDate)
          VALUES
          (#{id},#{user.id},#{question.id},#{createDate})
        </insert>
@@ -29,7 +29,7 @@
               DELETE  FROM
               t_mistake
               WHERE
-              uid=#{uid} AND  id=#{id}
+              uid=#{arg0.id} AND  id=#{arg1}
                </delete>
 
        <!--
@@ -39,7 +39,7 @@
          * @return 错题列表
          */
        -->
-       <select id="selectall" resultType="Mistake">
+       <select id="selectall" resultType="Mistake" parameterType="User">
               SELECT * FROM  t_mistake
                WHERE uid=#{id}
                </select>
@@ -54,7 +54,7 @@
        -->
      <select id="selectById" resultType="Mistake">
             SELECT * FROM  t_mistake
-            WHERE uid=#{id} AND  id=#{id}
+            WHERE uid=#{arg0.id} AND  id=#{arg1}
              </select>
 
        <!--  /**
@@ -68,9 +68,9 @@
               LEFT JOIN t_question q
               ON  m.qid=q.id
               WHERE
-              m.uid=#{id}
+              m.uid=#{arg0.id}
               AND
-              q.content LIKE CONCAT('%','${content}','%')
+              q.content LIKE CONCAT('%','${arg1}','%')
                </select>
 
        <!--
@@ -83,9 +83,9 @@
        <select id="selectByType" resultType="Mistake">
               SELECT * FROM t_mistake m
               LEFT JOIN t_question q on m.qid=q.id
-              WHERE  uid=#{uid}
+              WHERE  uid=#{arg0.id}
               AND
-              q.types LIKE CONCAT('%','${type}','%')
+              q.types LIKE CONCAT('%','${arg1}','%')
                </select>
 
        <!--
@@ -98,8 +98,8 @@
        <select id="selectByTime" resultType="Mistake">
               SELECT * FROM t_mistake
               WHERE
-              uid=#{uid}
+              uid=#{arg0.id}
               ORDER BY createDate DESC
-              limit 0,#{num}
+              limit 0,#{arg1}
                </select>
 </mapper>
