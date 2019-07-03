@@ -54,4 +54,14 @@ public class Mistake implements Serializable {
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
+
+    @Override
+    public String toString() {
+        return "Mistake{" +
+                "id=" + id +
+                ", user=" + user +
+                ", question=" + question +
+                ", createDate='" + createDate + '\'' +
+                '}';
+    }
 }

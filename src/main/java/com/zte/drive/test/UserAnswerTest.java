@@ -50,8 +50,8 @@ public class UserAnswerTest {
             System.out.println(userAnswer);
         }
 
-        // 测试List<UserAnswer> selectByUserId(Integer uid);
-        List<UserAnswer> userAnswers2 = userAnswerDao.selectByUserId(1);
+        // 测试List<UserAnswer> selectByUser(User user);
+        List<UserAnswer> userAnswers2 = userAnswerDao.selectByUser(user);
         System.out.println("测试查询某用户的所有答案，返回结果为：");
         for ( UserAnswer userAnswer : userAnswers2 ) {
             System.out.println(userAnswer);

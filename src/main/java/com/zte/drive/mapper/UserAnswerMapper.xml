@@ -31,9 +31,9 @@
     </select>
 
     <!-- 查询某用户的所有答案 -->
-    <!-- List<UserAnswer> selectByUserId(Integer uid); -->
-    <select id="selectByUserId" resultType="UserAnswer">
-        SELECT * FROM t_user_answer WHERE uid = #{user.id};
+    <!-- List<UserAnswer> selectByUser(User user); -->
+    <select id="selectByUser" parameterType="User" resultType="UserAnswer">
+        SELECT * FROM t_user_answer WHERE uid = #{id};
     </select>
 
     <!-- 根据ID查询某条用户答案 -->

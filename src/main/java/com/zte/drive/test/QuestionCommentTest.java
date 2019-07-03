@@ -45,15 +45,15 @@ public class QuestionCommentTest {
             System.out.println(qc);
         }
 
-        // 测试List<QuestionComment> selectByUserId(Integer uid);
-        List<QuestionComment> questionComments2 = questionCommentDao.selectByUserId(1);
+        // 测试List<QuestionComment> selectByUser(User user);
+        List<QuestionComment> questionComments2 = questionCommentDao.selectByUser(user);
         System.out.println( "测试查询某用户的所有评论，查询结果为：");
         for ( QuestionComment qc : questionComments2 ) {
             System.out.println(qc);
         }
 
-        // 测试List<QuestionComment> selectByQuestionId(Integer qid);
-        List<QuestionComment> questionComments3 = questionCommentDao.selectByQuestionId(1);
+        // 测试List<QuestionComment> selectByQuestion(Question question);
+        List<QuestionComment> questionComments3 = questionCommentDao.selectByQuestion(question);
         System.out.println( "测试查询某题目下的所有评论，查询结果为：");
         for ( QuestionComment qc : questionComments3 ) {
             System.out.println(qc);
@@ -63,12 +63,19 @@ public class QuestionCommentTest {
         QuestionComment questionComment2 = questionCommentDao.selectById(insertId);
         System.out.println( "测试按ID查询某条评论，查询结果为：" + questionComment2 );
 
+        // 测试List<QuestionComment> selectByComment(QuestionComment questionComment);
+        List<QuestionComment> questionComments4 = questionCommentDao.selectByComment(questionComment);
+        System.out.println("测试查询某评论的所有子评论，查询结果为");
+        for ( QuestionComment qc : questionComments4 ) {
+            System.out.println(qc);
+        }
+
         // 测试int deleteById(Integer id);
         int result2 = questionCommentDao.deleteById(insertId);
         System.out.println( "测试按ID删除某条评论，返回结果为：" + result2 );
-        List<QuestionComment> questionComments4 = questionCommentDao.selectAll();
+        List<QuestionComment> questionComments5 = questionCommentDao.selectAll();
         System.out.println( "删除后查询所有评论，查询结果为：");
-        for ( QuestionComment qc : questionComments4 ) {
+        for ( QuestionComment qc : questionComments5 ) {
             System.out.println(qc);
         }
     }

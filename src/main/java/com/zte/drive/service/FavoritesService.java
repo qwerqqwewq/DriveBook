@@ -1,4 +1,4 @@
-package com.zte.drive.dao;
+package com.zte.drive.service;
 
 import com.zte.drive.entity.Favorites;
 import com.zte.drive.entity.User;
@@ -6,33 +6,31 @@ import com.zte.drive.entity.User;
 import java.util.List;
 
 /**
- * @author  王卓君
  * Created by ASUS on 2019/7/3.
  */
-public interface FavoritesDao {
-
+public interface FavoritesService {
     /**
      * @param favorites
      * @return  添加行数
      */
-     int insert(Favorites favorites);
+    int add(Favorites favorites);
 
     /**
      * @param user,id
      * @return 删除行数
      */
-     int delete(User user,Integer id);
+    int remove(User user,Integer id);
 
     /**
      * @param user
      * @return 收藏列表
      */
-     List<Favorites> select(User user);
+    List<Favorites> find(User user);
 
     /**
      * @param user
      * @param num
      * @return 收藏的前几条数据
      */
-     List<Favorites> selectByNum(User user,Integer num);
+    List<Favorites> findByNum(User user,Integer num);
 }
