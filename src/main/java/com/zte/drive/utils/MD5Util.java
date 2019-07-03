@@ -49,7 +49,7 @@ public class MD5Util {
      * @param b
      * @return
      */
-    public static String byteArrayToHexString(byte b[]){
+    public static String byteArrayToHexString(byte[] b){
         StringBuffer resultSb = new StringBuffer();
         for(int i = 0; i < b.length; i++){
             resultSb.append(byteToHexString(b[i]));
