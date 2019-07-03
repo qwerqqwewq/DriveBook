@@ -35,12 +35,12 @@ public class SubjectServiceImpl implements SubjectService {
     //
     @Override
     public void add(Subject subject) {
-        this.subject.insert(subject);
+        this.subject.insertSubject(subject);
     }
 
     @Override
     public void modify(Subject subject) {
-        this.subject.update(subject);
+        this.subject.updateSubject(subject);
     }
 
     @Override
