@@ -21,6 +21,18 @@
 
        </bean>
 
+       <!-- 定义文件上传解析器 -->
+       <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+              <!-- 设定默认编码 -->
+              <property name="defaultEncoding" value="UTF-8" />
+              <!-- 设定文件上传的最大值5MB，5*1024*1024 -->
+              <property name="maxUploadSize" value="104857600" />
+              <!-- 缓存大小-->
+              <property name="maxInMemorySize" value="4096" />
+              <!-- 缓存文件夹-->
+              <property name="uploadTempDir" value="fileupload/temp" />
+       </bean>
+
        <!--访问静态资源-->
        <mvc:default-servlet-handler/>
 

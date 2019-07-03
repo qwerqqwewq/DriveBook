@@ -39,7 +39,7 @@
         -->
         <property name="mapperLocations">
             <array>
-                <!--<value>classpath:com/zte/drive/mapper/*Mapper.xml</value>-->
+                <value>classpath:com/zte/drive/mapper/*Mapper.xml</value>
             </array>
         </property>
     </bean>
