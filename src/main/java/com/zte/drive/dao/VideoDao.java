@@ -43,7 +43,7 @@ public interface VideoDao {
      * @param end
      * @return 视频列表
      */
-    public List<Video> selectByRange(int start,int end);
+    public List<Video> selectByRange(Integer start,Integer end);
 
     /**
      * 根据id查找视频
