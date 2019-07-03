@@ -2,54 +2,47 @@ package com.zte.drive.entity;
 
 /**
  * @author 邓胜峰
- * @date 2019-07-03 8:31
- * Description:<描述>
+ * @date 2019-07-03 8:18
+ * Description:t_user表的实体对象
  */
 public class User {
-    // 用户ID
-    private int id;
-    // 密码
-    private String password;
-    // 用户名
-    private String userName;
-    // 注册时间
+    private Integer id;
+    private String pwd;
+    private String name;
     private String registDate;
 
-    // 无参构造
     public User() {
-
     }
 
-    public User(int id, String password, String userName, String registDate) {
+    public User(Integer id, String pwd, String name, String registDate) {
         this.id = id;
-        this.password = password;
-        this.userName = userName;
+        this.pwd = pwd;
+        this.name = name;
         this.registDate = registDate;
     }
 
-    // Getter与Setter开始
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPwd() {
+        return pwd;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getRegistDate() {
@@ -59,14 +52,13 @@ public class User {
     public void setRegistDate(String registDate) {
         this.registDate = registDate;
     }
-    // Getter与Setter结束
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", password='" + password + '\'' +
-                ", userName='" + userName + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", name='" + name + '\'' +
                 ", registDate='" + registDate + '\'' +
                 '}';
     }
