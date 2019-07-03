@@ -10,5 +10,11 @@ public class Question {
     private Type type;
     private Subject subject;
 
+    public Integer getId() {
+        return id;
+    }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

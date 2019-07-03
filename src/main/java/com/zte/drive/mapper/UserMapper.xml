@@ -21,7 +21,7 @@
     <update id="update" parameterType="User">
         UPDATE t_user SET
           pwd = #{pwd},
-          name = #{name},
+          name = #{name}
         WHERE id = #{id};
     </update>
 
@@ -29,12 +29,6 @@
     <!-- List<User> selectAll(); -->
     <select id="selectAll" resultType="User">
         SELECT * FROM t_user;
-    </select>
-
-    <!-- 查询从start到end的所有用户信息，左闭右开 -->
-    <!-- List<User> selectByRange(int start, int end); -->
-    <select id="selectByRange" resultType="User">
-        SELECT * FROM t_user WHERE id BETWEEN #{start} AND #{end};
     </select>
 
     <!-- 根据用户ID查询某个用户信息 -->

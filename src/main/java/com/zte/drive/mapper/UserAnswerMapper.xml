@@ -6,7 +6,7 @@
     <!-- int insert(UserAnswer userAnswer); -->
     <insert id="insert" parameterType="UserAnswer" keyProperty="id" useGeneratedKeys="true">
         INSERT INTO t_user_answer( uid, qid, answer )
-        VALUES( #{uid}, #{qid}, #{answer} );
+        VALUES( #{user.id}, #{question.id}, #{answer} );
     </insert>
 
     <!-- 根据ID删除某条用户答案 -->
@@ -16,12 +16,10 @@
         WHERE id = #{id};
     </delete>
 
-    <!-- 更新某条用户答案，要求用户答案ID -->
+    <!-- 更新某条用户答案，要求用户答案ID，只能更新答案内容 -->
     <!-- int update(UserAnswer userAnswer); -->
     <update id="update" parameterType="UserAnswer">
         UPDATE t_user_answer SET
-          uid = #{uid},
-          qid = #{qid},
           answer = #{answer}
         WHERE id = #{id};
     </update>
@@ -35,7 +33,7 @@
     <!-- 查询某用户的所有答案 -->
     <!-- List<UserAnswer> selectByUserId(Integer uid); -->
     <select id="selectByUserId" resultType="UserAnswer">
-        SELECT * FROM t_user_answer WHERE uid = #{uid};
+        SELECT * FROM t_user_answer WHERE uid = #{user.id};
     </select>
 
     <!-- 根据ID查询某条用户答案 -->

@@ -6,7 +6,7 @@
     <!-- int insert(QuestionComment questioncomment); -->
     <insert id="insert" parameterType="QuestionComment" keyProperty="id" useGeneratedKeys="true">
         INSERT INTO t_question_comment( uid, qid, parentId, content, commentDate )
-        VALUES( #{uid}, #{qid}, #{parentId}, #{content}, #{commentDate} );
+        VALUES( #{user.id}, #{question.id}, #{questionComment.id}, #{content}, #{commentDate} );
     </insert>
 
     <!-- 根据评论ID删除某条评论 -->
@@ -25,13 +25,13 @@
     <!-- 查询某用户的所有评论 -->
     <!-- List<QuestionComment> selectByUserId(Integer uid); -->
     <select id="selectByUserId" resultType="QuestionComment">
-        SELECT * FROM t_question_comment WHERE uid = #{uid};
+        SELECT * FROM t_question_comment WHERE uid = #{user.id};
     </select>
 
     <!-- 查询某题目下的所有评论 -->
     <!-- List<QuestionComment> selectByQuestionId(Integer qid); -->
     <select id="selectByQuestionId" resultType="QuestionComment">
-        SELECT * FROM t_question_comment WHERE qid = #{qid};
+        SELECT * FROM t_question_comment WHERE qid = #{question.id};
     </select>
 
     <!-- 根据评论ID查询某条评论 -->
