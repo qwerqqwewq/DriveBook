@@ -72,7 +72,7 @@ public class VideoTest {
         }
     }
 
-    private static void selectByRange(int start,int end) {
+    private static void selectByRange(Integer start,Integer end) {
         List<Video> videos = videoDao.selectByRange(start, end);
         for (Video video : videos) {
             System.out.println("测试按范围["+start+","+end+")查询----返回结果 " + video);
