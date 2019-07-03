@@ -1,6 +1,7 @@
 package com.zte.drive.dao;
 
 import com.zte.drive.entity.Video;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -43,7 +44,7 @@ public interface VideoDao {
      * @param end
      * @return 视频列表
      */
-    public List<Video> selectByRange(Integer start,Integer end);
+    public List<Video> selectByRange(@Param("start")Integer start,@Param("end")Integer end);
 
     /**
      * 根据id查找视频
