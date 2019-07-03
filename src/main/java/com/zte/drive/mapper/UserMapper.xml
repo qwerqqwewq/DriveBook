@@ -16,13 +16,12 @@
         WHERE id = #{id};
     </delete>
 
-    <!-- 更新一个用户的信息，要求用户ID -->
+    <!-- 更新一个用户的信息，要求用户ID，仅能修改用户名和密码 -->
     <!-- int update(User user); -->
     <update id="update" parameterType="User">
         UPDATE t_user SET
           pwd = #{pwd},
           name = #{name},
-          registDate = #{registDate}
         WHERE id = #{id};
     </update>
 

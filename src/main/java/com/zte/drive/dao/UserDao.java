@@ -25,7 +25,7 @@ public interface UserDao {
     int deleteById(Integer id);
 
     /**
-     * 更新一个用户的信息
+     * 更新一个用户的信息，仅能修改用户名和密码
      * @param user
      * @return 更新行数
      */
