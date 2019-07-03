@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zte.drive.dao.QuestionDao">
+    <!--/**
+     * 插入题目信息
+     * @param question 题目信息bean
+     * @return 影响行数
+     */
+    public int insertQuestion(Question question);-->
+    <insert id="insertQuestion" parameterType="Question" >
+INSERT INTO
+t_question
+(`types`,`subjectId`,`content`,`option`,`answer`,`resolve`)
+VALUES
+(#{types},#{subject.id},#{content},#{option},#{answer},#{resolve});
+    </insert>
+
+    <!-- /**
+     * 修改题目信息
+     * @param question 题目信息bean
+     * @return 影响行数
+     */
+    public int updateQuestion(Question question);-->
+    <update id="updateQuestion" parameterType="Question">
+        UPDATE t_question
+        SET
+        types = #{types},
+        subjectId = #{subjectId},
+        content = #{content},
+        `option` = #{`option`},
+        answer = #{answer},
+        resolve = #{resolve}
+        WHERE
+        id = #{id};
+    </update>
+
+    <!-- /**
+     * 根据id删除题目
+     * @param id 题目id
+     * @return 影响行数
+     */
+    public int deleteQuestion(Integer id);-->
+    <delete id="deleteQuestion">
+        DELETE FROM
+        t_question
+        WHERE
+        id=#{id};
+    </delete>
+
+    <!-- /**
+     * 根据id选择题目
+     * @param id 题目id
+     * @return 题目
+     */
+    public Question selectById(Integer id);-->
+    <resultMap id="rsm" type="Question">
+        <id property="id" column="id" />
+        <result property="answer" column="answer" />
+        <result property="content" column="content"/>
+        <result property="option" column="option" />
+        <result property="totalNum" column="totalNum" />
+        <result property="correctNum" column="correctNum" />
+        <result property="resolve" column="resolve" />
+        <result property="types" column="types" />
+        <result property="subject.id" column="subjectId" />
+        <result property="subject.subject" column="subject" />
+    </resultMap>
+
+    <select id="selectById" resultMap="rsm">
+        select b.*, c.`subject`
+        from t_question b
+        LEFT JOIN
+        t_subject c
+        ON b.subjectId = c.id;
+    </select>
+
+    <!-- /**
+     * 根据类型选择题目
+     * @param type 类型
+     * @return 题目集合
+     */
+    public List<Question> selectByType(Type type);-->
+    <select id="selectByType" parameterType="Type" resultMap="rsm">
+        select b.*, c.`subject`
+        from t_question b
+        ,t_subject c
+        ,t_type d
+        WHERE
+        b.subjectId = c.id
+        AND
+        b.types LIKE CONCAT('%',d.id,'%')
+        AND
+        d.id = #{id};
+    </select>
+
+    <!-- /**
+     * 根据科目选择题目
+     * @param subject 科目
+     * @return 题目集合
+     */
+    public List<Question> selectBySubject(Subject subject);-->
+    <select id="selectBySubject" parameterType="Subject" resultType="Question">
+        select b.*, c.`subject`
+        from t_question b
+        ,t_subject c
+        WHERE
+        b.subjectId = c.id
+        AND
+        c.id = #{id};
+    </select>
+
+    <!-- /**
+     * 更新答题人数，使其自增1
+     * @return 影响行数
+     */
+    int updateTotalNum(Integer id);-->
+    <update id="updateTotalNum">
+        UPDATE
+        t_question
+        SET
+        totalNum = totalNum +1
+        WHERE
+        id = #{id};
+    </update>
+
+    <!-- /**
+     * 更新正答人数，使其自增1
+     * @return 影响行数
+     */
+    int updateCorrectNum(Integer id);-->
+    <update id="updateCorrectNum">
+        UPDATE
+        t_question
+        SET
+        correctNum = correctNum +1
+        WHERE
+        id = #{id};
+    </update>
+
+</mapper>

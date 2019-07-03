@@ -11,16 +11,16 @@ public class Video {
     private String intro;
     private String context;
     private String src;
-
+    private Type type;
     public Video() {
     }
 
-    public Video(Integer id, String title, String intro, String context, String src) {
-        this.id = id;
-        this.title = title;
-        this.intro = intro;
-        this.context = context;
-        this.src = src;
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 
     @Override
@@ -31,6 +31,7 @@ public class Video {
                 ", intro='" + intro + '\'' +
                 ", context='" + context + '\'' +
                 ", src='" + src + '\'' +
+                ", type=" + type +
                 '}';
     }
 

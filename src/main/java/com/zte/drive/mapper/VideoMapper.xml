@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zte.drive.dao.VideoDao">
+    <resultMap id="rsm" type="Video">
+        <id property="id" column="id"/>
+        <result property="title" column="title" />
+        <result property="context" column="context" />
+        <result property="intro" column="intro" />
+        <result property="src" column="src" />
+        <result property="type.id" column="tid" />
+        <result property="type.type" column="type" />
+    </resultMap>
+
     <!-- /**
      * 插入一条视频
      * @param video
@@ -9,9 +19,9 @@
     public int insertVideo(Video video);-->
     <insert id="insertVideo" parameterType="Video" keyProperty="id" useGeneratedKeys="true">
         INSERT INTO t_video
-        (title,intro,context,src)
+        (title,intro,context,src,tid)
         VALUES
-        (#{title},#{intro},#{context},#{src});
+        (#{title},#{intro},#{context},#{src},#{type.id});
     </insert>
 
     <!-- /**
@@ -25,7 +35,8 @@
         SET
         title = #{title},
         intro = #{intro},
-        context = #{context}
+        context = #{context},
+        tid = #{type.id}
         WHERE
         id = #{id} ;
     </update>
@@ -46,8 +57,17 @@
      * @return 所有视频
      */
     public List<Video> selectAll();-->
-    <select id="selectAll" resultType="Video">
-        SELECT * FROM t_video;
+    <select id="selectAll" resultMap="rsm">
+        select b.* ,
+        (
+        SELECT
+        c.type
+        from
+        t_type c
+        WHERE
+        c.id = b.tid
+        )as type
+        from t_video b;
     </select>
 
     <!-- /**
@@ -57,8 +77,17 @@
      * @return 视频列表
      */
     public List<Video> selectByRange(int start,int end);-->
-    <select id="selectByRange" resultType="Video">
-        select * from t_video LIMIT #{start},#{end};
+    <select id="selectByRange" resultMap="rsm">
+        select b.* ,
+        (
+        SELECT
+        c.type
+        from
+        t_type c
+        WHERE
+        c.id = b.tid
+        )as type
+        from t_video b LIMIT #{start},#{end};
     </select>
 
     <!-- /**
@@ -67,7 +96,16 @@
      * @return 视频
      */
     public Video selectById(Integer id);-->
-    <select id="selectById" resultType="Video">
-        SELECT * from t_video where id=#{id};
+    <select id="selectById" resultMap="rsm">
+        select b.* ,
+        (
+        SELECT
+        c.type
+        from
+        t_type c
+        WHERE
+        c.id = b.tid
+        )as type
+        from t_video b where b.id=#{id};
     </select>
 </mapper>
