@@ -6,7 +6,7 @@
     <!-- int insert(QuestionComment questioncomment); -->
     <insert id="insert" parameterType="QuestionComment" keyProperty="id" useGeneratedKeys="true">
         INSERT INTO t_question_comment( uid, qid, parentId, content, commentDate )
-        VALUES( #{uid}, #{qid}, #{parentId}, #{content}, #{commentDate} );
+        VALUES( #{user.id}, #{question.id}, #{questionComment.id}, #{content}, #{commentDate} );
     </insert>
 
     <!-- 根据评论ID删除某条评论 -->
@@ -23,15 +23,21 @@
     </select>
 
     <!-- 查询某用户的所有评论 -->
-    <!-- List<QuestionComment> selectByUserId(Integer uid); -->
-    <select id="selectByUserId" resultType="QuestionComment">
-        SELECT * FROM t_question_comment WHERE uid = #{uid};
+    <!-- List<QuestionComment> selectByUser(User user); -->
+    <select id="selectByUser" parameterType="User" resultType="QuestionComment">
+        SELECT * FROM t_question_comment WHERE uid = #{id};
     </select>
 
     <!-- 查询某题目下的所有评论 -->
-    <!-- List<QuestionComment> selectByQuestionId(Integer qid); -->
-    <select id="selectByQuestionId" resultType="QuestionComment">
-        SELECT * FROM t_question_comment WHERE qid = #{qid};
+    <!-- List<QuestionComment> selectByQuestion(Question question); -->
+    <select id="selectByQuestion" parameterType="Question" resultType="QuestionComment">
+        SELECT * FROM t_question_comment WHERE qid = #{id};
+    </select>
+
+    <!-- 查询某评论的所有子评论 -->
+    <!-- List<QuestionComment> selectByComment(QuestionComment questionComment); -->
+    <select id="selectByComment" parameterType="QuestionComment" resultType="QuestionComment">
+        SELECT * FROM t_question_comment WHERE parentId = #{id};
     </select>
 
     <!-- 根据评论ID查询某条评论 -->

@@ -5,6 +5,8 @@ import com.zte.drive.entity.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.List;
+
 /**
  * @author dsf
  * @date 2019-07-03 10:32
@@ -35,6 +37,27 @@ public class UserTest {
         int result2 = userDao.update(user2);
         System.out.println("更新函数update测试：返回结果为" + result2);
         System.out.println("更新后的用户信息为：" + user2);
+
+        // 测试List<User> selectAll();
+        List<User> users1 = userDao.selectAll();
+        System.out.println("查询所有用户函数selectAll测试：返回结果为：");
+        for (User user : users1) {
+            System.out.println(user);
+        }
+
+        // 测试User selectById(Integer id);
+        User user3 = userDao.selectById(insertId);
+        System.out.println("按ID查询函数selectById测试：返回结果为" + user3);
+
+        // 测试int deleteById(Integer id);
+        int result3 = userDao.deleteById(insertId);
+        System.out.println("按ID删除函数deleteById测试：返回结果为" + result3);
+        List<User> users2 = userDao.selectAll();
+        System.out.println("删除后查询所有用户信息，返回结果为：");
+        for (User user : users2) {
+            System.out.println(user);
+        }
+
     }
 
 

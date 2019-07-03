@@ -38,14 +38,6 @@ public interface UserDao {
     List<User> selectAll();
 
     /**
-     * 查询从start到end的所有用户信息，左闭右开
-     * @param start
-     * @param end
-     * @return 用户列表
-     */
-    List<User> selectByRange(int start, int end);
-
-    /**
      * 根据用户ID查询某个用户信息
      * @param id
      * @return 用户
