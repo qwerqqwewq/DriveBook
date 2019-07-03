@@ -1,5 +1,6 @@
 package com.zte.drive.dao;
 
+import com.zte.drive.entity.User;
 import com.zte.drive.entity.UserAnswer;
 
 import java.util.List;
@@ -40,10 +41,10 @@ public interface UserAnswerDao {
 
     /**
      * 查询某用户的所有答案
-     * @param uid
+     * @param user
      * @return 用户答案列表
      */
-    List<UserAnswer> selectByUserId(Integer uid);
+    List<UserAnswer> selectByUser(User user);
 
     /**
      * 根据ID查询某条用户答案
