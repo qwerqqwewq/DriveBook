@@ -20,5 +20,11 @@ public interface AdminService {
     public void modify(Admin admin);
     //根据ID删除一个管理员
     public void remove(Integer id);
+    //根据姓名找管理员
+    Admin findByName(String name);
+    //检查登录
+    Admin checkLogin(String name, String pwd);
+    //检查注册
+    int regist(String name, String pwd);
 
 }

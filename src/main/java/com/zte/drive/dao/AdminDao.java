@@ -20,5 +20,7 @@ public interface AdminDao {
 
     int deleteById(Integer id);
 
+    Admin selectByName(String name);
+
 
 }
