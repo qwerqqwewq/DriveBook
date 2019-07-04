@@ -3,6 +3,7 @@ package com.zte.drive.service.impl;
 import com.zte.drive.dao.UserDao;
 import com.zte.drive.entity.User;
 import com.zte.drive.service.UserService;
+import com.zte.drive.utils.CurrentDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -46,5 +47,32 @@ public class UserServiceImpl implements UserService {
     @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
     public User findById(Integer id) {
         return userDao.selectById(id);
+    }
+
+    @Override
+    public User findByName(String name) {
+        return userDao.selectByName(name);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
+    public User checkLogin(String name, String pwd) {
+        // 根据传入的用户名查询得到用户实体类
+        User user = userDao.selectByName(name);
+        // 判断用户名和密码是否正确
+        // System.out.print(user);
+        if (user != null && user.getPwd().equals(pwd)) {
+            return user;
+        }
+        return null;
+    }
+
+    @Override
+    public int regist(String name, String pwd) {
+        User user = new User();
+        user.setName(name);
+        user.setPwd(pwd);
+        user.setRegistDate(CurrentDate.getCurrentDate());
+        return userDao.insert(user);
     }
 }

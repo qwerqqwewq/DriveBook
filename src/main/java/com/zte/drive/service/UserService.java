@@ -43,4 +43,27 @@ public interface UserService {
      * @return 用户
      */
     User findById(Integer id);
+
+    /**
+     * 根据用户名查询某个用户
+     * @param name
+     * @return 用户
+     */
+    User findByName(String name);
+
+    /**
+     * 检查登录
+     * @param name
+     * @param pwd
+     * @return 用户
+     */
+    User checkLogin(String name, String pwd);
+
+    /**
+     * 用户注册
+     * @param name
+     * @param pwd
+     * @return 新增人数
+     */
+    int regist(String name, String pwd);
 }
