@@ -2,6 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zte.drive.dao.MistakeDao">
 
+    <resultMap type="Mistake" id="rmq">
+        <id property="id" column="mid" />
+        <result property="user.id" column="uid" />
+        <result property="question.id" column="qid"/>
+        <result property="createDate" column="cDate"/>
+        <!--错题id和试题一一对应-->
+        <association property="question" javaType="question">
+            <id property="id" column="id"/>
+            <result property="answer" column="answer" />
+            <result property="content" column="content"/>
+            <result property="option" column="option" />
+            <result property="types" column="types" />
+                </association>
+            </resultMap>
        <!--/*
        *用户插入一条错题
        *@param mistake
@@ -32,6 +46,8 @@
               uid=#{arg0.id} AND  id=#{arg1}
                </delete>
 
+
+
        <!--
           /**
           *  用户查询其所有错题记录
@@ -39,9 +55,16 @@
          * @return 错题列表
          */
        -->
-       <select id="selectall" resultType="Mistake" parameterType="User">
-              SELECT * FROM  t_mistake
-               WHERE uid=#{id}
+       <select id="selectall" resultMap="rmq" parameterType="User">
+              SELECT
+              m.id,
+              q.content,
+              q.option
+              FROM  t_mistake m
+              LEFT JOIN
+              t_question q
+              ON m.qid=q.id
+               WHERE m.uid=#{id}
                </select>
 
 
@@ -52,9 +75,16 @@
      * @return 错题
      */
        -->
-     <select id="selectById" resultType="Mistake">
-            SELECT * FROM  t_mistake
-            WHERE uid=#{arg0.id} AND  id=#{arg1}
+     <select id="selectById" resultMap="rmq">
+            SELECT
+              m.id,
+              q.content,
+              q.option
+              FROM  t_mistake m
+              LEFT JOIN
+              t_question q
+              ON m.qid=q.id
+            WHERE m.uid=#{arg0.id} AND  m.id=#{arg1}
              </select>
 
        <!--  /**
@@ -63,8 +93,12 @@
      * @return 错题集
      */
      -->
-       <select id="selectByContent" resultType="Mistake">
-              SELECT * FROM t_mistake m
+       <select id="selectByContent" resultMap="rmq">
+              SELECT
+              m.id,
+              q.content,
+              q.option
+              FROM t_mistake m
               LEFT JOIN t_question q
               ON  m.qid=q.id
               WHERE
@@ -80,10 +114,14 @@
         * @return 错题集
         */
        -->
-       <select id="selectByType" resultType="Mistake">
-              SELECT * FROM t_mistake m
+       <select id="selectByType" resultMap="rmq">
+              SELECT
+              m.id,
+              q.content,
+              q.option
+              FROM t_mistake m
               LEFT JOIN t_question q on m.qid=q.id
-              WHERE  uid=#{arg0.id}
+              WHERE  m.uid=#{arg0.id}
               AND
               q.types LIKE CONCAT('%','${arg1}','%')
                </select>
@@ -95,11 +133,18 @@
      * @return 错题集
      */
        -->
-       <select id="selectByTime" resultType="Mistake">
-              SELECT * FROM t_mistake
+       <select id="selectByTime" resultMap="rmq">
+              SELECT
+              m.id,
+              q.content,
+              q.option
+              FROM t_mistake m
+              LEFT JOIN t_question q
+              ON
+              m.qid=q.id
               WHERE
               uid=#{arg0.id}
-              ORDER BY createDate DESC
+              ORDER BY m.createDate DESC
               limit 0,#{arg1}
                </select>
 </mapper>

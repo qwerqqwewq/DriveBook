@@ -2,6 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zte.drive.dao.FavoritesDao">
 
+    <resultMap type="Favorites" id="rmf">
+        <id property="id" column="id"/>
+        <result property="uid" column="uid"/>
+        <result property="pid" column="pid"/>
+        <result property="createDate" column="createDate"/>
+
+        <association property="question" javaType="question">
+            <id property="id" column="id"/>
+            <result property="answer" column="answer" />
+            <result property="content" column="content"/>
+            <result property="option" column="option" />
+            <result property="types" column="types" />
+        </association>
+            </resultMap>
        <!--
      /**
      * @param favorites
@@ -34,10 +48,17 @@
      * @return 收藏列表
      */
        -->
-       <select id="select" resultType="Favorites" parameterType="User">
-              SELECT * FROM t_favorites
+       <select id="select" resultMap="rmf" parameterType="User">
+              SELECT
+              f.id,
+              q.content,
+              q.option
+              FROM t_favorites f
+              LEFT  join
+              t_question q
+              ON f.qid=q.id
               WHERE
-              uid=#{id}
+              f.uid=#{id}
                </select>
 
        <!--
@@ -48,10 +69,17 @@
      */
        -->
        <select id="selectByNum" resultType="Favorites">
-              SELECT * FROM t_favorites
+              SELECT
+              f.id,
+              q.content,
+              q.option
+               FROM t_favorites f
+              LEFT JOIN
+              t_question q
+              on f.qid=q.id
               WHERE
-              uid=#{arg0.id}
-              ORDER BY createDate DESC
+              f.uid=#{arg0.id}
+              ORDER BY f.createDate DESC
               limit 0,#{arg1}
                </select>
        </mapper>
