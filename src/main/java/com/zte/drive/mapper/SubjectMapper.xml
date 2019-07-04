@@ -4,35 +4,45 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.zte.drive.dao.SubjectDao">
-
-    <!--    Subject selectById(Integer id);
--->
-    <select id="selectById" resultType="subject">
-
+    <!--根据ID查询id,pwd,name,registerDate-->
+    <select id="selectById" resultType="Subject">
+        SELECT id,subject FROM t_subject where id=#{id}
     </select>
 
-    <!--    List<Subject> selectAll();
--->
-    <select id="selectAll" resultType="subject">
+    <!--查询所有的科目-->
+    <select id="selectAll" resultType="Subject">
+        SELECT
+        id,subject
+        FROM
+        t_subject
+            </select>
 
-    </select>
+    <!--新增一个科目-->
+    <insert id="insertSubject" parameterType="Subject">
+        INSERT
+        INTO
+            t_subject
+            (subject)
+            VALUE
+            (#{subject})
+            </insert>
 
-    <!--    int insertSubject(Subject  subject);
--->
-    <insert id="insertSubject" parameterType="subject">
+    <!--更新一个科目信息-->
+    <update id="updateSubject" parameterType="Subject">
+        UPDATE
+        t_subject
+        SET
+        subject=#{subject}
+        WHERE
+        id=#{id}
+           </update>
 
-    </insert>
-
-    <!--    public int updateSubject(Subject subject);
--->
-    <update id="updateSubject" parameterType="subject">
-
-
-    </update>
-
-    <!--    public int deleteById(Integer id);
--->
+    <!--根据ID删除一个科目-->
     <delete id="deleteById">
-
-    </delete>
+        DELETE
+        FROM
+        t_subject
+        WHERE
+        id=#{id}
+            </delete>
 </mapper>
