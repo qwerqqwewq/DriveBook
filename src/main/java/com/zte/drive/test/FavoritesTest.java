@@ -23,8 +23,8 @@ public class FavoritesTest {
         favoritesDao=(FavoritesDao)context.getBean("favoritesDao");
         //insert();
         //delete();
-        selectall();
-        //selectByNum();
+        //selectall();
+        selectByNum();
     }
 
     //测试增加
