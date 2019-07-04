@@ -36,4 +36,10 @@
     <select id="selectById" resultType="User">
         SELECT * FROM t_user WHERE id = #{id};
     </select>
+
+    <!-- 根据用户名查询某个用户 -->
+    <!-- User selectByName(String name); -->
+    <select id="selectByName" resultType="User">
+        SELECT * FROM t_user WHERE name = #{name};
+    </select>
 </mapper>

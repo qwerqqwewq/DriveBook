@@ -43,4 +43,11 @@ public interface UserDao {
      * @return 用户
      */
     User selectById(Integer id);
+
+    /**
+     * 根据用户名查询某个用户
+     * @param name
+     * @return 用户
+     */
+    User selectByName(String name);
 }
