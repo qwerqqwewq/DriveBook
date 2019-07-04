@@ -5,6 +5,6 @@
 </head>
 <body>
 操作成功！
-<a href="${pageContext.request.contextPath}/video/upload">上传视频</a>
+<a href="${pageContext.request.contextPath}/mistake/findContent?content=1">查询收藏</a>
 </body>
 </html>

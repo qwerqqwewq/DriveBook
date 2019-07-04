@@ -1,8 +1,8 @@
 package com.zte.drive.service.impl;
 
-import com.zte.drive.dao.AdminDao;
-import com.zte.drive.entity.Admin;
-import com.zte.drive.service.AdminService;
+import com.zte.drive.dao.ImageDao;
+import com.zte.drive.entity.Image;
+import com.zte.drive.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -17,35 +17,35 @@ import java.util.List;
  */
 @Service
 @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
-public class AdminServiceImpl implements AdminService {
+public class ImageServiceImpl implements ImageService {
 
     @Autowired
-    private AdminDao admin;
+    private ImageDao image;
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
-    public Admin findById(Integer id) {
-        return admin.selectById(id);
+    public Image findById(Integer id) {
+        return image.selectById(id);
     }
 
     @Override
-    public List<Admin> findAll() {
-        return admin.selectAll();
+    public List<Image> findAll() {
+        return image.selectAll();
     }
     //
     @Override
-    public void add(Admin admin) {
-        this.admin.insertAdmin(admin);
+    public void add(Image image) {
+        this.image.insertImage(image);
     }
 
     @Override
-    public void modify(Admin admin) {
-        this.admin.updateAdmin(admin);
+    public void modify(Image image) {
+        this.image.updateImage(image);
     }
 
     @Override
     public void remove(Integer id) {
-        admin.deleteById(id);
+        this.image.deleteById(id);
     }
 
 }

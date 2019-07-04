@@ -4,31 +4,45 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.zte.drive.dao.TypeDao">
-<!--    public Type selectById(Integer id);
--->
-    <select id="selectById" resultType="type">
-
+    <!--根据ID查询id,pwd,name,registerDate-->
+    <select id="selectById" resultType="Type">
+        SELECT id,type FROM t_type where id=#{id}
     </select>
 
-    <!--    public List<Type> selectAll();
--->
-    <select id="selectAll" resultType="type">
+    <!--查询所有的科目-->
+    <select id="selectAll" resultType="Type">
+        SELECT
+        id,type
+        FROM
+        t_type
+            </select>
 
-    </select>
+    <!--新增一个科目-->
+    <insert id="insertType" parameterType="Type">
+        INSERT
+        INTO
+            t_type
+            (type)
+            VALUE
+            (#{type})
+            </insert>
 
-    <!--    public int insertType(Type  type);
--->
-    <insert id="insertType" parameterType="type"></insert>
+    <!--更新一个科目信息-->
+    <update id="updateType" parameterType="Type">
+        UPDATE
+        t_type
+        SET
+        type=#{type}
+        WHERE
+        id=#{id}
+           </update>
 
-    <!--    public int updateType(Type type);
--->
-    <update id="updateType" parameterType="type">
-
-    </update>
-
-    <!--    public int deleteById(Integer id);
--->
-    <delete id="deleteById" >
-
-    </delete>
+    <!--根据ID删除一个科目-->
+    <delete id="deleteById">
+        DELETE
+        FROM
+        t_type
+        WHERE
+        id=#{id}
+            </delete>
 </mapper>
