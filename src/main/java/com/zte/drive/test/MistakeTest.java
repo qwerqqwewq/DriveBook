@@ -26,9 +26,9 @@ public class MistakeTest {
         //delete();
           //selectall();
         //selectById();
-        //selectByContent();
+        selectByContent();
         //selectByType();
-        selectByDate();
+        //selectByDate();
     }
 
     /**

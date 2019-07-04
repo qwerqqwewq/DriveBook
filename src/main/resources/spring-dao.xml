@@ -34,6 +34,17 @@
         <property name="dataSource" ref="ds"/>
         <!--扫描entity包，将该包下的类设置别名-->
         <property name="typeAliasesPackage" value="com.zte.drive.entity"/>
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <property name="properties">
+                        <value>
+                            helperDialect=mysql
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
         <!--
         加载**.mapper映射文件
         -->
@@ -50,4 +61,6 @@
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.zte.drive.dao"/>
     </bean>
+
 </beans>
+
