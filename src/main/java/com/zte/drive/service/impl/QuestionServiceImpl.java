@@ -26,6 +26,7 @@ public class QuestionServiceImpl implements QuestionService {
     @Autowired
     private QuestionDao questionDao;
 
+
     /**
      * 将questionVo转化为父类
      * @param questionVO
