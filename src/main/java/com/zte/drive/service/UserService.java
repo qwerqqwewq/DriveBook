@@ -66,4 +66,5 @@ public interface UserService {
      * @return 新增人数
      */
     int regist(String name, String pwd);
+
 }

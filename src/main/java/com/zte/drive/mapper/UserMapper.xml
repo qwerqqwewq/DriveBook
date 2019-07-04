@@ -42,4 +42,5 @@
     <select id="selectByName" resultType="User">
         SELECT * FROM t_user WHERE name = #{name};
     </select>
+
 </mapper>

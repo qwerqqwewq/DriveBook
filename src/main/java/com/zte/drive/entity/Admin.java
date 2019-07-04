@@ -44,12 +44,12 @@ public class Admin {
         this.name = name;
     }
 
-    public String getRegisterDate() {
+    public String getRegistDate() {
         return registDate;
     }
 
-    public void setRegisterDate(String registerDate) {
-        this.registDate = registerDate;
+    public void setRegistDate(String registDate) {
+        this.registDate = registDate;
     }
 
     @Override
@@ -58,7 +58,7 @@ public class Admin {
                 "id=" + id +
                 ", pwd='" + pwd + '\'' +
                 ", name='" + name + '\'' +
-                ", registerDate='" + registDate + '\'' +
+                ", registDate='" + registDate + '\'' +
                 '}';
     }
 }

@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -19,6 +22,49 @@ import java.util.List;
 public class AdminController {
     @Autowired
     private AdminService adminService;
+
+    @RequestMapping("/login")
+    private String login() {
+        return "admin/login";
+    }
+
+    @RequestMapping("/login/do")
+    private String checkLogin(HttpServletRequest req, HttpSession session) {
+        String username=req.getParameter("name");
+        String pwd=req.getParameter("pwd");
+//      System.out.print(username);
+//      System.out.print(pwd);
+        // 获取用户
+        Admin admin = adminService.checkLogin(username, pwd);
+        // System.out.print(user);
+        if ( admin != null ) {
+            session.setAttribute("admin", admin);
+            return "admin/success";
+        }
+        return "admin/fail";
+    }
+
+    @RequestMapping("/regist")
+    private String regist() {
+        return "admin/regist";
+    }
+
+    @RequestMapping("/regist/do")
+    @ResponseBody
+    private String doRegist(HttpServletRequest req, HttpSession session) {
+        // 获取用户名和密码
+        String name = req.getParameter("name");
+        String pwd = req.getParameter("pwd");
+        // 调用Service层进行注册
+        int result = adminService.regist(name, pwd);
+        Admin admin = adminService.findByName(name);
+        session.setAttribute("admin", admin);
+        return "admin/success";
+    }
+
+
+
+
 
     //查询所有管理员
     @RequestMapping("/findAll")

@@ -45,4 +45,10 @@
         WHERE
         id=#{id}
             </delete>
+
+    <!-- 根据管理员名查询某个用户 -->
+    <!-- User selectByName(String name); -->
+    <select id="selectByName" resultType="Admin">
+        SELECT * FROM t_admin WHERE name = #{name};
+    </select>
 </mapper>
