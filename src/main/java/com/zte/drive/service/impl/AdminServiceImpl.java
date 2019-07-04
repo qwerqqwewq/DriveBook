@@ -20,32 +20,32 @@ import java.util.List;
 public class AdminServiceImpl implements AdminService {
 
     @Autowired
-    private AdminDao admin;
+    private AdminDao adminDao;
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
     public Admin findById(Integer id) {
-        return admin.selectById(id);
+        return adminDao.selectById(id);
     }
 
     @Override
     public List<Admin> findAll() {
-        return admin.selectAll();
+        return adminDao.selectAll();
     }
     //
     @Override
     public void add(Admin admin) {
-        this.admin.insertAdmin(admin);
+        this.adminDao.insertAdmin(admin);
     }
 
     @Override
     public void modify(Admin admin) {
-        this.admin.updateAdmin(admin);
+        this.adminDao.updateAdmin(admin);
     }
 
     @Override
     public void remove(Integer id) {
-        admin.deleteById(id);
+        adminDao.deleteById(id);
     }
 
 }
