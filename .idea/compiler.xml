@@ -22,10 +22,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="DriveBook" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.7">
-      <module name="DriveBook" target="1.8" />
+      <module name="DriveBook" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
