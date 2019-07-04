@@ -13,7 +13,6 @@
             <result property="answer" column="answer" />
             <result property="content" column="content"/>
             <result property="option" column="option" />
-            <result property="types" column="types" />
         </association>
             </resultMap>
        <!--
@@ -51,8 +50,7 @@
        <select id="select" resultMap="rmf" parameterType="User">
               SELECT
               f.id,
-              q.content,
-              q.option
+              q.id
               FROM t_favorites f
               LEFT  join
               t_question q
@@ -71,8 +69,7 @@
        <select id="selectByNum" resultType="Favorites">
               SELECT
               f.id,
-              q.content,
-              q.option
+              q.id
                FROM t_favorites f
               LEFT JOIN
               t_question q

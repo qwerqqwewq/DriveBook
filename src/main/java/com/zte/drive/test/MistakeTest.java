@@ -24,7 +24,7 @@ public class MistakeTest {
         mistakeDao=(MistakeDao)context.getBean("mistakeDao");
         //insert();
         //delete();
-          //selectall();
+         //selectall();
         //selectById();
         //selectByContent();
         //selectByType();
@@ -37,7 +37,7 @@ public class MistakeTest {
     public static void insert(){
         Mistake mistake=new Mistake();
         User user=new User();
-        user.setId(1);
+        user.setId(2);
         Question question=new Question();
         question.setId(3);
         mistake.setUser(user);
@@ -55,7 +55,7 @@ public class MistakeTest {
         Mistake mistake=new Mistake();
        User user=new User();
         user.setId(1);
-        Integer id=11;
+        Integer id=1;
         int row=mistakeDao.delete(user,id);
         System.out.print("测试删除"+row);
         System.out.print("测试结果"+mistake);
@@ -77,7 +77,7 @@ public class MistakeTest {
     public static void selectById(){
         User user=new User();
         user.setId(2);
-        Integer id=12;
+        Integer id=3;
         Mistake mistake=mistakeDao.selectById(user,id);
         System.out.print("测试结果为"+mistake);
     }
@@ -87,7 +87,7 @@ public class MistakeTest {
      */
     public static void selectByContent(){
         User user=new User();
-        user.setId(1);
+        user.setId(2);
         String content="1";
         List<Mistake> list=mistakeDao.selectByContent(user, content);
         System.out.print("测试查询"+list);
@@ -96,6 +96,7 @@ public class MistakeTest {
     /**
      * 测试按题目类型查询
      */
+    /*
      public static void selectByType(){
          User user=new User();
          user.setId(1);
@@ -103,6 +104,7 @@ public class MistakeTest {
          List<Mistake> mistakes=mistakeDao.selectByType(user,type);
          System.out.print("测试查询"+mistakes);
      }
+     */
     /**
      * 用户查询最近前num道错题
      */
