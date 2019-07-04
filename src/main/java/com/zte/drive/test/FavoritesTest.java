@@ -21,9 +21,9 @@ public class FavoritesTest {
     public static void main(String[] args) {
         ApplicationContext context=new ClassPathXmlApplicationContext(path);
         favoritesDao=(FavoritesDao)context.getBean("favoritesDao");
-        insert();
+        //insert();
         //delete();
-        //selectall();
+        selectall();
         //selectByNum();
     }
 

@@ -28,7 +28,7 @@ public class MistakeTest {
         //selectById();
         //selectByContent();
         //selectByType();
-        selectByDate();
+        //selectByDate();
     }
 
     /**
@@ -88,7 +88,7 @@ public class MistakeTest {
     public static void selectByContent(){
         User user=new User();
         user.setId(2);
-        String content="1";
+        String content="S";
         List<Mistake> list=mistakeDao.selectByContent(user, content);
         System.out.print("测试查询"+list);
     }

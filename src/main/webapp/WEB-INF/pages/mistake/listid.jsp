@@ -14,10 +14,10 @@
 <body>
 <p>当前${page.pageNum}页，总${page.pages}页，总${page.total}条记录</p>
 <c:if test="${page.hasPreviousPage}">
-  <a href="findContent?pageNo=${page.pageNum-1}&content=1">上一页</a>
+  <a href="findContent?pageNo=${page.pageNum-1}&content=S">上一页</a>
 </c:if>
 <c:if test="${page.hasNextPage}">
-  <a href="findContent?pageNo=${page.pageNum+1}&content=1">下一页</a>
+  <a href="findContent?pageNo=${page.pageNum+1}&content=S">下一页</a>
 </c:if>
 </body>
 </html>

@@ -46,24 +46,40 @@ public class MistakeServiceImpl implements MistakeService {
     @Override
     @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
     public Mistake findById(User user, Integer id) {
-        return mistakeDao.selectById(user,id);
+        Mistake mistake=mistakeDao.selectById(user,id);
+        System.out.println(mistake);
+        System.out.println(mistake.getQuestion().getId());
+        Integer uid=mistake.getQuestion().getId();
+        System.out.println(questionDao.selectById(uid));
+        mistake.setQuestion(questionDao.selectById(uid));
+        return mistake;
+
     }
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
     public List<Mistake> findByContent(User user, String content) {
-        return mistakeDao.selectByContent(user,content);
+        List<Mistake> mistakes=mistakeDao.selectByContent(user,content);
+        for(Mistake mistake:mistakes){
+            mistake.setQuestion(questionDao.selectById(mistake.getQuestion().getId()));
+        }
+        return mistakes;
     }
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
     public List<Mistake> findByType(User user, String type) {
+
         return mistakeDao.selectByType(user,type);
     }
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
     public List<Mistake> findByTime(User user, Integer num) {
-        return mistakeDao.selectByTime(user,num);
+        List<Mistake> mistakes=mistakeDao.selectByTime(user,num);
+        for(Mistake mistake:mistakes){
+            mistake.setQuestion(questionDao.selectById(mistake.getQuestion().getId()));
+        }
+        return mistakes;
     }
 }
