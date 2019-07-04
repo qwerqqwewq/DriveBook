@@ -13,10 +13,18 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("/mistake")
 public class MistakeController {
+
     @RequestMapping("/add")
     @ResponseBody
     public Mistake add(HttpServletRequest req){
         req.getSession().getAttribute("id");
         return null;
+    }
+
+    @RequestMapping("/find")
+    @ResponseBody
+    public String find(HttpServletRequest req){
+        Integer id=(Integer)req.getSession().getAttribute("id");
+        return "success";
     }
 }
