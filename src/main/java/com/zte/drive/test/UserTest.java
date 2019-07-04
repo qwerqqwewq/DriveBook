@@ -49,6 +49,10 @@ public class UserTest {
         User user3 = userDao.selectById(insertId);
         System.out.println("按ID查询函数selectById测试：返回结果为" + user3);
 
+        // 测试User selectByName(String name);
+        User user4 = userDao.selectByName("测试修改用户名");
+        System.out.println("按用户名查询函数selectByName测试：返回结果为" + user4);
+
         // 测试int deleteById(Integer id);
         int result3 = userDao.deleteById(insertId);
         System.out.println("按ID删除函数deleteById测试：返回结果为" + result3);
@@ -57,6 +61,7 @@ public class UserTest {
         for (User user : users2) {
             System.out.println(user);
         }
+
 
     }
 

@@ -30,6 +30,7 @@ public interface FavoritesDao {
      List<Favorites> select(User user);
 
     /**
+     *
      * @param user
      * @param num
      * @return 收藏的前几条数据

@@ -24,11 +24,11 @@ public class MistakeTest {
         mistakeDao=(MistakeDao)context.getBean("mistakeDao");
         //insert();
         //delete();
-          selectall();
+          //selectall();
         //selectById();
         //selectByContent();
         //selectByType();
-        //selectByDate();
+        selectByDate();
     }
 
     /**
