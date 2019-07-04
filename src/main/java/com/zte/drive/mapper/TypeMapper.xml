@@ -9,6 +9,11 @@
         SELECT id,type FROM t_type where id=#{id}
     </select>
 
+    <!--根据type查询类型id-->
+    <!--<select id="selectByType" resultType="Integer">
+        SELECT NULLIF (id,0) FROM t_type where type=#{type}
+    </select>-->
+
     <!--查询所有的科目-->
     <select id="selectAll" resultType="Type">
         SELECT

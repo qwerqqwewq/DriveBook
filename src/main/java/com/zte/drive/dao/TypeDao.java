@@ -19,4 +19,6 @@ public interface TypeDao {
 
     public int deleteById(Integer id);
 
+    //public Integer selectByType(String mytype);
+
 }

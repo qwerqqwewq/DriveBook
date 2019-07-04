@@ -2,9 +2,12 @@ package com.zte.drive.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zte.drive.dao.TypeDao;
 import com.zte.drive.entity.Mistake;
 import com.zte.drive.entity.User;
 import com.zte.drive.service.MistakeService;
+import com.zte.drive.service.TypeService;
+import com.zte.drive.utils.CurrentDate;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,12 +30,36 @@ public class MistakeController {
 
     @Autowired
     private MistakeService mistakeService;
+    @Autowired
+    private TypeService typeService;
 
+    private static String createDate= CurrentDate.getCurrentDate();
+    /**
+     * 用户增加错题
+     * @param session
+     * @return
+     */
     @RequestMapping("/add")
     @ResponseBody
-    public Mistake add(HttpServletRequest req){
-        req.getSession().getAttribute("id");
-        return null;
+    public int add(HttpSession session){
+        Mistake mistake=new Mistake();
+        User user=(User)session.getAttribute("user");
+        mistake.setUser(user);
+        mistake.setCreateDate(createDate);
+        //设置Question
+
+       return 0;
+    }
+
+    /**
+     *用户删除错题
+     */
+    @RequestMapping("/dele")
+    @ResponseBody
+    public int dele(HttpSession session,Integer id){
+        User user=(User)session.getAttribute("user");
+        int row=mistakeService.remove(user,id);
+        return row;
     }
 
     /**
@@ -80,15 +107,27 @@ public class MistakeController {
 
     /**
      * 用户按类型查询试题
-     */
+     *
+     * */
     @RequestMapping("/findType")
-    public String findType(@RequestParam(value="pageNo",defaultValue = "1")Integer pageNo,  HttpSession session,ModelMap map,@Param("content")String type){
+    @ResponseBody
+    public List<Mistake> findType(HttpSession session,String typename){
+           User user=(User)session.getAttribute("user");
+           System.out.print(typename);
+           String type=Integer.toString(typeService.findByType(typename));
+           System.out.print(type);
+           List<Mistake> list=mistakeService.findByType(user,type);
+          return list;
+    }
+
+    /**
+     * 用户查询最近错的前num的题目
+     */
+    @RequestMapping("/findNum")
+    @ResponseBody
+    public List<Mistake> findNum( HttpSession session,Integer num){
         User user=(User)session.getAttribute("user");
-        Integer pageSize=1;
-        PageHelper.startPage(pageNo,pageSize);
-        List<Mistake> list1=mistakeService.findByType(user,type);
-        PageInfo<Mistake> pageInfo1=new PageInfo<Mistake>(list1);
-        map.addAttribute("page", pageInfo1);
-        return "mistake/listtype";
+        List<Mistake> list1=mistakeService.findByTime(user,num);
+        return list1;
     }
 }

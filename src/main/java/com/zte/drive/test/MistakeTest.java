@@ -27,7 +27,7 @@ public class MistakeTest {
          //selectall();
         //selectById();
         //selectByContent();
-        //selectByType();
+        selectByType();
         //selectByDate();
     }
 
@@ -96,22 +96,22 @@ public class MistakeTest {
     /**
      * 测试按题目类型查询
      */
-    /*
+
      public static void selectByType(){
          User user=new User();
-         user.setId(1);
+         user.setId(2);
          String type="1";
          List<Mistake> mistakes=mistakeDao.selectByType(user,type);
          System.out.print("测试查询"+mistakes);
      }
-     */
+
     /**
      * 用户查询最近前num道错题
      */
     public static void selectByDate(){
         User user=new User();
         user.setId(1);
-        Integer num=2;
+        Integer num=1;
         List<Mistake> list=mistakeDao.selectByTime(user,num);
         System.out.print("测试查询"+list);
     }

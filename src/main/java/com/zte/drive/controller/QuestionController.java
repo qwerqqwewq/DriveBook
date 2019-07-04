@@ -29,8 +29,6 @@ public class QuestionController {
     @RequestMapping("/insert/do")
     @ResponseBody
     public Object insertAction() {
-
-
         Map map = new HashMap(2);
         Gson gson = new Gson();
         return gson.toJson(map);

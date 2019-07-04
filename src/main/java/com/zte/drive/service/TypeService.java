@@ -9,6 +9,8 @@ import java.util.List;
 public interface TypeService {
     //根据类型id查询
     public Type findById(Integer id);
+    //根据类型查询id
+    //public Integer findByType(String mytype);
     //查询所有类型
     public List<Type> findAll();
     //新增一个类型

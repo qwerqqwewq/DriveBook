@@ -28,6 +28,13 @@ public class TypeServiceImpl implements TypeService {
         return type.selectById(id);
     }
 
+    /*
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
+    public Integer findByType(String mytype) {
+        return type.selectByType(mytype);
+    }
+*/
     @Override
     public List<Type> findAll() {
         return type.selectAll();

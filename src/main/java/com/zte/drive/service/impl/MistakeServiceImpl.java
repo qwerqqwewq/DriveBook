@@ -70,7 +70,7 @@ public class MistakeServiceImpl implements MistakeService {
     @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
     public List<Mistake> findByType(User user, String type) {
 
-        return mistakeDao.selectByType(user,type);
+        return null;
     }
 
     @Override
