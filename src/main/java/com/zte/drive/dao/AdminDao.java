@@ -14,9 +14,9 @@ public interface AdminDao {
 
     List<Admin> selectAll();
 
-    int insert(Admin  admin);
+    int insertAdmin(Admin  admin);
 
-    int update(Admin admin);
+    int updateAdmin(Admin admin);
 
     int deleteById(Integer id);
 

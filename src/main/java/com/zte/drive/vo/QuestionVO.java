@@ -1,7 +1,7 @@
 package com.zte.drive.vo;
 
 import com.zte.drive.entity.Question;
-import com.zte.drive.entity.Type;
+import com.zte.drive.utils.OptionUtil;
 
 import java.util.List;
 
@@ -13,9 +13,14 @@ import java.util.List;
 public class QuestionVO extends Question {
     private List<String> optionList;
     private List<String> answerList;
-    private List<Type> typeList;
 
     public QuestionVO() {
+    }
+
+    public QuestionVO(Question question) {
+        super(question);
+        optionList = OptionUtil.separateOptions(question.getOptions());
+        answerList = OptionUtil.separateOptions(question.getAnswers());
     }
 
     @Override
@@ -23,7 +28,6 @@ public class QuestionVO extends Question {
         return "QuestionVO{" +
                 "optionList=" + optionList +
                 ", answerList=" + answerList +
-                ", typeList=" + typeList +
                 super.toString() +
                 '}';
     }
@@ -42,13 +46,5 @@ public class QuestionVO extends Question {
 
     public void setAnswerList(List<String> answerList) {
         this.answerList = answerList;
-    }
-
-    public List<Type> getTypeList() {
-        return typeList;
-    }
-
-    public void setTypeList(List<Type> typeList) {
-        this.typeList = typeList;
     }
 }

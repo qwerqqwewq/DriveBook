@@ -9,12 +9,12 @@ public class Admin {
     private Integer id;
     private String pwd;
     private String name;
-    private String registerDate;
-    public Admin(Integer id, String pwd, String name, String registerDate) {
+    private String registDate;
+    public Admin(Integer id, String pwd, String name, String registDate) {
         this.id = id;
         this.pwd = pwd;
         this.name = name;
-        this.registerDate = registerDate;
+        this.registDate = registDate;
     }
 
     public Admin() {
@@ -45,11 +45,11 @@ public class Admin {
     }
 
     public String getRegisterDate() {
-        return registerDate;
+        return registDate;
     }
 
     public void setRegisterDate(String registerDate) {
-        this.registerDate = registerDate;
+        this.registDate = registerDate;
     }
 
     @Override
@@ -58,7 +58,7 @@ public class Admin {
                 "id=" + id +
                 ", pwd='" + pwd + '\'' +
                 ", name='" + name + '\'' +
-                ", registerDate='" + registerDate + '\'' +
+                ", registerDate='" + registDate + '\'' +
                 '}';
     }
 }

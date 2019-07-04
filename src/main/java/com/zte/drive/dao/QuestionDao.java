@@ -3,6 +3,7 @@ package com.zte.drive.dao;
 import com.zte.drive.entity.Question;
 import com.zte.drive.entity.Subject;
 import com.zte.drive.entity.Type;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -42,6 +43,12 @@ public interface QuestionDao {
     public Question selectById(Integer id);
 
     /**
+     * 查询所有题目
+     * @return 题目集合
+     */
+    public List<Question> selectAll();
+
+    /**
      * 根据类型选择题目
      * @param type 类型
      * @return 题目集合
@@ -66,4 +73,12 @@ public interface QuestionDao {
      * @return 影响行数
      */
     int updateCorrectNum(Integer id);
+
+    /**
+     * 根据题目id和回答判断是否正确
+     * @param id 题目id
+     * @param answers 用户答案
+     * @return
+     */
+    boolean getAnswerCheck(@Param("qid") Integer id, @Param("answers") List<String> answers);
 }

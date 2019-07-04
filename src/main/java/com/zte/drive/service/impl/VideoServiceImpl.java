@@ -1,8 +1,12 @@
 package com.zte.drive.service.impl;
 
 import com.zte.drive.dao.VideoDao;
+import com.zte.drive.entity.Question;
+import com.zte.drive.entity.Type;
 import com.zte.drive.entity.Video;
 import com.zte.drive.service.VideoService;
+import com.zte.drive.utils.OptionUtil;
+import com.zte.drive.vo.QuestionVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -11,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**

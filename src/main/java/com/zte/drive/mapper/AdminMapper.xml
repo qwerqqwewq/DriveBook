@@ -6,43 +6,43 @@
 <mapper namespace="com.zte.drive.dao.AdminDao">
     <!--根据ID查询id,pwd,name,registerDate-->
     <select id="selectById" resultType="Admin">
-        SELECT id,pwd,name,registerDate FROM t_admin where id=#{id}
+        SELECT id,pwd,name,registDate FROM t_admin where id=#{id}
     </select>
 
     <!--查询所有的管理员-->
     <select id="selectAll" resultType="Admin">
         SELECT
-        id,pwd,name,registerDate
+        id,pwd,name,registDate
         FROM
         t_admin
             </select>
 
     <!--新增一个管理员-->
-    <insert id="insert" parameterType="Admin">
+    <insert id="insertAdmin" parameterType="Admin">
         INSERT
         INTO
             t_admin
-            (pwd,name,registerDate)
+            (pwd,name,registDate)
             VALUE
-            (#{pwd},#{name},#{registerDate})
+            (#{pwd},#{name},#{registDate})
             </insert>
 
     <!--更新一个管理员信息-->
-    <update id="update" parameterType="Admin">
+    <update id="updateAdmin" parameterType="Admin">
         UPDATE
         t_admin
         SET
-        name=#{name},pwd=#{pwd},registerDate=#{registerDate}
+        name=#{name},pwd=#{pwd},registDate=#{registDate}
         WHERE
-        managerId=#{managerId}
+        id=#{id}
            </update>
 
     <!--根据ID删除一个管理员-->
     <delete id="deleteById">
         DELETE
         FROM
-        t_manager
+        t_admin
         WHERE
-        managerId=#{managerId}
+        id=#{id}
             </delete>
 </mapper>

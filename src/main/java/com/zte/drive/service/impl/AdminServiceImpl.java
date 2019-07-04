@@ -35,12 +35,12 @@ public class AdminServiceImpl implements AdminService {
     //
     @Override
     public void add(Admin admin) {
-        this.admin.insert(admin);
+        this.admin.insertAdmin(admin);
     }
 
     @Override
     public void modify(Admin admin) {
-        this.admin.update(admin);
+        this.admin.updateAdmin(admin);
     }
 
     @Override

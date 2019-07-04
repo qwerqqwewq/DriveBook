@@ -59,7 +59,7 @@ public class UserAnswer {
                 "id=" + id +
                 ", user=" + user +
                 ", question=" + question +
-                ", answer='" + answer + '\'' +
+                ", answers='" + answer + '\'' +
                 '}';
     }
 }
