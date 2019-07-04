@@ -1,7 +1,6 @@
 package com.zte.drive.utils;
 
 import com.google.gson.Gson;
-
 /**
  * @author 刘煦健
  * Date:2019-06-25 16:03

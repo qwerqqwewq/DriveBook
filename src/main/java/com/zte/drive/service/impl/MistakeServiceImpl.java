@@ -1,6 +1,7 @@
 package com.zte.drive.service.impl;
 
 import com.zte.drive.dao.MistakeDao;
+import com.zte.drive.dao.QuestionDao;
 import com.zte.drive.entity.Mistake;
 import com.zte.drive.entity.User;
 import com.zte.drive.service.MistakeService;
@@ -19,6 +20,9 @@ import java.util.List;
 public class MistakeServiceImpl implements MistakeService {
     @Autowired
     private MistakeDao mistakeDao;
+    @Autowired
+    private QuestionDao questionDao;
+
     @Override
     public int add(Mistake mistake) {
         return mistakeDao.insert(mistake);
@@ -32,7 +36,11 @@ public class MistakeServiceImpl implements MistakeService {
     @Override
     @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
     public List<Mistake> findall(User user) {
-        return mistakeDao.selectall(user);
+        List<Mistake> mistakes = mistakeDao.selectall(user);
+        for (Mistake mistake : mistakes) {
+            mistake.setQuestion(questionDao.selectById(mistake.getQuestion().getId()));
+        }
+        return mistakes;
     }
 
     @Override

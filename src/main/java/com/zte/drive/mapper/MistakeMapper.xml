@@ -13,7 +13,6 @@
             <result property="answer" column="answer" />
             <result property="content" column="content"/>
             <result property="option" column="option" />
-            <result property="types" column="types" />
                 </association>
             </resultMap>
        <!--/*
@@ -58,8 +57,7 @@
        <select id="selectall" resultMap="rmq" parameterType="User">
               SELECT
               m.id,
-              q.content,
-              q.option
+              q.id
               FROM  t_mistake m
               LEFT JOIN
               t_question q
@@ -78,8 +76,7 @@
      <select id="selectById" resultMap="rmq">
             SELECT
               m.id,
-              q.content,
-              q.option
+              q.id
               FROM  t_mistake m
               LEFT JOIN
               t_question q
@@ -96,8 +93,7 @@
        <select id="selectByContent" resultMap="rmq">
               SELECT
               m.id,
-              q.content,
-              q.option
+              q.id
               FROM t_mistake m
               LEFT JOIN t_question q
               ON  m.qid=q.id
@@ -114,17 +110,17 @@
         * @return 错题集
         */
        -->
-       <select id="selectByType" resultMap="rmq">
+     <!--  <select id="selectByType" resultMap="rmq">
               SELECT
               m.id,
-              q.content,
-              q.option
+              q.id
               FROM t_mistake m
               LEFT JOIN t_question q on m.qid=q.id
               WHERE  m.uid=#{arg0.id}
               AND
               q.types LIKE CONCAT('%','${arg1}','%')
                </select>
+               -->
 
        <!--
          /**
@@ -136,8 +132,7 @@
        <select id="selectByTime" resultMap="rmq">
               SELECT
               m.id,
-              q.content,
-              q.option
+              q.id
               FROM t_mistake m
               LEFT JOIN t_question q
               ON
