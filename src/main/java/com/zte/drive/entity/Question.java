@@ -1,5 +1,7 @@
 package com.zte.drive.entity;
 
+import java.util.List;
+
 /**
  * @author 刘煦健
  * @date 2019-07-03 8:18
@@ -7,14 +9,16 @@ package com.zte.drive.entity;
  */
 public class Question {
     protected Integer id;
-    protected String types;
+
     protected Subject subject;
     protected String content;
-    protected String option;
-    protected String answer;
+    protected String options;
+    protected String answers;
     protected Integer totalNum;
     protected Integer correctNum;
     protected String resolve;
+
+    protected List<Type> types;
 
     public Question() {
     }
@@ -24,8 +28,8 @@ public class Question {
         this.types = question.types;
         this.subject = question.subject;
         this.content = question.content;
-        this.option = question.option;
-        this.answer = question.answer;
+        this.options = question.options;
+        this.answers = question.answers;
         this.totalNum = question.totalNum;
         this.correctNum = question.correctNum;
         this.resolve = question.resolve;
@@ -38,8 +42,8 @@ public class Question {
                 ", types='" + types + '\'' +
                 ", subject=" + subject +
                 ", content='" + content + '\'' +
-                ", option='" + option + '\'' +
-                ", answer='" + answer + '\'' +
+                ", options='" + options + '\'' +
+                ", answers='" + answers + '\'' +
                 '}';
     }
 
@@ -75,11 +79,11 @@ public class Question {
         this.id = id;
     }
 
-    public String getTypes() {
+    public List<Type> getTypes() {
         return types;
     }
 
-    public void setTypes(String types) {
+    public void setTypes(List<Type> types) {
         this.types = types;
     }
 
@@ -99,19 +103,19 @@ public class Question {
         this.content = content;
     }
 
-    public String getOption() {
-        return option;
+    public String getOptions() {
+        return options;
     }
 
-    public void setOption(String option) {
-        this.option = option;
+    public void setOptions(String options) {
+        this.options = options;
     }
 
-    public String getAnswer() {
-        return answer;
+    public String getAnswers() {
+        return answers;
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public void setAnswers(String answers) {
+        this.answers = answers;
     }
 }
