@@ -34,11 +34,10 @@ public class QuestionVO extends Question implements Comparable<QuestionVO>{
         }
 
         QuestionVO that = (QuestionVO) o;
-
-        if (getOptionList() != null ? !getOptionList().equals(that.getOptionList()) : that.getOptionList() != null) {
+        if (this.id == null || ((QuestionVO) o).id == null) {
             return false;
         }
-        return !(getAnswerList() != null ? !getAnswerList().equals(that.getAnswerList()) : that.getAnswerList() != null);
+        return this.id .equals(((QuestionVO) o).id);
 
     }
 
@@ -80,6 +79,6 @@ public class QuestionVO extends Question implements Comparable<QuestionVO>{
         if (o==null) {
             return 1;
         }
-        return this.id.compareTo(o.id);
+        return this.id-o.id;
     }
 }
