@@ -6,7 +6,6 @@
 </head>
 <body>
 操作成功！
-<a href="${pageContext.request.contextPath}/mistake/findType?typename=单选题">按类型查找</a>
 </body>
 
 </html>

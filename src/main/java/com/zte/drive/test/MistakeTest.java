@@ -99,7 +99,7 @@ public class MistakeTest {
 
      public static void selectByType(){
          User user=new User();
-         user.setId(2);
+         user.setId(1);
          String type="1";
          List<Mistake> mistakes=mistakeDao.selectByType(user,type);
          System.out.print("测试查询"+mistakes);

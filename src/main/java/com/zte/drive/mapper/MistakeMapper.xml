@@ -148,7 +148,15 @@
        -->
       <select id="selectByType" resultMap="rmq">
               SELECT
-              *
+              m.id id,
+              m.uid uid,
+              m.qid qid,
+              m.createDate cDate,
+               u.id nuid,
+              u.pwd upwd,
+              u.name uname,
+              u.registDate rDate,
+              q.id nqid
               FROM t_mistake m
               LEFT JOIN
               t_question q

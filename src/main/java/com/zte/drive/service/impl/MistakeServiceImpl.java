@@ -69,8 +69,11 @@ public class MistakeServiceImpl implements MistakeService {
     @Override
     @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
     public List<Mistake> findByType(User user, String type) {
-
-        return null;
+        List<Mistake> mistakes=mistakeDao.selectByType(user,type);
+        for(Mistake mistake:mistakes){
+            mistake.setQuestion(questionDao.selectById(mistake.getQuestion().getId()));
+        }
+        return mistakes;
     }
 
     @Override
