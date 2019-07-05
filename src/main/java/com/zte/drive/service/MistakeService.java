@@ -58,4 +58,12 @@ public interface MistakeService {
      * @return 错题集
      */
     List<Mistake> findByTime(User user,Integer num);
+
+    /**
+     * 用户根据试题iD查询试题
+     * @param user
+     * @param qid
+     * @return
+     */
+    Mistake findByqid(User user,Integer qid);
 }

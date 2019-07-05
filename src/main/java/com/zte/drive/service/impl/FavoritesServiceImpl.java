@@ -1,6 +1,7 @@
 package com.zte.drive.service.impl;
 
 import com.zte.drive.dao.FavoritesDao;
+import com.zte.drive.dao.QuestionDao;
 import com.zte.drive.entity.Favorites;
 import com.zte.drive.entity.User;
 import com.zte.drive.service.FavoritesService;
@@ -20,6 +21,8 @@ public class FavoritesServiceImpl implements FavoritesService {
 
     @Autowired
     private FavoritesDao favoritesDao;
+    @Autowired
+    private QuestionDao questionDao;
 
     @Override
     public int add(Favorites favorites) {
@@ -40,6 +43,18 @@ public class FavoritesServiceImpl implements FavoritesService {
     @Override
     @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
     public List<Favorites> findByNum(User user, Integer num) {
-        return favoritesDao.selectByNum(user,num);
+        List<Favorites> favorites=favoritesDao.selectByNum(user,num);
+        for(Favorites favorite:favorites){
+            favorite.setQuestion(questionDao.selectById(favorite.getQuestion().getId()));
+        }
+        return favorites;
+    }
+
+    @Override
+    public Favorites findByqid(User user, Integer qid) {
+        Favorites favorites=favoritesDao.selectByqid(user, qid);
+        Integer uid=favorites.getQuestion().getId();
+        favorites.setQuestion(questionDao.selectById(uid));
+        return favorites;
     }
 }

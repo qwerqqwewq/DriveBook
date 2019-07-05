@@ -36,4 +36,12 @@ public interface FavoritesDao {
      * @return 收藏的前几条数据
      */
      List<Favorites> selectByNum(User user,Integer num);
+
+    /**
+     *
+     * @param user
+     * @param qid
+     * @return
+     */
+    Favorites selectByqid(User user,Integer qid);
 }
