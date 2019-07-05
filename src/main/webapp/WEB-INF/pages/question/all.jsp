@@ -12,10 +12,33 @@
             font-weight:900;
         }
     </style>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        $(function () {
+
+        });
+    </script>
 </head>
 <body>
 <h1>题目列表</h1>
+<h2>查询属性</h2>
 
+<form action="/drive/question/all">
+    题目类别<br>
+    <c:forEach items="${types}" var="type">
+        <input name="tid[]" value="${type.id}" type="checkbox">${type.type}   ,
+    </c:forEach>
+    <br>
+
+    所属科目:<br>
+    <input type="radio" value="1" name="subjectId">科目一 ,  <input type="radio" value="4" name="subjectId"> 科目四
+    <input type="reset" value="重置">
+    <button id="submit">查询</button>
+
+</form>
+
+
+<h2>题目详情</h2>
 <table border="1" width="100%" >
     <th>行号</th>
     <th>所属科目</th>

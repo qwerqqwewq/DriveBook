@@ -34,16 +34,21 @@
                 //options存储储存的选项
                 var options = [];
                 var hasOption = false;
+                var hasNull = false;
                 $("input[name='options']").each(
                         function() {
-                            if($(this).val==""){
-                                alert("有选项的内容没有填写！");
+                            if($(this).val()==""){
+                                hasNull = true;
                                 return;
                             }
                             options.push($(this).val());
                             hasOption = true;
                         }
                 );
+                if (hasNull) {
+                    alert("有选项的内容没有填写！");
+                    return;
+                }
                 if(!hasOption) {
                     alert("你没有添加任何选项！");
                     return;
@@ -89,18 +94,10 @@
 
                     },
                     success : function(data) {
-                        var ajaxobj = $.parsejson(data);
-                        alert(ajaxobj.msg);
+                        alert(data.msg);
+                        window.location.reload();
                     },
                     error : function(){
-                        /*
-                        alert("subjectId " + subjectId
-                            +"\ntid " + tid
-                            +"\noptions " + options
-                            +"\ncontent " + content
-                            +"\nresolve " + resolve
-                            +"\nanswers " + answers);
-                            */
                         alert("插入失败！");
                     }
                 });
