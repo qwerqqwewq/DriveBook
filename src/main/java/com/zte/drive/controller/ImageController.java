@@ -6,7 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -25,7 +29,7 @@ public class ImageController {
     public String findAll(Model model){
         List<Image> list= imageService.findAll();
         model.addAttribute("list",list);
-        return "findAllAdmin";
+        return "findAllImage";
     }
 
     //根据id查询某张图片
@@ -37,7 +41,7 @@ public class ImageController {
     }
 
     //增加一张图片
-    @RequestMapping("/addAdmin")
+    @RequestMapping("/addImage")
     public String addImage(Image image) {
         imageService.add(image);
         return "redirect:findAll";
@@ -56,6 +60,26 @@ public class ImageController {
         imageService.modify(image);
         return "redirect:findAll";
     }
+
+    @RequestMapping("/upload")
+    private String uploadPage() {
+
+        return "image/upload";
+    }
+
+    @RequestMapping("/upload/do")
+    @ResponseBody
+    private String uploadAction(@RequestParam("uploadFile") MultipartFile file,
+                                HttpServletRequest request) {
+        String dirpath = request.getServletContext().getRealPath("fileupload");
+        dirpath = dirpath + "/image";
+        String filename = file.getOriginalFilename();
+        String msg = imageService.uploadImage(dirpath,filename,file);
+        System.out.println(msg);
+        return msg;
+    }
+
+
 
 }
 

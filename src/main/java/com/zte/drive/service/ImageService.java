@@ -1,5 +1,8 @@
 package com.zte.drive.service;
+
 import com.zte.drive.entity.Image;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 /**
  * Author:helloboy
@@ -17,7 +20,7 @@ public interface ImageService {
     public void modify(Image image);
     //根据ID删除一张图片
     public void remove(Integer id);
-
-
+    //上传图片
+    public String uploadImage(String dirpath, String filename, MultipartFile file);
 
 }

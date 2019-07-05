@@ -7,7 +7,7 @@
     <script src="/js/jquery-2.1.4.min.js"></script>
     <script>
         $(function () {
-            $("#uploadBtn").click(){
+            $("#uploadBtn").click(function () {
                 var urlx = "/video/upload/do";
                 var form = $("#uploadForm")[0];
                 log(formData);
@@ -31,7 +31,8 @@
 
                 });
 
-            }
+
+            })
         });
     </script>
 </head>
