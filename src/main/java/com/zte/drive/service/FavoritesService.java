@@ -33,4 +33,12 @@ public interface FavoritesService {
      * @return 收藏的前几条数据
      */
     List<Favorites> findByNum(User user,Integer num);
+
+    /**
+     *
+     * @param user
+     * @param qid
+     * @return
+     */
+    Favorites findByqid(User user,Integer qid);
 }

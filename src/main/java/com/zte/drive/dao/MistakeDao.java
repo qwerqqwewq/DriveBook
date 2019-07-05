@@ -62,4 +62,9 @@ public interface MistakeDao {
      * @return 错题集
      */
      List<Mistake> selectByTime(User user,Integer num);
+
+    /**
+     * 用户根据试题ID查询试题
+     */
+    Mistake selectByqid(User user,Integer qid);
 }

@@ -7,12 +7,18 @@
         <result property="user.id" column="uid" />
         <result property="question.id" column="qid"/>
         <result property="createDate" column="cDate"/>
+        <association property="user" javaType="user">
+            <id property="id" column="nuid"/>
+            <result property="pwd" column="upwd"/>
+            <result property="name" column="uname"/>
+            <result property="registDate" column="rDate"/>
+        </association>
         <!--错题id和试题一一对应-->
         <association property="question" javaType="question">
-            <id property="id" column="cid"/>
-            <result property="answer" column="answer" />
-            <result property="content" column="content"/>
-            <result property="option" column="option" />
+            <id property="id" column="nqid"/>
+            <result property="answer" column="qanswer" />
+            <result property="content" column="qcontent"/>
+            <result property="option" column="qoption" />
                 </association>
             </resultMap>
        <!--/*
@@ -56,9 +62,19 @@
        -->
        <select id="selectall" resultMap="rmq" parameterType="User">
               SELECT
-              m.id,
-              q.id
+              m.id id,
+              m.uid uid,
+              m.qid qid,
+              m.createDate cDate,
+              u.id nuid,
+              u.pwd upwd,
+              u.name uname,
+              u.registDate rDate,
+              q.id nqid
               FROM  t_mistake m
+              LEFT JOIN
+              t_user u
+              ON  m.uid=u.id
               LEFT JOIN
               t_question q
               ON m.qid=q.id
@@ -75,9 +91,19 @@
        -->
      <select id="selectById" resultMap="rmq">
             SELECT
-              m.id,
-              q.id
+              m.id id,
+              m.uid uid,
+              m.qid qid,
+              m.createDate cDate,
+               u.id nuid,
+              u.pwd upwd,
+              u.name uname,
+              u.registDate rDate,
+              q.id nqid
               FROM  t_mistake m
+              LEFT JOIN
+              t_user u
+              ON  m.uid=u.id
               LEFT JOIN
               t_question q
               ON m.qid=q.id
@@ -92,9 +118,19 @@
      -->
        <select id="selectByContent" resultMap="rmq">
               SELECT
-              m.id,
-              q.id
+                m.id id,
+              m.uid uid,
+              m.qid qid,
+              m.createDate cDate,
+               u.id nuid,
+              u.pwd upwd,
+              u.name uname,
+              u.registDate rDate,
+              q.id nqid
               FROM t_mistake m
+              LEFT JOIN
+              t_user u
+              ON  m.uid=u.id
               LEFT JOIN t_question q
               ON  m.qid=q.id
               WHERE
@@ -110,17 +146,27 @@
         * @return 错题集
         */
        -->
-     <!--  <select id="selectByType" resultMap="rmq">
+      <select id="selectByType" resultMap="rmq">
               SELECT
-              m.id,
-              q.id
+              m.id id,
+              m.uid uid,
+              m.qid qid,
+              m.createDate cDate,
+               u.id nuid,
+              u.pwd upwd,
+              u.name uname,
+              u.registDate rDate,
+              q.id nqid
               FROM t_mistake m
-              LEFT JOIN t_question q on m.qid=q.id
-              WHERE  m.uid=#{arg0.id}
+              LEFT JOIN
+              t_question q
+              ON m.qid=q.id
+              WHERE
+              m.uid=#{arg0.id}
               AND
               q.types LIKE CONCAT('%','${arg1}','%')
                </select>
-               -->
+
 
        <!--
          /**
@@ -131,9 +177,19 @@
        -->
        <select id="selectByTime" resultMap="rmq">
               SELECT
-              m.id,
-              q.id
+                m.id id,
+              m.uid uid,
+              m.qid qid,
+              m.createDate cDate,
+               u.id nuid,
+              u.pwd upwd,
+              u.name uname,
+              u.registDate rDate,
+              q.id nqid
               FROM t_mistake m
+              LEFT JOIN
+              t_user u
+              ON  m.uid=u.id
               LEFT JOIN t_question q
               ON
               m.qid=q.id
@@ -142,4 +198,32 @@
               ORDER BY m.createDate DESC
               limit 0,#{arg1}
                </select>
+
+    <!--/**
+     * 用户根据试题ID查询试题
+     */
+     -->
+    <select id="selectByqid" resultMap="rmq">
+         SELECT
+                m.id id,
+              m.uid uid,
+              m.qid qid,
+              m.createDate cDate,
+               u.id nuid,
+              u.pwd upwd,
+              u.name uname,
+              u.registDate rDate,
+              q.id nqid
+              FROM t_mistake m
+              LEFT JOIN
+              t_user u
+              ON  m.uid=u.id
+              LEFT JOIN t_question q
+              ON
+              m.qid=q.id
+              WHERE
+              uid=#{arg0.id}
+              AND
+              q.id=#{arg1}
+           </select>
 </mapper>

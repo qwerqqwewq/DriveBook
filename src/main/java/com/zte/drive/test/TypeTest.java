@@ -16,10 +16,10 @@ public class TypeTest {
         TypeDao typedao = (TypeDao) context.getBean("typeDao");
         if (typedao != null) {
             Type type1 = new Type(8, "123");
-            typedao.insertType(type1);
+            //typedao.insertType(type1);
             System.out.println("插入一个类型：");
-            System.out.println("查找ID为1的类型：");
-            System.out.println(typedao.selectById(1));
+            System.out.println("查找ID为1的类型：");;
+            //System.out.println(typedao.selectByType("单选题"));
             System.out.println("修改Id为1的类型：");
             Type type2 = new Type(8, "123");
             typedao.updateType(type2);

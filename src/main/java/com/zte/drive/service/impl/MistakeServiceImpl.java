@@ -46,24 +46,48 @@ public class MistakeServiceImpl implements MistakeService {
     @Override
     @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
     public Mistake findById(User user, Integer id) {
-        return mistakeDao.selectById(user,id);
+        Mistake mistake=mistakeDao.selectById(user,id);
+        Integer uid=mistake.getQuestion().getId();
+        mistake.setQuestion(questionDao.selectById(uid));
+        return mistake;
+
     }
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
     public List<Mistake> findByContent(User user, String content) {
-        return mistakeDao.selectByContent(user,content);
+        List<Mistake> mistakes=mistakeDao.selectByContent(user,content);
+        for(Mistake mistake:mistakes){
+            mistake.setQuestion(questionDao.selectById(mistake.getQuestion().getId()));
+        }
+        return mistakes;
     }
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
     public List<Mistake> findByType(User user, String type) {
-        return mistakeDao.selectByType(user,type);
+        List<Mistake> mistakes=mistakeDao.selectByType(user,type);
+        for(Mistake mistake:mistakes){
+            mistake.setQuestion(questionDao.selectById(mistake.getQuestion().getId()));
+        }
+        return mistakes;
     }
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
     public List<Mistake> findByTime(User user, Integer num) {
-        return mistakeDao.selectByTime(user,num);
+        List<Mistake> mistakes=mistakeDao.selectByTime(user,num);
+        for(Mistake mistake:mistakes){
+            mistake.setQuestion(questionDao.selectById(mistake.getQuestion().getId()));
+        }
+        return mistakes;
+    }
+
+    @Override
+    public Mistake findByqid(User user, Integer qid) {
+        Mistake mistake=mistakeDao.selectByqid(user,qid);
+        Integer uid=mistake.getQuestion().getId();
+        mistake.setQuestion(questionDao.selectById(uid));
+        return mistake;
     }
 }

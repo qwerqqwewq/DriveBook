@@ -4,15 +4,22 @@
 
     <resultMap type="Favorites" id="rmf">
         <id property="id" column="id"/>
-        <result property="uid" column="uid"/>
-        <result property="pid" column="pid"/>
+        <result property="user.id" column="uid"/>
+        <result property="question.id" column="pid"/>
         <result property="createDate" column="createDate"/>
 
+        <association property="user" javaType="user">
+            <id property="id" column="nuid"/>
+            <result property="pwd" column="upwd"/>
+            <result property="name" column="uname"/>
+            <result property="registDate" column="rDate"/>
+        </association>
+
         <association property="question" javaType="question">
-            <id property="id" column="id"/>
-            <result property="answer" column="answer" />
-            <result property="content" column="content"/>
-            <result property="option" column="option" />
+            <id property="id" column="nqid"/>
+            <result property="answer" column="qanswer" />
+            <result property="content" column="qcontent"/>
+            <result property="option" column="qoption" />
         </association>
             </resultMap>
        <!--
@@ -49,9 +56,19 @@
        -->
        <select id="select" resultMap="rmf" parameterType="User">
               SELECT
-              f.id,
-              q.id
+              f.id id,
+              f.uid uid,
+              f.qid qid,
+              f.createDate createDate,
+              u.id nuid,
+              u.pwd upwd,
+              u.name uname,
+              u.registDate rDate,
+              q.id nqid
               FROM t_favorites f
+               LEFT JOIN
+              t_user u
+              ON  f.uid=u.id
               LEFT  join
               t_question q
               ON f.qid=q.id
@@ -66,11 +83,21 @@
      * @return 收藏的前几条数据
      */
        -->
-       <select id="selectByNum" resultType="Favorites">
+       <select id="selectByNum" resultMap="rmf">
               SELECT
-              f.id,
-              q.id
-               FROM t_favorites f
+              f.id id,
+              f.uid uid,
+              f.qid qid,
+              f.createDate createDate,
+              u.id nuid,
+              u.pwd upwd,
+              u.name uname,
+              u.registDate rDate,
+              q.id nqid
+              FROM t_favorites f
+              LEFT JOIN
+              t_user u
+              ON  f.uid=u.id
               LEFT JOIN
               t_question q
               on f.qid=q.id
@@ -79,4 +106,28 @@
               ORDER BY f.createDate DESC
               limit 0,#{arg1}
                </select>
+
+    <select id="selectByqid" resultMap="rmf">
+        SELECT
+        f.id id,
+        f.uid uid,
+        f.qid qid,
+        f.createDate createDate,
+        u.id nuid,
+        u.pwd upwd,
+        u.name uname,
+        u.registDate rDate,
+        q.id nqid
+        FROM t_favorites f
+        LEFT JOIN
+        t_user u
+        ON  f.uid=u.id
+        LEFT JOIN
+        t_question q
+        on f.qid=q.id
+        WHERE
+        f.uid=#{arg0.id}
+        AND
+        q.id=#{arg1}
+    </select>
        </mapper>
