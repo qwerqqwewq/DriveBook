@@ -15,7 +15,7 @@
         <module name="DriveBook" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="1.7">
+    <bytecodeTargetLevel target="1.8">
       <module name="DriveBook" target="1.7" />
     </bytecodeTargetLevel>
   </component>
