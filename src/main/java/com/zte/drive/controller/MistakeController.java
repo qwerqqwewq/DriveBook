@@ -55,7 +55,14 @@ public class MistakeController {
         //设置Question
         Question question=questionService.findById(questionId);
         mistake.setQuestion(question);
-        int row=mistakeService.add(mistake);
+        int row=1;
+        if(mistakeService.findByqid(user,questionId) == null){
+            row=mistakeService.add(mistake);
+        }else{
+            System.out.print("已收录该试题");
+            row=0;
+        }
+
        return row;
     }
     /**

@@ -23,8 +23,8 @@ public class FavoritesTest {
         favoritesDao=(FavoritesDao)context.getBean("favoritesDao");
         //insert();
         //delete();
-        selectall();
-        //selectByNum();
+        //selectall();
+        selectByNum();
     }
 
     //测试增加
@@ -65,5 +65,16 @@ public class FavoritesTest {
         Integer num=3;
        List<Favorites> list=favoritesDao.selectByNum(user,num);
         System.out.print(list);
+    }
+    /**
+     *测试用户根据试题Id查询错题记录
+     */
+
+    public static void selectByqid(){
+        User user=new User();
+        user.setId(1);
+        Integer qid=1;
+        Favorites mistake=favoritesDao.selectByqid(user,qid);
+        System.out.print("测试查询"+mistake);
     }
 }

@@ -27,8 +27,9 @@ public class MistakeTest {
          //selectall();
         //selectById();
         //selectByContent();
-        selectByType();
+        //selectByType();
         //selectByDate();
+        selectByqid();
     }
 
     /**
@@ -115,4 +116,15 @@ public class MistakeTest {
         List<Mistake> list=mistakeDao.selectByTime(user,num);
         System.out.print("测试查询"+list);
     }
+
+    /**
+     *测试用户根据试题Id查询错题记录
+     */
+    public static void selectByqid(){
+        User user=new User();
+        user.setId(1);
+        Integer qid=1;
+        Mistake mistake=mistakeDao.selectByqid(user,qid);
+        System.out.print("测试查询"+mistake);
+        }
     }

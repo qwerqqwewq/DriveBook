@@ -198,4 +198,32 @@
               ORDER BY m.createDate DESC
               limit 0,#{arg1}
                </select>
+
+    <!--/**
+     * 用户根据试题ID查询试题
+     */
+     -->
+    <select id="selectByqid" resultMap="rmq">
+         SELECT
+                m.id id,
+              m.uid uid,
+              m.qid qid,
+              m.createDate cDate,
+               u.id nuid,
+              u.pwd upwd,
+              u.name uname,
+              u.registDate rDate,
+              q.id nqid
+              FROM t_mistake m
+              LEFT JOIN
+              t_user u
+              ON  m.uid=u.id
+              LEFT JOIN t_question q
+              ON
+              m.qid=q.id
+              WHERE
+              uid=#{arg0.id}
+              AND
+              q.id=#{arg1}
+           </select>
 </mapper>

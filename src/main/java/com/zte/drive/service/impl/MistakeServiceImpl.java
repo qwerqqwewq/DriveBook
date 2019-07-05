@@ -47,10 +47,7 @@ public class MistakeServiceImpl implements MistakeService {
     @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
     public Mistake findById(User user, Integer id) {
         Mistake mistake=mistakeDao.selectById(user,id);
-        System.out.println(mistake);
-        System.out.println(mistake.getQuestion().getId());
         Integer uid=mistake.getQuestion().getId();
-        System.out.println(questionDao.selectById(uid));
         mistake.setQuestion(questionDao.selectById(uid));
         return mistake;
 
@@ -84,5 +81,13 @@ public class MistakeServiceImpl implements MistakeService {
             mistake.setQuestion(questionDao.selectById(mistake.getQuestion().getId()));
         }
         return mistakes;
+    }
+
+    @Override
+    public Mistake findByqid(User user, Integer qid) {
+        Mistake mistake=mistakeDao.selectByqid(user,qid);
+        Integer uid=mistake.getQuestion().getId();
+        mistake.setQuestion(questionDao.selectById(uid));
+        return mistake;
     }
 }

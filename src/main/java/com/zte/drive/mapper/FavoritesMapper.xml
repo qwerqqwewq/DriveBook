@@ -16,10 +16,10 @@
         </association>
 
         <association property="question" javaType="question">
-            <id property="id" column="id"/>
-            <result property="answer" column="answer" />
-            <result property="content" column="content"/>
-            <result property="option" column="option" />
+            <id property="id" column="nqid"/>
+            <result property="answer" column="qanswer" />
+            <result property="content" column="qcontent"/>
+            <result property="option" column="qoption" />
         </association>
             </resultMap>
        <!--
@@ -64,7 +64,7 @@
               u.pwd upwd,
               u.name uname,
               u.registDate rDate,
-              q.id id
+              q.id nqid
               FROM t_favorites f
                LEFT JOIN
               t_user u
@@ -83,7 +83,7 @@
      * @return 收藏的前几条数据
      */
        -->
-       <select id="selectByNum" resultType="Favorites">
+       <select id="selectByNum" resultMap="rmf">
               SELECT
               f.id id,
               f.uid uid,
@@ -93,7 +93,7 @@
               u.pwd upwd,
               u.name uname,
               u.registDate rDate,
-              q.id id
+              q.id nqid
               FROM t_favorites f
               LEFT JOIN
               t_user u
@@ -106,4 +106,28 @@
               ORDER BY f.createDate DESC
               limit 0,#{arg1}
                </select>
+
+    <select id="selectByqid" resultMap="rmf">
+        SELECT
+        f.id id,
+        f.uid uid,
+        f.qid qid,
+        f.createDate createDate,
+        u.id nuid,
+        u.pwd upwd,
+        u.name uname,
+        u.registDate rDate,
+        q.id nqid
+        FROM t_favorites f
+        LEFT JOIN
+        t_user u
+        ON  f.uid=u.id
+        LEFT JOIN
+        t_question q
+        on f.qid=q.id
+        WHERE
+        f.uid=#{arg0.id}
+        AND
+        q.id=#{arg1}
+    </select>
        </mapper>
