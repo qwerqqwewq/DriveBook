@@ -100,6 +100,11 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
+    public List<QuestionVO> findAll() {
+        return envolve(questionDao.selectAll());
+    }
+
+    @Override
     public boolean checkAnswer(Integer id, List<String> answerList) {
         boolean flag = questionDao.getAnswerCheck(id, answerList);
         questionDao.updateTotalNum(id);

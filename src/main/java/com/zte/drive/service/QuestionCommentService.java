@@ -41,10 +41,11 @@ public interface QuestionCommentService {
 
     /**
      * 查询某题目下的所有非子评论
-     * @param question
+     * @param question 哪个题目
+     * @param num 每个非子评论最多存储几个子评论
      * @return 评论列表
      */
-    List<QuestionComment> findByQuestion(Question question);
+    List<QuestionComment> findByQuestion(Question question,Integer num);
 
     /**
      * 查询某评论的所有子评论
