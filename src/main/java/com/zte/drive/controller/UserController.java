@@ -52,13 +52,17 @@ public class UserController {
     @RequestMapping("/regist/do")
     @ResponseBody
     private String doRegist(HttpServletRequest req, HttpSession session) {
-            // 获取用户名和密码
-            String name = req.getParameter("name");
-            String pwd = req.getParameter("pwd");
-            // 调用Service层进行注册
-            int result = userService.regist(name, pwd);
-            User user = userService.findByName(name);
-            session.setAttribute("user", user);
-            return "user/success";
+        // 获取用户名和密码
+        String name = req.getParameter("name");
+        String pwd = req.getParameter("pwd");
+        // 调用Service层进行注册
+        int result = userService.regist(name, pwd);
+        // 用户名已存在
+        if ( result == 0 ) {
+            return "user/fail";
+        }
+        User user = userService.findByName(name);
+        session.setAttribute("user", user);
+        return "user/success";
     }
 }
