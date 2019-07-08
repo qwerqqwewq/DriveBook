@@ -21,7 +21,7 @@
 
             //撤销按钮
             $("#flushOptList").click(function () {
-                $("#optList").html("<c:forEach items='${question.optionList}' var='option' varStatus='ovs'>                        <tr>                        <td>${ovs.count}</td>                        <td><input type='text' value='${option}'></td>                        <td><input type='checkbox' name='isAnswer'                <c:forEach items='${question.answerList}' var='answer'>                <c:if test='${answer==ovs.count}'>                checked='checked'                        </c:if>                        </c:forEach>                        /></td>                        <td><button onclick='del(this)'>删除该选项</button></td>                </tr>                </c:forEach>");
+                $("#optList").html("<c:forEach items='${question.optionList}' var='option' varStatus='ovs'>                        <tr>                        <td>${ovs.count}</td>                        <td><input type='text' value='${option}'></td>                        <td><input type='checkbox' name='isAnswer'                <c:forEach items='${question.answerList}' var='answers'>                <c:if test='${answers==ovs.count}'>                checked='checked'                        </c:if>                        </c:forEach>                        /></td>                        <td><button onclick='del(this)'>删除该选项</button></td>                </tr>                </c:forEach>");
 
             });
 
@@ -207,8 +207,8 @@
                 <td>${ovs.count}</td>
                 <td><input type='text' value='${option}' name="options"></td>
                 <td><input type='checkbox' name='isAnswer' value="${ovs.count}"
-                        <c:forEach items='${question.answerList}' var='answer'>
-                            <c:if test='${answer==ovs.count}'>
+                        <c:forEach items='${question.answerList}' var='answers'>
+                            <c:if test='${answers==ovs.count}'>
                                 checked='checked'
                             </c:if>
                         </c:forEach>

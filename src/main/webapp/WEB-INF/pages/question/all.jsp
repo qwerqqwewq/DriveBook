@@ -66,8 +66,8 @@
                 </c:forEach>
             </td>
             <td>
-                <c:forEach items="${question.answerList}" var="answer" varStatus="avs">
-                    <span>${avs.count}.  </span>${answer}<br>
+                <c:forEach items="${question.answerList}" var="answers" varStatus="avs">
+                    <span>${avs.count}.  </span>${answers}<br>
                 </c:forEach>
             </td>
             <td>
