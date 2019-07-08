@@ -55,4 +55,14 @@ public class TypeServiceImpl implements TypeService {
         type.deleteById(id);
     }
 
+    @Override
+    public List<Integer> findAllId() {
+        return type.selectAllId();
+    }
+
+    @Override
+    public List<String> findAllType() {
+        return type.selectAllType();
+    }
+
 }

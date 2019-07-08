@@ -13,6 +13,10 @@ public interface TypeDao {
 
     public List<Type> selectAll();
 
+    public List<Integer> selectAllId();
+
+    public List<String> selectAllType();
+
     public int insertType(Type  type);
 
     public int updateType(Type type);

@@ -19,7 +19,9 @@ public interface TypeService {
     public void modify(Type type);
     //根据ID删除一个类型
     public void remove(Integer id);
-
-
+    //查找所有Id
+    public List<Integer> findAllId();
+    //查找所有类型名称
+    public List<String> findAllType();
 
 }
