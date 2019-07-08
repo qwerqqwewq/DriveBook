@@ -80,7 +80,7 @@ public class UserAnswerController {
         // 获取正确率
         Integer totalNum = question.getTotalNum();
         Integer correctNum = question.getCorrectNum();
-        Integer rate;
+        double rate;
         try {
             rate = correctNum / totalNum;
         } catch (Exception e) {
