@@ -46,7 +46,6 @@ public class ImageController {
 
             //图片url
             String url = content.split("src=")[1].split("\"")[1];
-            System.out.print(url);
             //System.out.println(url);
         if(!url.equals("")) {
             String regex="<p.*?>(.*?)</p>";
