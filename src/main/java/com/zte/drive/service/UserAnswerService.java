@@ -59,4 +59,18 @@ public interface UserAnswerService {
      * @return 用户答案
      */
     UserAnswer findById(Integer id);
+
+    /**
+     * 查询某用户的最后一条答案记录
+     * @param user
+     * @return 用户答案
+     */
+    UserAnswer findLast(User user);
+
+    /**
+     * 查询某用户的答题数
+     * @param user
+     * @return 答题数
+     */
+    Integer findQuestionNum(User user);
 }

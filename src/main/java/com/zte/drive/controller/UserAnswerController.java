@@ -1,20 +1,26 @@
 package com.zte.drive.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.zte.drive.entity.Question;
+import com.zte.drive.entity.Subject;
 import com.zte.drive.entity.User;
 import com.zte.drive.entity.UserAnswer;
 import com.zte.drive.service.QuestionService;
+import com.zte.drive.service.SubjectService;
 import com.zte.drive.service.UserAnswerService;
 import com.zte.drive.service.UserService;
+import com.zte.drive.utils.OptionUtil;
 import com.zte.drive.vo.QuestionVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+import java.util.*;
 
 /**
  * Author:helloboy
@@ -31,6 +37,8 @@ public class UserAnswerController {
     private UserService userService;
     @Autowired
     private QuestionService questionService;
+    @Autowired
+    private SubjectService subjectService;
 
     @RequestMapping("/addUserAnswer")
     private String index() {
@@ -88,5 +96,79 @@ public class UserAnswerController {
         }
         model.addAttribute("rate", rate);
         return "question/showQuestion";
+    }
+
+    @RequestMapping("getUserInfo")
+    private String userInfo() {
+        return "question/getUserInfo";
+    }
+
+    @RequestMapping("getUserInfo/do")
+    @ResponseBody
+    private String getUserInfo(HttpServletRequest req) {
+        Map map = new HashMap<>(3);
+        String finished;
+        double rate = 0.0;
+        int lastAnswer;
+        // 获取用户ID和科目ID
+        Integer uid = Integer.parseInt(req.getParameter("uid"));
+        Integer sid = Integer.parseInt(req.getParameter("sid"));
+        User user = userService.findById(uid);
+        Subject subject = subjectService.findById(sid);
+
+        // 查询该用户的答题数
+        int questionNum = userAnswerService.findQuestionNum(user);
+        int sum = questionService.findBySubject(subject).size();
+        finished = "当前进度：" + questionNum + " / " + sum;
+
+        // 查询该用户的所有答案
+        List<UserAnswer> userAnswers = userAnswerService.findByUser(user);
+        UserAnswer u;
+        Question question;
+        String answers;
+        int correctNum = 0;
+        int length = userAnswers.size();
+        for ( int i = 0; i < length; i++ ) {
+            u = userAnswers.get(i);
+            question = u.getQuestion();
+            answers = u.getAnswers();
+            List<String> answerList = new ArrayList<String>();
+            answerList.add(answers);
+            boolean isCorrect = questionService.checkAnswer(question.getId(), answerList);
+            if (isCorrect) {
+                correctNum++;
+            }
+        }
+        System.out.println("correctNum = " + correctNum);
+        System.out.println("sum = "+ sum);
+
+        if (sum != 0) {
+            rate = (double) correctNum / sum;
+        }
+
+        UserAnswer userAnswer = userAnswerService.findLast(user);
+        lastAnswer = userAnswer.getId();
+        map.put("finished", finished);
+        map.put("rate", rate);
+        map.put("lastAnswer", lastAnswer);
+        return JSON.toJSONString(map);
+    }
+
+    @RequestMapping("/answer")
+    @ResponseBody
+    private Object answer(HttpServletRequest req, Integer uid, Integer qid,
+                          @RequestParam("answers[]")String[] answers ) {
+        UserAnswer userAnswer = new UserAnswer();
+        User user = userService.findById(uid);
+        Question question = questionService.findById(qid);
+        userAnswer.setUser(user);
+        userAnswer.setQuestion(question);
+        String answerConn = OptionUtil.combineOptions(Arrays.asList(answers));
+        userAnswer.setAnswers(answerConn);
+
+        int status = userAnswerService.add(userAnswer);
+        Map map = new HashMap<>(1);
+        map.put("status", status);
+        return JSON.toJSONString(map);
     }
 }
