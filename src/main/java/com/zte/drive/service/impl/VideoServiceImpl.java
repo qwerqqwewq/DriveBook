@@ -1,12 +1,8 @@
 package com.zte.drive.service.impl;
 
 import com.zte.drive.dao.VideoDao;
-import com.zte.drive.entity.Question;
-import com.zte.drive.entity.Type;
 import com.zte.drive.entity.Video;
 import com.zte.drive.service.VideoService;
-import com.zte.drive.utils.OptionUtil;
-import com.zte.drive.vo.QuestionVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -15,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -63,7 +58,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public String uploadVideo(String dirpath, String filename, MultipartFile file) {
+    public Integer uploadVideo(String dirpath, String filename, MultipartFile file) {
         //生成存储文件夹
         File dir = new File(dirpath);
         if (!dir.exists()) {
@@ -71,17 +66,17 @@ public class VideoServiceImpl implements VideoService {
             //则创建
             dir.mkdirs();
         }
-        String msg;
+        Integer integer;
         File store = new File(dirpath, filename);
         try {
             file.transferTo(store);
-            msg = "文件上传成功！";
+            integer = 1;
         } catch (IOException | IllegalStateException e) {
-            msg = "文件上传失败！";
+            integer = 0;
             e.printStackTrace();
         }
 
         //返回操作信息
-        return msg;
+        return integer;
     }
 }

@@ -34,6 +34,7 @@
                 }
             });
 
+
             $("#btn1").click(function(){
                 var tr = "<tr><td></td><td><input name='options' type='text'/></td><td> <input type='checkbox' name='isAnswer' /> </td><td><input type=\"button\" onclick=\"del(this);\" value=\"删除该选项\"></td></tr>";
                 $("#optList").append(tr);
@@ -201,13 +202,11 @@
 <script type="text/javascript">
     var ue = UE.getEditor('content');
     //实例化编辑器到id为 container 的 dom 容器上：
-    //设置编辑器内容：
-    ue.ready(function() {
-        ue.setContent("<c:out value='${question.content}'/>");
-    });
     //获取编辑器html内容：
     ue.ready(function() {
-        var html = ue.getContent();
+        var html = "<c:out value='${question.content}'/>" ;
+
+        ue.execCommand('insertHtml',html.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#034;/g, '"').replace(/&apos;/g, "'"));
     });
 </script>
 <h3>所属题目类型</h3>

@@ -61,4 +61,17 @@ public interface UserAnswerDao {
      */
     UserAnswer selectById(Integer id);
 
+    /**
+     * 查询某用户的最后一条记录
+     * @return 用户答案
+     */
+    UserAnswer selectLast(User user);
+
+    /**
+     * 查询某用户的答题数
+     * @param user
+     * @return 答题数
+     */
+    Integer selectQuesitonNum(User user);
+
 }

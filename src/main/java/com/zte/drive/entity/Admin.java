@@ -1,11 +1,13 @@
 package com.zte.drive.entity;
 
+import java.io.Serializable;
+
 /**
  * Author:helloboy
  * Date:2019-07-03 8:35
  * Description:<描述>
  */
-public class Admin {
+public class Admin implements Serializable{
     private Integer id;
     private String pwd;
     private String name;

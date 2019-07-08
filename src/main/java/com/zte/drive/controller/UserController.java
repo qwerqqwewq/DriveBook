@@ -1,7 +1,6 @@
 package com.zte.drive.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.google.gson.Gson;
 import com.zte.drive.entity.User;
 import com.zte.drive.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +34,6 @@ public class UserController {
     @RequestMapping("/login/do")
     @ResponseBody
     private String checkLogin(HttpServletRequest req,HttpSession session) {
-        Gson gson=new Gson();
         Map map = new HashMap<>(3);
         int uid;
         int status;
@@ -74,7 +72,6 @@ public class UserController {
     @RequestMapping("/regist/do")
     @ResponseBody
     private String doRegist(HttpServletRequest req, HttpSession session) {
-        Gson gson=new Gson();
         Map map = new HashMap<>(2);
         int status;
         String msg;
@@ -89,7 +86,7 @@ public class UserController {
             msg = "用户名已存在！";
             map.put("status", status);
             map.put("msg", msg);
-            return gson.toJson(map);
+            return JSON.toJSONString(map);
         }
         User user = userService.findByName(name);
         session.setAttribute("user", user);
@@ -97,6 +94,6 @@ public class UserController {
         msg = "注册成功！";
         map.put("status", status);
         map.put("msg", msg);
-        return gson.toJson(map);
+        return JSON.toJSONString(map);
     }
 }

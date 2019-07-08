@@ -1,11 +1,13 @@
 package com.zte.drive.entity;
 
+import java.io.Serializable;
+
 /**
  * @author helloboy
  * Date:2019-07-03 8:33
  * Description: T_IMAGE表实体类
  */
-public class Image {
+public class Image implements Serializable{
     private Integer id;
     private String src;
 

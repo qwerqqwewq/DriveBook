@@ -1,5 +1,6 @@
 package com.zte.drive.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  * @date 2019-07-03 8:18
  * Description:t_question表的实体对象
  */
-public class Question {
+public class Question implements Serializable{
     protected Integer id;
 
     protected Subject subject;
