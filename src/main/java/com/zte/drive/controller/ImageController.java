@@ -40,8 +40,11 @@ public class ImageController {
             request.setAttribute("edit", html);
             //System.out.println(content);
 
+           //试题选项说明，试题解析
             String qct=request.getParameter("qct");
             String qso=request.getParameter("qso");
+
+            //图片url
             String url = content.split("src=")[1].split("\"")[1];
             System.out.print(url);
             //System.out.println(url);
