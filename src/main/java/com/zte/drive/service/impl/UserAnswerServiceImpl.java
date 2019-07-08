@@ -60,4 +60,14 @@ public class UserAnswerServiceImpl implements UserAnswerService {
     public UserAnswer findById(Integer id) {
         return userAnswerDao.selectById(id);
     }
+
+    @Override
+    public UserAnswer findLast(User user) {
+        return userAnswerDao.selectLast(user);
+    }
+
+    @Override
+    public Integer findQuestionNum(User user) {
+        return userAnswerDao.selectQuesitonNum(user);
+    }
 }

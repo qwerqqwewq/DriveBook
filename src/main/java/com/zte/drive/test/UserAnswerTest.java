@@ -19,7 +19,7 @@ public class UserAnswerTest {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-dao.xml");
         UserAnswerDao userAnswerDao = (UserAnswerDao) context.getBean("userAnswerDao");
         User user = new User();
-        user.setId(1);
+        user.setId(2);
         Question question = new Question();
         question.setId(1);
 
@@ -69,6 +69,14 @@ public class UserAnswerTest {
         for ( UserAnswer userAnswer : userAnswers3 ) {
             System.out.println(userAnswer);
         }
+
+        // 测试UserAnswer selectLast(User user);
+        UserAnswer userAnswer4 = userAnswerDao.selectLast(user);
+        System.out.println(userAnswer4);
+
+        // 测试Integer selectQuesitonNum(User user);
+        int result = userAnswerDao.selectQuesitonNum(user);
+        System.out.println("答题数为："+ result);
 
     }
 }
