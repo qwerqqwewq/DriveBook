@@ -8,18 +8,18 @@
         <result property="question.id" column="pid"/>
         <result property="createDate" column="createDate"/>
 
-        <association property="user" javaType="user">
+        <association property="user" javaType="User">
             <id property="id" column="nuid"/>
             <result property="pwd" column="upwd"/>
             <result property="name" column="uname"/>
             <result property="registDate" column="rDate"/>
         </association>
 
-        <association property="question" javaType="question">
+        <association property="question" javaType="Question">
             <id property="id" column="nqid"/>
             <result property="answers" column="qanswer" />
             <result property="content" column="qcontent"/>
-            <result property="option" column="qoption" />
+            <result property="options" column="qoption" />
         </association>
             </resultMap>
        <!--
