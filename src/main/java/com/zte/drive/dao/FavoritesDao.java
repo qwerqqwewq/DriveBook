@@ -29,6 +29,7 @@ public interface FavoritesDao {
      */
     int deleteall(User user);
 
+
     /**
      * @param user
      * @return 收藏列表

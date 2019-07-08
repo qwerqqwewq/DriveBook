@@ -28,9 +28,9 @@ public class MistakeTest {
          //selectall();
         //selectById();
         //selectByContent();
-        selectByType();
+        //selectByType();
         //selectByDate();
-        //selectByqid();
+        selectByqid();
     }
 
     /**
@@ -39,9 +39,9 @@ public class MistakeTest {
     public static void insert(){
         Mistake mistake=new Mistake();
         User user=new User();
-        user.setId(2);
+        user.setId(1);
         Question question=new Question();
-        question.setId(3);
+        question.setId(2);
         mistake.setUser(user);
         mistake.setQuestion(question);
         mistake.setCreateDate(createDate);
@@ -132,7 +132,7 @@ public class MistakeTest {
     public static void selectByqid(){
         User user=new User();
         user.setId(1);
-        Integer qid=1;
+        Integer qid=2;
         Mistake mistake=mistakeDao.selectByqid(user,qid);
         System.out.print("测试查询"+mistake);
         }
