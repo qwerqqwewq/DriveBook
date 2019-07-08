@@ -1,6 +1,7 @@
 package com.zte.drive.service.impl;
 
 import com.zte.drive.dao.UserAnswerDao;
+import com.zte.drive.entity.Question;
 import com.zte.drive.entity.User;
 import com.zte.drive.entity.UserAnswer;
 import com.zte.drive.service.UserAnswerService;
@@ -47,6 +48,11 @@ public class UserAnswerServiceImpl implements UserAnswerService {
     @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
     public List<UserAnswer> findByUser(User user) {
         return userAnswerDao.selectByUser(user);
+    }
+
+    @Override
+    public List<UserAnswer> findByQuesiton(Question question) {
+        return userAnswerDao.selectByQuestion(question);
     }
 
     @Override

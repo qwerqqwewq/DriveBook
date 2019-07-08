@@ -16,7 +16,7 @@
         <!--错题id和试题一一对应-->
         <association property="question" javaType="question">
             <id property="id" column="nqid"/>
-            <result property="answer" column="qanswer" />
+            <result property="answers" column="qanswer" />
             <result property="content" column="qcontent"/>
             <result property="option" column="qoption" />
                 </association>

@@ -17,7 +17,7 @@
 
         <association property="question" javaType="question">
             <id property="id" column="nqid"/>
-            <result property="answer" column="qanswer" />
+            <result property="answers" column="qanswer" />
             <result property="content" column="qcontent"/>
             <result property="option" column="qoption" />
         </association>

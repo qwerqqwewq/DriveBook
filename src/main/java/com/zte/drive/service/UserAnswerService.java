@@ -1,5 +1,6 @@
 package com.zte.drive.service;
 
+import com.zte.drive.entity.Question;
 import com.zte.drive.entity.User;
 import com.zte.drive.entity.UserAnswer;
 
@@ -44,6 +45,13 @@ public interface UserAnswerService {
      * @return 用户答案列表
      */
     List<UserAnswer> findByUser(User user);
+
+    /**
+     * 查询某题目的所有答题信息
+     * @param question
+     * @return 用户答案列表
+     */
+    List<UserAnswer> findByQuesiton(Question question);
 
     /**
      * 根据ID查询某条用户答案
