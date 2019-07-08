@@ -1,14 +1,9 @@
 package com.zte.drive.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.zte.drive.entity.Question;
-import com.zte.drive.entity.Subject;
-import com.zte.drive.entity.User;
-import com.zte.drive.entity.UserAnswer;
-import com.zte.drive.service.QuestionService;
-import com.zte.drive.service.SubjectService;
-import com.zte.drive.service.UserAnswerService;
-import com.zte.drive.service.UserService;
+import com.zte.drive.entity.*;
+import com.zte.drive.service.*;
+import com.zte.drive.utils.CurrentDate;
 import com.zte.drive.utils.OptionUtil;
 import com.zte.drive.vo.QuestionVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +34,8 @@ public class UserAnswerController {
     private QuestionService questionService;
     @Autowired
     private SubjectService subjectService;
+    @Autowired
+    private MistakeService mistakeService;
 
     @RequestMapping("/addUserAnswer")
     private String index() {
@@ -137,6 +134,15 @@ public class UserAnswerController {
             boolean isCorrect = questionService.checkAnswer(question.getId(), answerList);
             if (isCorrect) {
                 correctNum++;
+            } else {
+                Mistake mistake = new Mistake();
+                mistake.setUser(user);
+                mistake.setCreateDate(CurrentDate.getCurrentDate());
+                mistake.setQuestion(question);
+                int qid = question.getId();
+                if (mistakeService.findByqid(user, qid) == null) {
+                    int result = mistakeService.add(mistake);
+                }
             }
         }
         System.out.println("correctNum = " + correctNum);
