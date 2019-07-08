@@ -24,11 +24,11 @@ public class MistakeTest {
         mistakeDao=(MistakeDao)context.getBean("mistakeDao");
         //insert();
         //delete();
-        deleteall();
+        //deleteall();
          //selectall();
         //selectById();
         //selectByContent();
-        //selectByType();
+        selectByType();
         //selectByDate();
         //selectByqid();
     }
@@ -72,7 +72,7 @@ public class MistakeTest {
     }
 
     /**
-     * 测试查询用户所有收藏操作
+     * 测试查询用户所有错题操作
      */
      public static void selectall(){
          User user=new User();
@@ -109,8 +109,8 @@ public class MistakeTest {
 
      public static void selectByType(){
          User user=new User();
-         user.setId(1);
-         String type="1";
+         user.setId(2);
+         String type="科目二";
          List<Mistake> mistakes=mistakeDao.selectByType(user,type);
          System.out.print("测试查询"+mistakes);
      }

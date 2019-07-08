@@ -1,5 +1,6 @@
 package com.zte.drive.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zte.drive.dao.QuestionDao;
@@ -7,10 +8,7 @@ import com.zte.drive.dao.TypeDao;
 import com.zte.drive.entity.Mistake;
 import com.zte.drive.entity.Question;
 import com.zte.drive.entity.User;
-import com.zte.drive.service.MistakeService;
-import com.zte.drive.service.QuestionService;
-import com.zte.drive.service.SubjectService;
-import com.zte.drive.service.TypeService;
+import com.zte.drive.service.*;
 import com.zte.drive.utils.CurrentDate;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +21,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author  wzj
@@ -33,6 +33,8 @@ import java.util.List;
 @RequestMapping("/mistake")
 public class MistakeController {
 
+    @Autowired
+    private UserService userService;
     @Autowired
     private MistakeService mistakeService;
     @Autowired
@@ -50,53 +52,94 @@ public class MistakeController {
      */
     @RequestMapping("/add")
     @ResponseBody
-    public int add(HttpSession session,HttpServletRequest req){
-        Integer id=Integer.valueOf(req.getParameter("id"));
+    public String add(HttpServletRequest req){
+        Map map=new HashMap<>(2);
+        int status;
+        String msg;
+        Integer uid=Integer.valueOf(req.getParameter("uid"));
+        User user=userService.findById(uid);
+
         Mistake mistake=new Mistake();
-        User user=(User)session.getAttribute("user");
         mistake.setUser(user);
         mistake.setCreateDate(createDate);
         Integer questionId=Integer.valueOf(req.getParameter("questionId"));
         //设置Question
         Question question=questionService.findById(questionId);
         mistake.setQuestion(question);
-        int row=1;
-        if(mistakeService.findByqid(user,questionId) == null){
-            row=mistakeService.add(mistake);
-        }else{
-            System.out.print("已收录该试题");
-            row=0;
-        }
 
-       return row;
+        if(mistakeService.findByqid(user,questionId) == null){
+            status=1;
+            msg="收录成功";
+            map.put("status",status);
+            map.put("msg",msg);
+            mistakeService.add(mistake);
+            return JSON.toJSONString(map);
+        }else{
+            status=0;
+            msg="收录失败已有该试题";
+            map.put("status",status);
+            map.put("msg",msg);
+            return JSON.toJSONString(map);
+        }
     }
+
     /**
-     *用户删除错题
+     *用户删除一条错题
      */
     @RequestMapping("/dele")
     @ResponseBody
-    public int dele(HttpSession session,HttpServletRequest req){
-        User user=(User)session.getAttribute("user");
+    public String dele(HttpServletRequest req){
+        Map map=new HashMap<>();
+        int status;
+        String msg;
+        Integer uid=Integer.valueOf(req.getParameter("uid"));
+        User user=userService.findById(uid);
         Integer id=Integer.valueOf(req.getParameter("id"));
         int row=mistakeService.remove(user,id);
-        return row;
+        if(row==1){
+            status=1;
+            msg="删除成功";
+            map.put("status",status);
+            map.put("msg",msg);
+            return JSON.toJSONString(map);
+        }else{
+            status=0;
+            msg="删除失败";
+            map.put("status",status);
+            map.put("msg",msg);
+            return JSON.toJSONString(map);
+        }
     }
 
     /**
      * 根据用户ID查询用户所有错题
-     * @param session
+     * @param req
      * @return
      */
     @RequestMapping("/find")
-    public String find(@RequestParam(value="pageNo",defaultValue = "1")Integer pageNo,  HttpSession session,ModelMap map){
-        Integer pageSize=1;
+    @ResponseBody
+    public String find(@RequestParam(value="pageNo",defaultValue = "1")Integer pageNo,  HttpServletRequest req,ModelMap map1){
+        int status;
+        String msg;
+        Map map=new HashMap<>();
+
+        //Integer pageSize=1;
         //每页显示一条记录
         //分页查询
-        PageHelper.startPage(pageNo,pageSize);
-        User user=(User)session.getAttribute("user");
-        List<Mistake> list=mistakeService.findall(user);
-        PageInfo<Mistake> pageInfo=new PageInfo<Mistake>(list);
-        map.addAttribute("pageInfo",pageInfo);
+        //PageHelper.startPage(pageNo,pageSize);
+        Integer id=Integer.valueOf(req.getParameter("uid"));
+        User user=userService.findById(id);
+        if(mistakeService.findall(user)!=null){
+            status=1;
+            msg="查询功能";
+            List<Mistake> list=mistakeService.findall(user);
+            map.put("status",status);
+            map.put("msg",msg);
+
+        }
+        //PageInfo<Mistake> pageInfo=new PageInfo<Mistake>(list);
+        //map1.addAttribute("pageInfo",pageInfo);
+
         return "mistake/listall";
     }
 
@@ -136,14 +179,15 @@ public class MistakeController {
     public List<Mistake> findType(HttpSession session,HttpServletRequest req){
            User user=(User)session.getAttribute("user");
            String typename=req.getParameter("name");
+           String type;
            if(typeService.findByType(typename)!=0) {
-               String type = Integer.toString(typeService.findByType(typename));
+              type = Integer.toString(typeService.findByType(typename));
            }else{
                Integer id=Integer.valueOf(typename);
-               String type=subjectService.findById(id).getSubject();
+               type=subjectService.findById(id).getSubject();
            }
-           //List<Mistake> list=mistakeService.findByType(user,type);
-          return null;
+           List<Mistake> list=mistakeService.findByType(user,type);
+          return list;
     }
 
 
