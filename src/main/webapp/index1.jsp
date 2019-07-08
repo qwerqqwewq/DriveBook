@@ -24,8 +24,15 @@
   <!-- 加载编辑器的容器 -->
   <script id="container" name="content" type="text/plain">
   </script>
+  <label>题目选项</label>
+  <input type="text" class="input" name="qct">
+  <label>题目解析</label>
+  <input type="text" class="input" name="qso">
+
   <input type="submit" value="编辑完成"/>
+
 </form>
+
 <!-- 配置文件 -->
 <script
         src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>

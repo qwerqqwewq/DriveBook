@@ -19,6 +19,8 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Author:helloboy
@@ -36,12 +38,29 @@ public class ImageController {
         public String upload(HttpServletRequest request,String content){
             String html = request.getParameter("editorValue");
             request.setAttribute("edit", html);
-            System.out.println(content);
+            //System.out.println(content);
+
+            String qct=request.getParameter("qct");
+            String qso=request.getParameter("qso");
             String url = content.split("src=")[1].split("\"")[1];
-            System.out.println(url);
-            Image image=new Image();
+            System.out.print(url);
+            //System.out.println(url);
+        if(!url.equals("")) {
+            String regex="<p.*?>(.*?)</p>";
+            Pattern p=Pattern.compile(regex);
+            Matcher m=p.matcher(content);
+
+            while(m.find()) {
+                String s1=m.group(1);
+                String s2=s1.substring(s1.indexOf("<"),s1.indexOf(">")+1).substring(0);
+                String text=s1.replace(s2,"");
+                //System.out.print(text);
+            }
+
+            Image image = new Image();
             image.setSrc(url);
             imageService.add(image);
+        }
             return "success";
         }
 
