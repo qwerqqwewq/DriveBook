@@ -1,11 +1,13 @@
 package com.zte.drive.entity;
 
+import java.io.Serializable;
+
 /**
  * @author dsf
  * @date 2019-07-03 8:52
  * Description:表t_user_answer的实体类
  */
-public class UserAnswer {
+public class UserAnswer implements Serializable{
     private Integer id;
     private User user;
     private Question question;

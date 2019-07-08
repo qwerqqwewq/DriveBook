@@ -1,11 +1,13 @@
 package com.zte.drive.entity;
 
+import java.io.Serializable;
+
 /**
  * @author dsf
  * @date 2019-07-03 8:18
  * Description:t_user表的实体对象
  */
-public class User {
+public class User implements Serializable{
     private Integer id;
     private String pwd;
     private String name;

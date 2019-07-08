@@ -1,11 +1,13 @@
 package com.zte.drive.entity;
 
+import java.io.Serializable;
+
 /**
  * @author 刘煦健
  * @date 2019-07-03 8:22
  * Description:<描述>
  */
-public class Subject {
+public class Subject implements Serializable{
     private Integer id;
     private String subject;
 
