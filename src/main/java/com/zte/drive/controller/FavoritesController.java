@@ -3,7 +3,6 @@ package com.zte.drive.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zte.drive.entity.Favorites;
-import com.zte.drive.entity.Mistake;
 import com.zte.drive.entity.Question;
 import com.zte.drive.entity.User;
 import com.zte.drive.service.FavoritesService;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author wzj

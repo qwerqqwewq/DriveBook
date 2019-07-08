@@ -1,13 +1,18 @@
 package com.zte.drive.controller;
 
+import com.google.gson.Gson;
 import com.zte.drive.entity.Type;
 import com.zte.drive.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 /**
  * Author:helloboy
  * Date:2019-07-03 11:17
@@ -55,6 +60,22 @@ public class TypeController {
         typeService.modify(type);
         return "redirect:findAll";
     }
+
+    @RequestMapping("http://localhost/drive/type/get/all")
+    @ResponseBody
+    private String getAll() {
+        Gson gson=new Gson();
+        Map map = new HashMap<>(2);
+        List<Integer> id;
+        List<String> type;
+        id = typeService.findAllId();
+        type = typeService.findAllType();
+        map.put("id", id);
+        map.put("type", type);
+        return gson.toJson(map);
+    }
+
+
 
 }
 
