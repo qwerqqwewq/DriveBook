@@ -9,6 +9,7 @@ import com.zte.drive.entity.Question;
 import com.zte.drive.entity.User;
 import com.zte.drive.service.MistakeService;
 import com.zte.drive.service.QuestionService;
+import com.zte.drive.service.SubjectService;
 import com.zte.drive.service.TypeService;
 import com.zte.drive.utils.CurrentDate;
 import org.apache.ibatis.annotations.Param;
@@ -38,16 +39,19 @@ public class MistakeController {
     private TypeService typeService;
     @Autowired
     private QuestionService questionService;
+    @Autowired
+    private SubjectService subjectService;
 
     private static String createDate= CurrentDate.getCurrentDate();
     /**
      * 用户增加错题
-     * @param session
+     * @param req
      * @return
      */
     @RequestMapping("/add")
     @ResponseBody
     public int add(HttpSession session,HttpServletRequest req){
+        Integer id=Integer.valueOf(req.getParameter("id"));
         Mistake mistake=new Mistake();
         User user=(User)session.getAttribute("user");
         mistake.setUser(user);
@@ -79,7 +83,7 @@ public class MistakeController {
     }
 
     /**
-     * 根据用户ID查询用户错题
+     * 根据用户ID查询用户所有错题
      * @param session
      * @return
      */
@@ -124,14 +128,22 @@ public class MistakeController {
     }
 
 
+    /*
+    * 用户根据试题类型或者科目查询试题
+    * */
     @RequestMapping("/findType")
     @ResponseBody
     public List<Mistake> findType(HttpSession session,HttpServletRequest req){
            User user=(User)session.getAttribute("user");
-           String typename=req.getParameter("typename");
-           String type=Integer.toString(typeService.findByType(typename));
-           List<Mistake> list=mistakeService.findByType(user,type);
-          return list;
+           String typename=req.getParameter("name");
+           if(typeService.findByType(typename)!=0) {
+               String type = Integer.toString(typeService.findByType(typename));
+           }else{
+               Integer id=Integer.valueOf(typename);
+               String type=subjectService.findById(id).getSubject();
+           }
+           //List<Mistake> list=mistakeService.findByType(user,type);
+          return null;
     }
 
 

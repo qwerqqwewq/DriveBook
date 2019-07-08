@@ -23,6 +23,10 @@ public interface MistakeService {
      */
     int remove(User user,Integer id);
 
+    /**
+     * 用户删除所有ID
+     */
+    int removeall(User user);
 
     /**
      *  用户查询其所有错题记录

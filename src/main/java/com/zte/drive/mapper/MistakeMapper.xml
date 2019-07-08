@@ -51,6 +51,19 @@
               uid=#{arg0.id} AND  id=#{arg1}
                </delete>
 
+    <!--
+       /**
+    *根据用户id删除所有错题记录
+    * @param uid,id
+    * @return 删除行数
+    */
+      -->
+    <delete id="deleteall" parameterType="User">
+        DELETE  FROM
+        t_mistake
+        WHERE
+        uid=#{id}
+    </delete>
 
 
        <!--

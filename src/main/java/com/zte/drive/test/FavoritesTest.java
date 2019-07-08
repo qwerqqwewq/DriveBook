@@ -23,8 +23,9 @@ public class FavoritesTest {
         favoritesDao=(FavoritesDao)context.getBean("favoritesDao");
         //insert();
         //delete();
+        deleteall();
         //selectall();
-        selectByNum();
+        //selectByNum();
     }
 
     //测试增加
@@ -47,6 +48,14 @@ public class FavoritesTest {
         user.setId(1);
         Integer id=2;
         int row=favoritesDao.delete(user,id);
+        System.out.print(row);
+    }
+
+    //测试删除个人所有收藏
+    public static  void deleteall(){
+        User user=new User();
+        user.setId(1);
+        int row=favoritesDao.deleteall(user);
         System.out.print(row);
     }
 

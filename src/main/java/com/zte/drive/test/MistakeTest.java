@@ -24,12 +24,13 @@ public class MistakeTest {
         mistakeDao=(MistakeDao)context.getBean("mistakeDao");
         //insert();
         //delete();
+        deleteall();
          //selectall();
         //selectById();
         //selectByContent();
         //selectByType();
         //selectByDate();
-        selectByqid();
+        //selectByqid();
     }
 
     /**
@@ -53,13 +54,21 @@ public class MistakeTest {
      * 测试错题删除
      */
     public static void delete(){
-        Mistake mistake=new Mistake();
        User user=new User();
         user.setId(1);
         Integer id=1;
         int row=mistakeDao.delete(user,id);
         System.out.print("测试删除"+row);
-        System.out.print("测试结果"+mistake);
+    }
+
+    /**
+     * 测试错题所有删除
+     */
+    public static void deleteall(){
+        User user=new User();
+        user.setId(1);
+        int row=mistakeDao.deleteall(user);
+        System.out.print("测试删除"+row);
     }
 
     /**

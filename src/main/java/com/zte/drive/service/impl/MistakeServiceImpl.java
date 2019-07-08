@@ -34,6 +34,11 @@ public class MistakeServiceImpl implements MistakeService {
     }
 
     @Override
+    public int removeall(User user) {
+        return mistakeDao.deleteall(user);
+    }
+
+    @Override
     @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
     public List<Mistake> findall(User user) {
         List<Mistake> mistakes = mistakeDao.selectall(user);
