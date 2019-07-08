@@ -257,6 +257,7 @@
         <configuration>
           <path>/drive</path>
           <port>80</port>
+          <uriEncoding>utf-8</uriEncoding>
         </configuration>
       </plugin>
       <!--tomcat7插件  end-->

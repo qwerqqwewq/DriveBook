@@ -1,9 +1,30 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%
+    String path = request.getContextPath();
+    //返回当前项目路径 http协议 ，主机名， 端口名， 项目名称
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+            + path + "/";
+%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>插入试题</title>
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <base href="<%=basePath%>">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="This is my page">
+    <script
+            src="${pageContext.request.contextPath}/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <!-- 配置文件 -->
+    <script
+            src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
+    <!-- 编辑器源码文件 -->
+    <script
+            src="${pageContext.request.contextPath}/ueditor/ueditor.all.js"></script>
     <script>
         $(document).ready(function(){
             $("#btn1").click(function(){
@@ -67,8 +88,8 @@
                     return;
                 }
 
-                var content = $("textarea[name='content']").val();
-                if(content=="") {
+                var content = ue.getContent();
+                if(ue.getPlainTxt()=="") {
                     alert("缺少题目正文！");
                     return;
                 }
@@ -105,13 +126,15 @@
 
         });
 
+
+
         function flush() {
-            i=1;
-            $("tr td:first-child").each(function(){
+            var i=1;
+            $("#tab tr td:first-child").each(function(){
                 $(this).html(i++);
             });
             i=1;
-            $("tr input[name='isAnswer']").each(
+            $("#tab tr input[name='isAnswer']").each(
                     function () {
                         $(this).attr('value',i++);
                     }
@@ -127,6 +150,8 @@
 
 
     </script>
+
+
 </head>
 <body>
 
@@ -134,8 +159,22 @@
 
 科目类别<input type="radio" name="subjectId" value="1">科目一   <input type="radio" name="subjectId" value="4">科目四<br>
 题目内容<br>
-<textarea cols="40" rows="5" style="overflow: hidden" name="content" ></textarea>
+<script id="content" name="content" type="text/plain">
+</script>
+<script type="text/javascript">
+    var ue = UE.getEditor('content');
+    var ue = UE.getEditor('content');
+    //实例化编辑器到id为 container 的 dom 容器上：
+    //设置编辑器内容：
+    ue.ready(function() {
+        ue.setContent('<p>在此输入题目正文</p>');
+    });
+    //获取编辑器html内容：
+    ue.ready(function() {
+        var html = ue.getContent();
+    });
 
+</script>
 <br>
 所属题目类型<br>
 <span><p>

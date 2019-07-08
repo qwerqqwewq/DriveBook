@@ -1,10 +1,31 @@
 <%@ page import="com.zte.drive.vo.QuestionVO" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%
+    String path = request.getContextPath();
+    //返回当前项目路径 http协议 ，主机名， 端口名， 项目名称
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+            + path + "/";
+%>
 <html>
 <head>
     <title>正在查看题目${question.id}</title>
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <base href="<%=basePath%>">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="This is my page">
+    <script
+            src="${pageContext.request.contextPath}/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <!-- 配置文件 -->
+    <script
+            src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
+    <!-- 编辑器源码文件 -->
+    <script
+            src="${pageContext.request.contextPath}/ueditor/ueditor.all.js"></script>
     <script>
         $(function() {
             $("input:radio").each(function () {
@@ -84,8 +105,8 @@
                     return;
                 }
 
-                var content = $("textarea[name='content']").val();
-                if(content=="") {
+                var content = ue.getContent();
+                if(ue.getPlainTxt()=="") {
                     alert("缺少题目正文！");
                     return;
                 }
@@ -175,7 +196,20 @@
 <%--TODO:带有修改功能的单个问题查看--%>
 <h2>当前正在查看——题目id${question.id}</h2><button id="deleteQuestion">删除该题目</button>
 <h3>题目内容</h3>
-<textarea cols="40" rows="5" style="overflow: hidden" name="content">${question.content}</textarea>
+<script id="content" name="content" type="text/plain">
+</script>
+<script type="text/javascript">
+    var ue = UE.getEditor('content');
+    //实例化编辑器到id为 container 的 dom 容器上：
+    //设置编辑器内容：
+    ue.ready(function() {
+        ue.setContent("<c:out value='${question.content}'/>");
+    });
+    //获取编辑器html内容：
+    ue.ready(function() {
+        var html = ue.getContent();
+    });
+</script>
 <h3>所属题目类型</h3>
 <p>
     <c:forEach items='${types}' var='type'>

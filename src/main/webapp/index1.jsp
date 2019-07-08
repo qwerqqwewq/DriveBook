@@ -38,7 +38,7 @@
         src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
 <!-- 编辑器源码文件 -->
 <script
-        src="${pageContext.request.contextPath}/ueditor/ueditor.all.js"></script>
+src="${pageContext.request.contextPath}/ueditor/ueditor.all.js"></script>
 <!-- 实例化编辑器 -->
 <script type="text/javascript">
   var ue = UE.getEditor('container');
@@ -46,11 +46,7 @@
   var ue = UE.getEditor('container');
   //设置编辑器内容：
   ue.ready(function() {
-    ue.setContent('<p>hello!</p>');
-  });
-  //追加编辑器内容：
-  ue.ready(function() {
-    ue.setContent('<p>new text</p>', true);
+    ue.setContent('<p>在此输入题目正文</p>');
   });
   //获取编辑器html内容：
   ue.ready(function() {

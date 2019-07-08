@@ -2,9 +2,7 @@ package com.zte.drive.controller;
 
 import com.zte.drive.entity.Image;
 import com.zte.drive.service.ImageService;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,13 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Author:helloboy
@@ -35,36 +27,17 @@ public class ImageController {
 
     @RequestMapping(value="/newupload",method=RequestMethod.POST)
     @ResponseBody
-        public String upload(HttpServletRequest request,String content){
-            String html = request.getParameter("editorValue");
-            request.setAttribute("edit", html);
-            //System.out.println(content);
+    public String upload(HttpServletRequest request,String content){
+        String html = request.getParameter("content");
+        request.setAttribute("edit", html);
+        System.out.println("content:    " + content);
 
-           //试题选项说明，试题解析
-            String qct=request.getParameter("qct");
-            String qso=request.getParameter("qso");
+       //试题选项说明，试题解析
+        String qct=request.getParameter("qct");
+        String qso=request.getParameter("qso");
 
-            //图片url
-            String url = content.split("src=")[1].split("\"")[1];
-            //System.out.println(url);
-        if(!url.equals("")) {
-            String regex="<p.*?>(.*?)</p>";
-            Pattern p=Pattern.compile(regex);
-            Matcher m=p.matcher(content);
-
-            while(m.find()) {
-                String s1=m.group(1);
-                String s2=s1.substring(s1.indexOf("<"),s1.indexOf(">")+1).substring(0);
-                String text=s1.replace(s2,"");
-                //System.out.print(text);
-            }
-
-            Image image = new Image();
-            image.setSrc(url);
-            imageService.add(image);
-        }
-            return "success";
-        }
+        return "success";
+    }
 
     //查询所有图片
     @RequestMapping("/findAll")

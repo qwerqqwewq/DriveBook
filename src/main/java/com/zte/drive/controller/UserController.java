@@ -1,5 +1,6 @@
 package com.zte.drive.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.zte.drive.entity.User;
 import com.zte.drive.service.UserService;
@@ -54,7 +55,7 @@ public class UserController {
             map.put("uid", uid);
             map.put("status", status);
             map.put("msg", msg);
-            return gson.toJson(map);
+            return JSON.toJSONString(map);
         }
         uid = 0;
         status = 0;
@@ -62,7 +63,7 @@ public class UserController {
         map.put("uid", uid);
         map.put("status", status);
         map.put("msg", msg);
-        return gson.toJson(map);
+        return JSON.toJSONString(map);
     }
 
     @RequestMapping("/regist")
