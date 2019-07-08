@@ -4,26 +4,26 @@
 <head>
     <title>上传视频</title>
 
-    <script src="/js/jquery-2.1.4.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
     <script>
         $(function () {
             $("#uploadBtn").click(function () {
-                var urlx = "/video/upload/do";
+                var urlx = "/drive/video/upload/do";
                 var form = $("#uploadForm")[0];
-                log(formData);
+                var formData = new FormData(form);
                 //form的enctype没有设定的时候，需要增加此内容
                 //formData.append(‘file’, $(‘#file’)[0].files[0]);
                 $.ajax({
                     url:urlx,
                     type:'post',
                     data:formData,
-                    //datatype:'json',
+                    datatype:'json',
                     async: false,
                     cache: false,
                     processData: false,
                     contentType: false,
                     success: function (data) {
-                        alert("上传成功" + data)
+                        alert(data.msg)
                     },
                     error:function(hxr,data,error) {
                         alert("ajax失败");
@@ -39,6 +39,12 @@
 <body>
     <form id="uploadForm" enctype="multipart/form-data" method="post" >
         <input type="file" name="uploadFile"> <br>
+        视频标题<input type="text" name="title">
+        <textarea name="intro">此处输入简介</textarea><br>
+        <textarea name="context">此处输入正文</textarea><br>
+        <c:forEach items="${types}" var="type">
+            <input type="radio" name="tid" value="${type.id}">${type.type}，
+        </c:forEach>
         <button id="uploadBtn">上传选择文件</button>
     </form>
 </body>
