@@ -27,7 +27,7 @@ public class UserAnswerTest {
         UserAnswer userAnswer1 = new UserAnswer();
         userAnswer1.setUser(user);
         userAnswer1.setQuestion(question);
-        userAnswer1.setAnswer("测试答案");
+        userAnswer1.setAnswers("测试答案");
         int result1 = userAnswerDao.insert(userAnswer1);
         System.out.println("测试插入用户答案，返回结果为：" + result1);
         System.out.println("插入的用户答案为：" + userAnswer1);
@@ -38,7 +38,7 @@ public class UserAnswerTest {
         userAnswer2.setId(insertId);
         userAnswer2.setUser(user);
         userAnswer2.setQuestion(question);
-        userAnswer2.setAnswer("测试修改答案");
+        userAnswer2.setAnswers("测试修改答案");
         int result2 = userAnswerDao.update(userAnswer2);
         System.out.println("测试修改用户答案，返回结果为：" + result2);
         System.out.println("修改后的用户答案为：" + userAnswer2);

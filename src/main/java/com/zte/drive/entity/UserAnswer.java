@@ -9,14 +9,14 @@ public class UserAnswer {
     private Integer id;
     private User user;
     private Question question;
-    private String answer;
+    private String answers;
 
     public UserAnswer() {
     }
 
-    public UserAnswer(Integer id, String answer, Question question, User user) {
+    public UserAnswer(Integer id, String answers, Question question, User user) {
         this.id = id;
-        this.answer = answer;
+        this.answers = answers;
         this.question = question;
         this.user = user;
     }
@@ -45,12 +45,12 @@ public class UserAnswer {
         this.question = question;
     }
 
-    public String getAnswer() {
-        return answer;
+    public String getAnswers() {
+        return answers;
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public void setAnswers(String answers) {
+        this.answers = answers;
     }
 
     @Override
@@ -59,7 +59,7 @@ public class UserAnswer {
                 "id=" + id +
                 ", user=" + user +
                 ", question=" + question +
-                ", answers='" + answer + '\'' +
+                ", answers='" + answers + '\'' +
                 '}';
     }
 }

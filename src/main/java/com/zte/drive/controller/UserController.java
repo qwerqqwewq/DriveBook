@@ -1,5 +1,6 @@
 package com.zte.drive.controller;
 
+import com.google.gson.Gson;
 import com.zte.drive.entity.User;
 import com.zte.drive.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Author:helloboy
@@ -29,7 +32,13 @@ public class UserController {
     }
 
     @RequestMapping("/login/do")
+    @ResponseBody
     private String checkLogin(HttpServletRequest req,HttpSession session) {
+        Gson gson=new Gson();
+        Map map = new HashMap<>(3);
+        int uid;
+        int status;
+        String msg;
         String username=req.getParameter("name");
         String pwd=req.getParameter("pwd");
 //      System.out.print(username);
@@ -39,9 +48,21 @@ public class UserController {
         // System.out.print(user);
         if ( user != null ) {
             session.setAttribute("user", user);
-            return "user/success";
+            uid = user.getId();
+            status = 1;
+            msg = "登录成功！";
+            map.put("uid", uid);
+            map.put("status", status);
+            map.put("msg", msg);
+            return gson.toJson(map);
         }
-        return "user/fail";
+        uid = 0;
+        status = 0;
+        msg = "用户名不存在或密码不正确！";
+        map.put("uid", uid);
+        map.put("status", status);
+        map.put("msg", msg);
+        return gson.toJson(map);
     }
 
     @RequestMapping("/regist")
@@ -52,13 +73,29 @@ public class UserController {
     @RequestMapping("/regist/do")
     @ResponseBody
     private String doRegist(HttpServletRequest req, HttpSession session) {
-            // 获取用户名和密码
-            String name = req.getParameter("name");
-            String pwd = req.getParameter("pwd");
-            // 调用Service层进行注册
-            int result = userService.regist(name, pwd);
-            User user = userService.findByName(name);
-            session.setAttribute("user", user);
-            return "user/success";
+        Gson gson=new Gson();
+        Map map = new HashMap<>(2);
+        int status;
+        String msg;
+        // 获取用户名和密码
+        String name = req.getParameter("name");
+        String pwd = req.getParameter("pwd");
+        // 调用Service层进行注册
+        int result = userService.regist(name, pwd);
+        // 用户名已存在
+        if ( result == 0 ) {
+            status = 0;
+            msg = "用户名已存在！";
+            map.put("status", status);
+            map.put("msg", msg);
+            return gson.toJson(map);
+        }
+        User user = userService.findByName(name);
+        session.setAttribute("user", user);
+        status = 1;
+        msg = "注册成功！";
+        map.put("status", status);
+        map.put("msg", msg);
+        return gson.toJson(map);
     }
 }

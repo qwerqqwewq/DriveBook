@@ -1,5 +1,6 @@
 package com.zte.drive.dao;
 
+import com.zte.drive.entity.Question;
 import com.zte.drive.entity.User;
 import com.zte.drive.entity.UserAnswer;
 
@@ -45,6 +46,13 @@ public interface UserAnswerDao {
      * @return 用户答案列表
      */
     List<UserAnswer> selectByUser(User user);
+
+    /**
+     * 查询某题目的所有答题情况
+     * @param question
+     * @return 用户答案列表
+     */
+    List<UserAnswer> selectByQuestion(Question question);
 
     /**
      * 根据ID查询某条用户答案
