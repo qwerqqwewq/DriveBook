@@ -161,6 +161,37 @@ public class QuestionController {
         return mav;
     }
 
+    @RequestMapping("/getIds")
+    @ResponseBody
+    Object getIds(@RequestParam(value = "subjectId",required = false)Integer subjectId,/*科目id*/
+                         @RequestParam(value = "tid[]",required = false)Integer[] tid/*类型的id值数组*/) {
+        Map map = new HashMap(2);
+        List<Integer> integers = new ArrayList<>();
+
+        if (subjectId == null && tid == null) {
+            List<QuestionVO> questionVOs = questionService.findAll();
+            for (QuestionVO questionVO : questionVOs) {
+                integers.add(questionVO.getId());
+            }
+        } else {
+            Set<QuestionVO> set = new TreeSet<>();
+            if (subjectId != null) {
+                set.addAll(questionService.findBySubject(new Subject(subjectId, null)));
+            }
+            if (tid != null) {
+                for (int i = 0; i < tid.length; i++) {
+                    set.addAll(questionService.findByType(new Type(tid[i], null)));
+                }
+            }
+            for (QuestionVO questionVO : set) {
+                integers.add(questionVO.getId());
+            }
+        }
+
+        map.put("qids", integers.toArray());
+        return JSON.toJSONString(map);
+    }
+
     @RequestMapping("/{id}")
     ModelAndView singlePage(@PathVariable("id") Integer id) {
         QuestionVO questionVO = questionService.findById(id);
