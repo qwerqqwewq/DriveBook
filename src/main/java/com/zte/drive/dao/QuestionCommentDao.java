@@ -14,10 +14,10 @@ import java.util.List;
 public interface QuestionCommentDao {
     /**
      * 插入某条评论
-     * @param questioncomment
+     * @param questionComment
      * @return 插入行数
      */
-    int insert(QuestionComment questioncomment);
+    int insert(QuestionComment questionComment);
 
     /**
      * 根据评论ID删除某条评论
@@ -47,7 +47,7 @@ public interface QuestionCommentDao {
     List<QuestionComment> selectByQuestion(Question question);
 
     /**
-     * 查询某评论的所有子评论
+     * 查询某评论的所有直接子评论
      * @param questionComment
      * @return 评论列表
      */

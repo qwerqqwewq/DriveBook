@@ -2,16 +2,23 @@ package com.zte.drive.controller;
 
 import com.zte.drive.entity.Image;
 import com.zte.drive.service.ImageService;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Author:helloboy
@@ -23,6 +30,20 @@ import java.util.List;
 public class ImageController {
     @Autowired
     private ImageService imageService;
+
+    @RequestMapping(value="/newupload",method=RequestMethod.POST)
+    @ResponseBody
+        public String upload(HttpServletRequest request,String content){
+            String html = request.getParameter("editorValue");
+            request.setAttribute("edit", html);
+            System.out.println(content);
+            String url = content.split("src=")[1].split("\"")[1];
+            System.out.println(url);
+            Image image=new Image();
+            image.setSrc(url);
+            imageService.add(image);
+            return "success";
+        }
 
     //查询所有图片
     @RequestMapping("/findAll")

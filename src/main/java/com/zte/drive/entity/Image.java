@@ -40,4 +40,5 @@ public class Image {
     public void setSrc(String src) {
         this.src = src;
     }
+
 }

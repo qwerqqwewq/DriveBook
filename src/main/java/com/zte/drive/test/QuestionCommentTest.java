@@ -1,6 +1,7 @@
 package com.zte.drive.test;
 
 import com.zte.drive.dao.QuestionCommentDao;
+import com.zte.drive.dao.QuestionDao;
 import com.zte.drive.entity.Question;
 import com.zte.drive.entity.QuestionComment;
 import com.zte.drive.entity.User;
@@ -10,11 +11,18 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.util.List;
 
 /**
- * Author:helloboy
+ * @author dsf
  * Date:2019-07-03 15:21
  * Description:<描述>
  */
+
+/**
+ * @author lxj
+ * @date 2019年7月5日14:23:35
+ * 对测试类进行了修改，更改层级
+ */
 public class QuestionCommentTest {
+    static QuestionDao questionDao;
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-dao.xml");
         QuestionCommentDao questionCommentDao = (QuestionCommentDao) context.getBean("questionCommentDao");
@@ -23,7 +31,7 @@ public class QuestionCommentTest {
         Question question = new Question();
         question.setId(1);
         QuestionComment questionComment = new QuestionComment();
-        questionComment.setId(1);
+        questionComment.setId(7);
 
 
         // 测试int insert(QuestionComment questioncomment);

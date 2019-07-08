@@ -48,11 +48,17 @@ public interface QuestionService {
     List<QuestionVO> findByType(Type type);
 
     /**
-     *
+     * 根据科目查找题目
      * @param subject 科目bean
      * @return 题目List
      */
     List<QuestionVO> findBySubject(Subject subject);
+
+    /**
+     * 查找所有
+     * @return
+     */
+    List<QuestionVO> findAll();
 
     /**
      * 判断题目是否正确
