@@ -13,16 +13,8 @@ public class Video implements Serializable{
     private String intro;
     private String context;
     private String src;
-    private Type type;
+    private Subject subject;
     public Video() {
-    }
-
-    public Type getType() {
-        return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
     }
 
     @Override
@@ -33,8 +25,16 @@ public class Video implements Serializable{
                 ", intro='" + intro + '\'' +
                 ", context='" + context + '\'' +
                 ", src='" + src + '\'' +
-                ", type=" + type +
+                ", subject=" + subject +
                 '}';
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 
     public Integer getId() {
