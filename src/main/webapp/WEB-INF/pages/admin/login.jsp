@@ -3,7 +3,7 @@
 <head>
     <title>管理员</title>
 </head>
-<body>
+<body >
 
 <%--<button id="load" onclick="window.location.reload('regist.jsp')">注册</button>--%>
 <form action="${pageContext.request.contextPath}/admin/login/do" method="post">
@@ -14,6 +14,5 @@
     <a href="${pageContext.request.contextPath}/admin/regist">
         <button>注册</button>
     </a>
-
 </body>
 </html>

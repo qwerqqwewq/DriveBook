@@ -17,6 +17,7 @@ import java.util.List;
  * Date:2019-07-03 11:17
  * Description:<描述>
  */
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -33,11 +34,11 @@ public class AdminController {
     private String checkLogin(HttpServletRequest req, HttpSession session) {
         String username=req.getParameter("name");
         String pwd=req.getParameter("pwd");
-//      System.out.print(username);
-//      System.out.print(pwd);
-        // 获取用户
+
+        // 获取管理员
         Admin admin = adminService.checkLogin(username, pwd);
         // System.out.print(user);
+
         if ( admin != null ) {
             session.setAttribute("admin", admin);
             return "admin/success";
