@@ -1,7 +1,9 @@
 package com.zte.drive.entity;
 
 
-public class Type {
+import java.io.Serializable;
+
+public class Type implements Serializable{
     private Integer id;
     private String type;
 

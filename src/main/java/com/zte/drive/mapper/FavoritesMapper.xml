@@ -48,12 +48,24 @@
               uid=#{arg0.id} AND id=#{arg1}
                </delete>
 
-       <!--
-      /**
-     * @param uid
-     * @return 收藏列表
-     */
-       -->
+    <!--
+    /**
+  * @param uid,id
+  * @return 删除行数
+  */
+    -->
+    <delete id="deleteall" parameterType="User">
+        DELETE FROM t_favorites
+        WHERE
+        uid=#{id}
+    </delete>
+
+    <!--
+   /**
+  * @param uid
+  * @return 收藏列表
+  */
+    -->
        <select id="select" resultMap="rmf" parameterType="User">
               SELECT
               f.id id,

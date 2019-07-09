@@ -1,5 +1,6 @@
 package com.zte.drive.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.zte.drive.entity.Type;
 import com.zte.drive.service.TypeService;
@@ -64,7 +65,6 @@ public class TypeController {
     @RequestMapping("http://localhost/drive/type/get/all")
     @ResponseBody
     private String getAll() {
-        Gson gson=new Gson();
         Map map = new HashMap<>(2);
         List<Integer> id;
         List<String> type;
@@ -72,7 +72,7 @@ public class TypeController {
         type = typeService.findAllType();
         map.put("id", id);
         map.put("type", type);
-        return gson.toJson(map);
+        return JSON.toJSONString(map);
     }
 
 
