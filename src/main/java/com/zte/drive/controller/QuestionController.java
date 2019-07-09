@@ -194,9 +194,9 @@ public class QuestionController {
             integers.subList(0, num > integers.size() ? integers.size() : num);
         }
 
-        map.put("qids", integers.toArray());
+        map.put("qids", integers);
         return JSON.toJSONString(map);
-    }
+}
 
     @RequestMapping("/{id}")
     ModelAndView singlePage(@PathVariable("id") Integer id) {
