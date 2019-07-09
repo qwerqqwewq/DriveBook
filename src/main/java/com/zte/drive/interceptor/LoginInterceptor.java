@@ -1,57 +1,38 @@
-//package com.zte.drive.interceptor;
-//
-//import org.springframework.web.servlet.HandlerInterceptor;
-//import org.springframework.web.servlet.ModelAndView;
-//
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
-//import javax.servlet.http.HttpSession;
-//
-//
-//public class LoginInterceptor implements HandlerInterceptor {
-//
-//    /**
-//     * Handler执行完成之后调用这个方法
-//     */
-//    @Override
-//    public void afterCompletion(HttpServletRequest request,
-//                                HttpServletResponse response, Object handler, Exception exc)
-//            throws Exception {
-//
-//    }
-//
-//    /**
-//     * Handler执行之后，ModelAndView返回之前调用这个方法
-//     */
-//    @Override
-//    public void postHandle(HttpServletRequest request, HttpServletResponse response,
-//                           Object handler, ModelAndView modelAndView) throws Exception {
-//    }
-//
-//    /**
-//     * Handler执行之前调用这个方法
-//     */
-//    @Override
-//    public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
-//                             Object handler) throws Exception {
-//        //获取请求的URL
-//        String url = request.getRequestURI();
-//        //URL:login.jsp是公开的;这个demo是除了login.jsp是可以公开访问的，其它的URL都进行拦截控制
-//        if(url.indexOf("login.action")>=0){
-//            return true;
-//        }
-//        //获取Session
-//        HttpSession session = request.getSession();
-//        String username = (String)session.getAttribute("username");
-//
-//        if(username != null){
-//            return true;
-//        }
-//        //不符合条件的，跳转到登录界面
-//        request.getRequestDispatcher("/WEB-INF/admin/login.jsp").forward(request, response);
-//
-//        return false;
-//    }
-//
-//}
-//
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+public class LoginInterceptor implements HandlerInterceptor {
+
+    @Override
+    public void afterCompletion(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, Exception arg3)
+            throws Exception {
+        // 执行完毕，返回前拦截
+    }
+
+    @Override
+    public void postHandle(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, ModelAndView arg3)
+            throws Exception {
+        // 在处理过程中，执行拦截
+    }
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object arg2) throws Exception {
+        // 在拦截点执行前拦截，如果返回true则不执行拦截点后的操作（拦截成功）
+        // 返回false则不执行拦截
+        HttpSession session = request.getSession();
+        //String uri = request.getRequestURI(); // 获取登录的uri，这个是不进行拦截的
+        //if(session.getAttribute("LOGIN_USER")!=null || uri.indexOf("system/login")!=-1) {// 说明登录成功 或者 执行登录功能
+        if(session.getAttribute("LOGIN_USER")!=null) {
+            // 登录成功不拦截
+            return true;
+        }else {
+            // 拦截后进入登录页面
+            response.sendRedirect(request.getContextPath()+"/user/login+-");
+            return false;
+        }
+    }
+}
