@@ -164,7 +164,9 @@ public class QuestionController {
     @RequestMapping("/getIds")
     @ResponseBody
     Object getIds(@RequestParam(value = "subjectId",required = false)Integer subjectId,/*科目id*/
-                         @RequestParam(value = "tid[]",required = false)Integer[] tid/*类型的id值数组*/) {
+                  @RequestParam(value = "tid[]",required = false)Integer[] tid/*类型的id值数组*/,
+                  @RequestParam(value = "exam",required = false)Boolean needDash,
+                  @RequestParam(value = "num",required = false) Integer num) {
         Map map = new HashMap(2);
         List<Integer> integers = new ArrayList<>();
 
@@ -186,6 +188,10 @@ public class QuestionController {
             for (QuestionVO questionVO : set) {
                 integers.add(questionVO.getId());
             }
+        }
+        if (needDash) {
+            Collections.shuffle(integers);
+            integers.subList(0, num > integers.size() ? integers.size() : num);
         }
 
         map.put("qids", integers.toArray());
