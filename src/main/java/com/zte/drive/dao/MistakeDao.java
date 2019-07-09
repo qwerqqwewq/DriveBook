@@ -27,6 +27,10 @@ public interface MistakeDao {
      */
       int delete(User user,Integer id);
 
+    /**
+     * 用户删除所有ID
+     */
+      int deleteall(User user);
 
     /**
      *  用户查询其所有错题记录

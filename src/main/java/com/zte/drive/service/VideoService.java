@@ -61,6 +61,6 @@ public interface VideoService {
      * @param file 表单上传来的MultipartFile
      * @return
      */
-    public String uploadVideo(String dirpath, String filename, MultipartFile file);
+    public Integer uploadVideo(String dirpath, String filename, MultipartFile file);
 
 }

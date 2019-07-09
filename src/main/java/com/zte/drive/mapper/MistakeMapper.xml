@@ -51,6 +51,19 @@
               uid=#{arg0.id} AND  id=#{arg1}
                </delete>
 
+    <!--
+       /**
+    *根据用户id删除所有错题记录
+    * @param uid,id
+    * @return 删除行数
+    */
+      -->
+    <delete id="deleteall" parameterType="User">
+        DELETE  FROM
+        t_mistake
+        WHERE
+        uid=#{id}
+    </delete>
 
 
        <!--
@@ -159,12 +172,17 @@
               q.id nqid
               FROM t_mistake m
               LEFT JOIN
+              t_user u
+              ON  m.uid=u.id
+              LEFT JOIN
               t_question q
               ON m.qid=q.id
               WHERE
               m.uid=#{arg0.id}
               AND
-              q.types LIKE CONCAT('%','${arg1}','%')
+              q.types LIKE CONCAT('%',(select id from t_type where type=#{arg1}),'%')
+              OR
+              q.subjectId LIKE CONCAT('%',(select id from t_subject where subject=#{arg1}),'%')
                </select>
 
 

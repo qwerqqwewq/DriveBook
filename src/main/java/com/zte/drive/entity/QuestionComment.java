@@ -1,5 +1,6 @@
 package com.zte.drive.entity;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,7 +11,7 @@ import java.util.Set;
  * @date 2019-07-03 8:40
  * Description:表t_question_comment的实体类
  */
-public class QuestionComment implements Comparable<QuestionComment> {
+public class QuestionComment implements Comparable<QuestionComment>,Serializable {
     private Integer id;
     private User user;
     private Question question;

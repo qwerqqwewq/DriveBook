@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.plaf.synth.SynthEditorPaneUI;
 import java.util.List;
 
 /**
@@ -31,6 +32,11 @@ public class MistakeServiceImpl implements MistakeService {
     @Override
     public int remove(User user, Integer id) {
         return mistakeDao.delete(user,id);
+    }
+
+    @Override
+    public int removeall(User user) {
+        return mistakeDao.deleteall(user);
     }
 
     @Override
@@ -86,8 +92,12 @@ public class MistakeServiceImpl implements MistakeService {
     @Override
     public Mistake findByqid(User user, Integer qid) {
         Mistake mistake=mistakeDao.selectByqid(user,qid);
-        Integer uid=mistake.getQuestion().getId();
-        mistake.setQuestion(questionDao.selectById(uid));
-        return mistake;
+        if(mistake!=null) {
+            Integer uid = mistake.getQuestion().getId();
+            mistake.setQuestion(questionDao.selectById(uid));
+            return mistake;
+        }else{
+            return null;
+        }
     }
 }

@@ -1,11 +1,13 @@
 package com.zte.drive.entity;
 
+import java.io.Serializable;
+
 /**
  * @author 刘煦健
  * Date:2019-07-03 8:30
  * Description: T_VIDEO表实体类
  */
-public class Video {
+public class Video implements Serializable{
     private Integer id;
     private String title;
     private String intro;

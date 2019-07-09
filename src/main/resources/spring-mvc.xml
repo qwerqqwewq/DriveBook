@@ -42,6 +42,47 @@
               <!-- 缓存文件夹-->
               <property name="uploadTempDir" value="fileupload/temp" />
        </bean>
+       
+       <mvc:interceptors>
+              <mvc:interceptor>
+                     <mvc:mapping path="/fav/**"/>
+                     <mvc:mapping path="/mistake/**" />
+                     <mvc:mapping path="/userAnswer/**" />
+                     <mvc:mapping path="/type/**" />
+                     <mvc:mapping path="/questionComment/insert/do" />
+                     <mvc:mapping path="/questionComment/delete/{id}" />
+
+                     <mvc:exclude-mapping path="/user/login" />
+                     <mvc:exclude-mapping path="/user/login/do" />
+                     <mvc:exclude-mapping path="/user/regist" />
+                     <mvc:exclude-mapping path="/user/regist/do" />
+                     <mvc:exclude-mapping path="/question/all" />
+                     <mvc:exclude-mapping path="/question/getIds" />
+                     <mvc:exclude-mapping path="/question/{id}" />
+                     <mvc:exclude-mapping path="/questionComment/all/{id}" />
+                     <mvc:exclude-mapping path="/questionComment/detail/{id}" />
+                     <mvc:exclude-mapping path="/questionComment/user/{id}" />
+                     <bean class="com.zte.drive.interceptor.UserInterceptor" />
+              </mvc:interceptor>
+
+              <mvc:interceptor>
+                     <mvc:mapping path="/video/**"/>
+                     <mvc:mapping path="/image/**" />
+                     <mvc:mapping path="/subject/**" />
+                     <mvc:mapping path="/question/insert/do" />
+                     <mvc:mapping path="/quesiton/delete/do" />
+                     <mvc:mapping path="/question/update/do" />
+
+                     <mvc:exclude-mapping path="/question/all" />
+                     <mvc:exclude-mapping path="/question/getIds" />
+                     <mvc:exclude-mapping path="/question/{id}" />
+                     <mvc:exclude-mapping path="/admin/login" />
+                     <mvc:exclude-mapping path="/admin/regist" />
+                     <mvc:exclude-mapping path="/admin/index/do" />
+                     <mvc:exclude-mapping path="/admin/regist/do" />
+                     <bean class="com.zte.drive.interceptor.AdminInterceptor" />
+              </mvc:interceptor>
+       </mvc:interceptors>
 
        <!--访问静态资源-->
        <mvc:default-servlet-handler/>
