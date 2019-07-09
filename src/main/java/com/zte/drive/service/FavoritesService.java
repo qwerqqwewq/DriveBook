@@ -22,6 +22,13 @@ public interface FavoritesService {
     int remove(User user,Integer id);
 
     /**
+     * @param user,id
+     * @return 删除行数
+     */
+    int removeall(User user);
+
+
+    /**
      * @param user
      * @return 收藏列表
      */

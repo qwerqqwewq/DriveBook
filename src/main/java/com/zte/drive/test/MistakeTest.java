@@ -24,6 +24,7 @@ public class MistakeTest {
         mistakeDao=(MistakeDao)context.getBean("mistakeDao");
         //insert();
         //delete();
+        //deleteall();
          //selectall();
         //selectById();
         //selectByContent();
@@ -38,9 +39,9 @@ public class MistakeTest {
     public static void insert(){
         Mistake mistake=new Mistake();
         User user=new User();
-        user.setId(2);
+        user.setId(1);
         Question question=new Question();
-        question.setId(3);
+        question.setId(2);
         mistake.setUser(user);
         mistake.setQuestion(question);
         mistake.setCreateDate(createDate);
@@ -53,17 +54,25 @@ public class MistakeTest {
      * 测试错题删除
      */
     public static void delete(){
-        Mistake mistake=new Mistake();
        User user=new User();
         user.setId(1);
         Integer id=1;
         int row=mistakeDao.delete(user,id);
         System.out.print("测试删除"+row);
-        System.out.print("测试结果"+mistake);
     }
 
     /**
-     * 测试查询用户所有收藏操作
+     * 测试错题所有删除
+     */
+    public static void deleteall(){
+        User user=new User();
+        user.setId(1);
+        int row=mistakeDao.deleteall(user);
+        System.out.print("测试删除"+row);
+    }
+
+    /**
+     * 测试查询用户所有错题操作
      */
      public static void selectall(){
          User user=new User();
@@ -100,8 +109,8 @@ public class MistakeTest {
 
      public static void selectByType(){
          User user=new User();
-         user.setId(1);
-         String type="1";
+         user.setId(2);
+         String type="科目二";
          List<Mistake> mistakes=mistakeDao.selectByType(user,type);
          System.out.print("测试查询"+mistakes);
      }
@@ -123,7 +132,7 @@ public class MistakeTest {
     public static void selectByqid(){
         User user=new User();
         user.setId(1);
-        Integer qid=1;
+        Integer qid=2;
         Mistake mistake=mistakeDao.selectByqid(user,qid);
         System.out.print("测试查询"+mistake);
         }

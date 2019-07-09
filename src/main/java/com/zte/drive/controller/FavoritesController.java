@@ -1,5 +1,6 @@
 package com.zte.drive.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zte.drive.entity.Favorites;
@@ -7,6 +8,7 @@ import com.zte.drive.entity.Question;
 import com.zte.drive.entity.User;
 import com.zte.drive.service.FavoritesService;
 import com.zte.drive.service.QuestionService;
+import com.zte.drive.service.UserService;
 import com.zte.drive.utils.CurrentDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.jar.JarEntry;
 
 /**
  * @author wzj
@@ -31,6 +36,8 @@ public class FavoritesController {
     private FavoritesService favoritesService;
     @Autowired
     private QuestionService questionService;
+    @Autowired
+    private UserService userService;
 
     private static String createDate= CurrentDate.getCurrentDate();
 
@@ -39,23 +46,33 @@ public class FavoritesController {
      */
     @RequestMapping("/add")
     @ResponseBody
-    public int add(HttpSession session,HttpServletRequest req){
+    public String add(HttpServletRequest req){
+        String msg;
+        int status;
+        Map map=new HashMap<>();
+
+        Integer uid=Integer.valueOf(req.getParameter("uid"));
         Favorites favorites=new Favorites();
-        User user=(User)session.getAttribute("user");
+        User user=userService.findById(uid);
         Integer questionid=Integer.valueOf(req.getParameter("questionId"));
         Question question=questionService.findById(questionid);
         favorites.setQuestion(question);
         favorites.setUser(user);
         favorites.setCreateDate(createDate);
-        int row=1;
         if(favoritesService.findByqid(user,questionid)==null){
-            row=favoritesService.add(favorites);
+            status=1;
+            msg="成功收录";
+            favoritesService.add(favorites);
+            map.put("status",status);
+            map.put("msg",msg);
+            return JSON.toJSONString(map);
         }else{
-            System.out.print("该试题已被收录");
-            row=0;
+            status=0;
+            msg="收录失败";
+            map.put("status",status);
+            map.put("msg",msg);
+            return JSON.toJSONString(map);
         }
-
-        return row;
     }
 
     /**
@@ -63,27 +80,90 @@ public class FavoritesController {
      */
     @RequestMapping("dele")
     @ResponseBody
-    public int dele(HttpSession session,HttpServletRequest req){
-        User user=(User)session.getAttribute("user");
+    public String dele(HttpServletRequest req){
+        String msg;
+        int status;
+        Map map=new HashMap<>();
+        Integer uid=Integer.valueOf(req.getParameter("uid"));
+        User user=userService.findById(uid);
         Integer id=Integer.valueOf(req.getParameter("id"));
         int row=favoritesService.remove(user,id);
-        return row;
+        if(row==1){
+            status=1;
+            msg="删除成功";
+            map.put("status",status);
+            map.put("msg",msg);
+            return JSON.toJSONString(map);
+        }else{
+            status=0;
+            msg="删除失败";
+            map.put("status",status);
+            map.put("msg",msg);
+            return JSON.toJSONString(map);
+        }
     }
+
+    /**
+            * 用户删除所有收藏
+    */
+    @RequestMapping("deleall")
+    @ResponseBody
+    public String deleall(HttpServletRequest req){
+        String msg;
+        int status;
+        Map map=new HashMap<>();
+        Integer uid=Integer.valueOf(req.getParameter("uid"));
+        User user=userService.findById(uid);
+        int row=favoritesService.removeall(user);
+        if(row==1){
+            status=1;
+            msg="删除成功";
+            map.put("status",status);
+            map.put("msg",msg);
+            return JSON.toJSONString(map);
+        }else{
+            status=0;
+            msg="删除失败";
+            map.put("status",status);
+            map.put("msg",msg);
+            return JSON.toJSONString(map);
+        }
+    }
+
 
     /**
      * 查询用户所有收藏
      */
     @RequestMapping("/find")
-    public String find(@RequestParam(value="pageNo",defaultValue = "1")Integer pageNo,  HttpSession session,ModelMap map){
-        Integer pageSize=1;
+    @ResponseBody
+    public String find(@RequestParam(value="pageNo",defaultValue = "1")Integer pageNo,HttpServletRequest req,ModelMap map1){
+        int status;
+        String msg;
+        Map map=new HashMap<>();
+        //Integer pageSize=1;
         //每页显示一条记录
         //分页查询
-        PageHelper.startPage(pageNo, pageSize);
-        User user=(User)session.getAttribute("user");
-        List<Favorites> list=favoritesService.find(user);
-        PageInfo<Favorites> pageInfo=new PageInfo<Favorites>(list);
-        map.addAttribute("pageInfo",pageInfo);
-        return "favorites/listall";
+        //PageHelper.startPage(pageNo, pageSize);
+        Integer uid=Integer.valueOf(req.getParameter("uid"));
+        User user=userService.findById(uid);
+        if(favoritesService.find(user)!=null){
+            status=1;
+            msg="查询成功";
+            map.put("status",status);
+            map.put("msg",msg);
+             List<Favorites> list=favoritesService.find(user);
+             map.put("list",list);
+            return JSON.toJSONString(map);
+        }
+        //PageInfo<Favorites> pageInfo=new PageInfo<Favorites>(list);
+        //map.addAttribute("pageInfo",pageInfo);
+        else{
+            status=0;
+            msg="查询失败";
+            map.put("status",status);
+            map.put("msg",msg);
+            return JSON.toJSONString(map);
+        }
     }
 
     /**
@@ -91,10 +171,27 @@ public class FavoritesController {
      */
     @RequestMapping("/findNum")
     @ResponseBody
-    public List<Favorites> findNum( HttpSession session,HttpServletRequest req){
+    public String findNum(HttpServletRequest req){
+        int status;
+        String msg;
+        Map map=new HashMap<>();
         Integer num=Integer.valueOf(req.getParameter("num"));
-        User user=(User)session.getAttribute("user");
-        List<Favorites> list1=favoritesService.findByNum(user,num);
-        return list1;
+        Integer uid=Integer.valueOf(req.getParameter("uid"));
+        User user=userService.findById(uid);
+        if(favoritesService.findByNum(user,num)!=null){
+            status=1;
+            msg="查询成功";
+            List<Favorites> list=favoritesService.findByNum(user,num);
+            map.put("status",status);
+            map.put("msg",msg);
+            map.put("list",list);
+            return JSON.toJSONString(map);
+        }else{
+            status=0;
+            msg="查询失败";
+            map.put("status",status);
+            map.put("msg",msg);
+            return JSON.toJSONString(map);
+        }
     }
 }

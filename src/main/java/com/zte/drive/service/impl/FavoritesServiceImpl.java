@@ -35,9 +35,18 @@ public class FavoritesServiceImpl implements FavoritesService {
     }
 
     @Override
+    public int removeall(User user) {
+        return favoritesDao.deleteall(user);
+    }
+
+    @Override
     @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
     public List<Favorites> find(User user) {
-        return favoritesDao.select(user);
+        List<Favorites> favorites=favoritesDao.select(user);
+        for(Favorites favorite:favorites){
+            favorite.setQuestion(questionDao.selectById(favorite.getQuestion().getId()));
+        }
+        return favorites;
     }
 
     @Override
@@ -53,8 +62,12 @@ public class FavoritesServiceImpl implements FavoritesService {
     @Override
     public Favorites findByqid(User user, Integer qid) {
         Favorites favorites=favoritesDao.selectByqid(user, qid);
-        Integer uid=favorites.getQuestion().getId();
-        favorites.setQuestion(questionDao.selectById(uid));
-        return favorites;
+        if(favorites!=null) {
+            Integer uid = favorites.getQuestion().getId();
+            favorites.setQuestion(questionDao.selectById(uid));
+            return favorites;
+        }else{
+            return null;
+        }
     }
 }
