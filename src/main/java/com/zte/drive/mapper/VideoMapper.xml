@@ -7,8 +7,8 @@
         <result property="context" column="context" />
         <result property="intro" column="intro" />
         <result property="src" column="src" />
-        <result property="type.id" column="tid" />
-        <result property="type.type" column="type" />
+        <result property="subject.id" column="sid" />
+        <result property="subject.subject" column="subject" />
     </resultMap>
 
     <!-- /**
@@ -19,9 +19,9 @@
     public int insertVideo(Video video);-->
     <insert id="insertVideo" parameterType="Video" keyProperty="id" useGeneratedKeys="true">
         INSERT INTO t_video
-        (title,intro,context,src,tid)
+        (title,intro,context,src,sid)
         VALUES
-        (#{title},#{intro},#{context},#{src},#{type.id});
+        (#{title},#{intro},#{context},#{src},#{subject.id});
     </insert>
 
     <!-- /**
@@ -36,7 +36,7 @@
         title = #{title},
         intro = #{intro},
         context = #{context},
-        tid = #{type.id}
+        sid = #{subject.id}
         WHERE
         id = #{id} ;
     </update>
@@ -61,12 +61,12 @@
         select b.* ,
         (
         SELECT
-        c.type
+        c.subject
         from
-        t_type c
+        t_subject c
         WHERE
-        c.id = b.tid
-        )as type
+        c.id = b.sid
+        )as subject
         from t_video b;
     </select>
 
@@ -81,12 +81,12 @@
         select b.* ,
         (
         SELECT
-        c.type
+        c.subject
         from
-        t_type c
+        t_subject c
         WHERE
-        c.id = b.tid
-        )as type
+        c.id = b.sid
+        )as subject
         from t_video b LIMIT #{start},#{end};
     </select>
 
@@ -100,12 +100,31 @@
         select b.* ,
         (
         SELECT
-        c.type
+        c.subject
         from
-        t_type c
+        t_subject c
         WHERE
-        c.id = b.tid
-        )as type
+        c.id = b.sid
+        )as subject
         from t_video b where b.id=#{id};
+    </select>
+
+    <!-- /**
+     * 根据科目选择视频
+     * @param subject 科目
+     * @return
+     */
+    public List<Video> selectBySubject(Subject subject);-->
+    <select id="selectBySubject" parameterType="Subject" resultMap="rsm">
+        select b.* ,
+        (
+        SELECT
+        c.subject
+        from
+        t_subject c
+        WHERE
+        c.id = b.sid
+        )as subject
+        from t_video b where b.sid=#{id}
     </select>
 </mapper>

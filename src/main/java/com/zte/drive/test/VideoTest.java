@@ -1,7 +1,7 @@
 package com.zte.drive.test;
 
 import com.zte.drive.dao.VideoDao;
-import com.zte.drive.entity.Type;
+import com.zte.drive.entity.Subject;
 import com.zte.drive.entity.Video;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -48,7 +48,7 @@ public class VideoTest {
         video.setContext("测试内容");
         video.setIntro("测试简介");
         video.setSrc("测试路径");
-        video.setType(new Type(2,null));
+        video.setSubject(new Subject(2, null));
         int row = videoDao.insertVideo(video);
         System.out.println("测试插入----返回结果 " + row);
         System.out.println("测试插入----参数变化 " + video);
@@ -61,7 +61,7 @@ public class VideoTest {
         video.setTitle("测试修改标题");
         video.setContext("测试修改内容");
         video.setIntro("测试修改简介");
-        video.setType(new Type(3,null));
+        video.setSubject(new Subject(2, null));
         video.setId(justInsertId);
 
         int row = videoDao.updateVideo(video);
