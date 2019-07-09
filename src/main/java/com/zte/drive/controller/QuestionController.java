@@ -200,6 +200,13 @@ public class QuestionController {
         return mav;
     }
 
+    @RequestMapping("/get/{id}")
+    Object singleObject(@PathVariable("id") Integer id) {
+        QuestionVO questionVO = questionService.findById(id);
+
+        return JSON.toJSONString(questionVO);
+    }
+
     @ModelAttribute("types")
     List<Type> types() {
         return typeService.findAll();
