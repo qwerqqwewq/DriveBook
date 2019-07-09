@@ -135,6 +135,7 @@ public class UserAnswerController {
             if (isCorrect) {
                 correctNum++;
             } else {
+                // 回答错误，将该题加入错题集
                 Mistake mistake = new Mistake();
                 mistake.setUser(user);
                 mistake.setCreateDate(CurrentDate.getCurrentDate());
