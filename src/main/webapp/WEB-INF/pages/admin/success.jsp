@@ -2,10 +2,19 @@
 <html>
 <head>
     <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <style>
+        .c{
+            background-image:url('${pageContext.request.contextPath}/images/bg3.jpg');
+            background-repeat: no-repeat;
+            height:100%;
+            width:100%;
+        }
+    </style>
 </head>
-<body>
+<body   class="c">
 操作成功！
-<a href="${pageContext.request.contextPath}/video/upload">上传题目</a>
+<a href="${pageContext.request.contextPath}/question/insert">上传题目</a>
 <a href="${pageContext.request.contextPath}/image/upload">上传图片</a>
 <a href="${pageContext.request.contextPath}/video/upload">上传视频</a>
 
