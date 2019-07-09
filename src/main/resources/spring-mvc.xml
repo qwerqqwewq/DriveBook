@@ -69,13 +69,10 @@
                      <mvc:mapping path="/video/**"/>
                      <mvc:mapping path="/image/**" />
                      <mvc:mapping path="/subject/**" />
-                     <mvc:mapping path="/question/insert/do" />
-                     <mvc:mapping path="/quesiton/delete/do" />
-                     <mvc:mapping path="/question/update/do" />
+                     <mvc:mapping path="/question/insert" />
+                     <mvc:mapping path="/quesiton/delete" />
+                     <mvc:mapping path="/question/update" />
 
-                     <mvc:exclude-mapping path="/question/all" />
-                     <mvc:exclude-mapping path="/question/getIds" />
-                     <mvc:exclude-mapping path="/question/{id}" />
                      <mvc:exclude-mapping path="/admin/login" />
                      <mvc:exclude-mapping path="/admin/regist" />
                      <mvc:exclude-mapping path="/admin/index/do" />
