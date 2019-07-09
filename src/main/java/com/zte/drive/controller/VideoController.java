@@ -1,6 +1,7 @@
 package com.zte.drive.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.zte.drive.entity.Subject;
 import com.zte.drive.entity.Type;
 import com.zte.drive.entity.Video;
 import com.zte.drive.service.TypeService;
@@ -66,7 +67,7 @@ public class VideoController {
                                 @RequestParam("intro") String intro,
                                 @RequestParam("context") String context,
                                 @RequestParam("title") String title,
-                                @RequestParam("tid") Integer tid,
+                                @RequestParam("sid") Integer sid,
                                 HttpServletRequest request) {
 
         String dirpath = request.getServletContext().getRealPath("fileupload");
@@ -84,7 +85,7 @@ public class VideoController {
             return JSON.toJSONString(map);
         }
         Video video = new Video();
-        video.setType(new Type(tid,null));
+        video.setSubject(new Subject(sid,null));
         video.setIntro(intro);
         video.setContext(context);
         video.setTitle(title);

@@ -1,5 +1,6 @@
 package com.zte.drive.dao;
 
+import com.zte.drive.entity.Subject;
 import com.zte.drive.entity.Video;
 import org.apache.ibatis.annotations.Param;
 
@@ -52,5 +53,12 @@ public interface VideoDao {
      * @return 视频
      */
     public Video selectById(Integer id);
+
+    /**
+     * 根据科目选择视频
+     * @param subject 科目
+     * @return
+     */
+    public List<Video> selectBySubject(Subject subject);
 
 }
