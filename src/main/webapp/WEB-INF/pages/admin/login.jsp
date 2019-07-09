@@ -14,5 +14,6 @@
     <a href="${pageContext.request.contextPath}/admin/regist">
         <button>注册</button>
     </a>
-</body>
+
 </html>
+</body>
