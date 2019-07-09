@@ -7,10 +7,7 @@ import com.zte.drive.service.TypeService;
 import com.zte.drive.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,6 +40,25 @@ public class VideoController {
     List<Type> getTypes() {
         return typeService.findAll();
     }
+
+    @RequestMapping("/all")
+    @ResponseBody
+    Object getAll() {
+        Map map = new HashMap(1);
+        List<Video> videos = videoService.findAll();
+        map.put("videos", videos);
+        return JSON.toJSONString(map);
+    }
+
+    @RequestMapping("/{id}")
+    @ResponseBody
+    Object getOne(@PathVariable("id") Integer id) {
+        Map map = new HashMap(1);
+        Video video = videoService.findById(id);
+        map.put("video", video);
+        return JSON.toJSONString(map);
+    }
+
 
     @RequestMapping("/upload/do")
     @ResponseBody
