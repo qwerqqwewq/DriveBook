@@ -83,7 +83,7 @@ public class QuestionCommentController {
     Object findByQuestion(@PathVariable("id") Integer qid) {
         Question question = new Question();
         question.setId(qid);
-        List<QuestionComment> questionComments = questionCommentService.findByQuestion(question,5);
+        List<QuestionComment> questionComments = questionCommentService.findByQuestion(question,0);
         int status = questionComments.size();
         Map map = new HashMap(2);
         map.put("status", status);
