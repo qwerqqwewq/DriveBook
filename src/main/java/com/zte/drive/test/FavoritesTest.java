@@ -21,59 +21,64 @@ public class FavoritesTest {
     public static void main(String[] args) {
         ApplicationContext context=new ClassPathXmlApplicationContext(path);
         favoritesDao=(FavoritesDao)context.getBean("favoritesDao");
-        //insert();
-        //delete();
+        System.out.println("插入：");
+        insert();
+        System.out.println("查询所有：");
+        selectall();
+        System.out.println("查询前几条：");
+        selectByNum();
+        System.out.println("删除：");
+        delete();
+        System.out.println("删除所有：");
         deleteall();
-        //selectall();
-        //selectByNum();
     }
 
     //测试增加
     public static void insert(){
         Favorites favorites=new Favorites();
         User user=new User();
-        user.setId(1);
+        user.setId(2);
         Question question=new Question();
-        question.setId(2);
+        question.setId(3);
         favorites.setCreateDate(createDate);
         favorites.setQuestion(question);
         favorites.setUser(user);
         int row=favoritesDao.insert(favorites);
-        System.out.print(row);
+        System.out.println(row);
     }
 
     //测试删除
     public static  void delete(){
         User user=new User();
-        user.setId(1);
+        user.setId(2);
         Integer id=2;
         int row=favoritesDao.delete(user,id);
-        System.out.print(row);
+        System.out.println(row);
     }
 
     //测试删除个人所有收藏
     public static  void deleteall(){
         User user=new User();
-        user.setId(1);
+        user.setId(2);
         int row=favoritesDao.deleteall(user);
-        System.out.print(row);
+        System.out.println(row);
     }
 
     //测试查询
     public static void selectall(){
         User user=new User();
-        user.setId(1);
+        user.setId(2);
         List<Favorites> list=favoritesDao.select(user);
-        System.out.print(list);
+        System.out.println(list);
     }
 
     //测试收藏的前几条数据
     public static void selectByNum(){
         User user=new User();
-        user.setId(1);
+        user.setId(2);
         Integer num=3;
        List<Favorites> list=favoritesDao.selectByNum(user,num);
-        System.out.print(list);
+        System.out.println(list);
     }
     /**
      *测试用户根据试题Id查询错题记录
@@ -81,9 +86,9 @@ public class FavoritesTest {
 
     public static void selectByqid(){
         User user=new User();
-        user.setId(1);
-        Integer qid=1;
+        user.setId(2);
+        Integer qid=3;
         Favorites mistake=favoritesDao.selectByqid(user,qid);
-        System.out.print("测试查询"+mistake);
+        System.out.println("测试查询"+mistake);
     }
 }
