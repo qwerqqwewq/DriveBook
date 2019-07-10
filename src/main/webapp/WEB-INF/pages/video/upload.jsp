@@ -13,11 +13,11 @@
     <script>
         $(function () {
             $("#uploadBtn").click(function () {
-                var urlx = "/drive/video/upload/do";
+                var urlx = "${pageContext.request.contextPath}/video/upload/do";
                 var form = $("#uploadForm")[0];
                 var formData = new FormData(form);
                 //form的enctype没有设定的时候，需要增加此内容
-                //formData.append(‘file’, $(‘#file’)[0].files[0]);
+                formData.append('file', $('#file')[0].files[0]);
                 $.ajax({
                     url:urlx,
                     type:'post',
@@ -32,6 +32,9 @@
                     },
                     error:function(hxr,data,error) {
                         alert("ajax失败");
+                        alert(error);
+                        alert(data);
+                        alert(hxr);
                     }
 
                 });
@@ -42,15 +45,16 @@
     </script>
 </head>
 <body   class="c">
-    <form id="uploadForm" enctype="multipart/form-data" method="post" >
-        <input type="file" name="uploadFile"> <br>
-        视频标题<input type="text" name="title">
+    <form enctype="multipart/form-data" id="uploadForm"  method="post" >
+        <input id = "file" type="file" name="uploadFile"> <br>
+        视频标题<input type="text" name="title"><br>
         <textarea name="intro">此处输入简介</textarea><br>
         <textarea name="context">此处输入正文</textarea><br>
         <c:forEach items="${subjects}" var="subject">
-            <input type="radio" name="tid" value="${subject.id}">${subject.subject}，
+            <input type="radio" name="sid" value="${subject.id}">${subject.subject}，
         </c:forEach>
-        <button id="uploadBtn">上传选择文件</button>
     </form>
+    <button id="uploadBtn">上传选择文件</button>
+
 </body>
 </html>

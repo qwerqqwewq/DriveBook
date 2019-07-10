@@ -1,5 +1,6 @@
 package com.zte.drive.service;
 
+import com.zte.drive.entity.Subject;
 import com.zte.drive.entity.Video;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -62,5 +63,12 @@ public interface VideoService {
      * @return
      */
     public Integer uploadVideo(String dirpath, String filename, MultipartFile file);
+
+    /**
+     * 根据subject查找video
+     * @param subject 科目
+     * @return
+     */
+    List<Video> findBySubject(Subject subject);
 
 }

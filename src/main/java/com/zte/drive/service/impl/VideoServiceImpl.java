@@ -1,6 +1,7 @@
 package com.zte.drive.service.impl;
 
 import com.zte.drive.dao.VideoDao;
+import com.zte.drive.entity.Subject;
 import com.zte.drive.entity.Video;
 import com.zte.drive.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,5 +79,10 @@ public class VideoServiceImpl implements VideoService {
 
         //返回操作信息
         return integer;
+    }
+
+    @Override
+    public List<Video> findBySubject(Subject subject) {
+        return videoDao.selectBySubject(subject);
     }
 }
