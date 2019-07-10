@@ -6,10 +6,10 @@
     <style>
         .c{
             background-image:url('${pageContext.request.contextPath}/images/bg3.jpg');
-            background-repeat: no-repeat;
-            height:100%;
-            width:100%;
+            background-size:cover;
+
         }
+
     </style>
 </head>
 <body   class="c">
