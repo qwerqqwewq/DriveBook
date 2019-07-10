@@ -47,8 +47,8 @@
         视频标题<input type="text" name="title">
         <textarea name="intro">此处输入简介</textarea><br>
         <textarea name="context">此处输入正文</textarea><br>
-        <c:forEach items="${types}" var="type">
-            <input type="radio" name="tid" value="${type.id}">${type.type}，
+        <c:forEach items="${subjects}" var="subject">
+            <input type="radio" name="tid" value="${subject.id}">${subject.subject}，
         </c:forEach>
         <button id="uploadBtn">上传选择文件</button>
     </form>

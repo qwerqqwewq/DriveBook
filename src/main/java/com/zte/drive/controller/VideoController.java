@@ -2,9 +2,8 @@ package com.zte.drive.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.zte.drive.entity.Subject;
-import com.zte.drive.entity.Type;
 import com.zte.drive.entity.Video;
-import com.zte.drive.service.TypeService;
+import com.zte.drive.service.SubjectService;
 import com.zte.drive.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +28,7 @@ public class VideoController {
     @Autowired
     private VideoService videoService;
     @Autowired
-    private TypeService typeService;
+    private SubjectService subjectService;
 
     @RequestMapping("/upload")
     private String uploadPage() {
@@ -37,9 +36,9 @@ public class VideoController {
         return "video/upload";
     }
 
-    @ModelAttribute("types")
-    List<Type> getTypes() {
-        return typeService.findAll();
+    @ModelAttribute("subjects")
+    List<Subject> getTypes() {
+        return subjectService.findAll();
     }
 
     @RequestMapping("/all")
