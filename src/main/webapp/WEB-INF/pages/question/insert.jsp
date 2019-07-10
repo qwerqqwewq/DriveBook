@@ -9,6 +9,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <style>
+        .c{
+            background-image:url('${pageContext.request.contextPath}/images/bg3.jpg');
+            background-size:cover;
+        }
+    </style>
     <title>插入试题</title>
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
     <base href="<%=basePath%>">
@@ -153,7 +159,7 @@
 
 
 </head>
-<body>
+<body   class="c">
 
 
 

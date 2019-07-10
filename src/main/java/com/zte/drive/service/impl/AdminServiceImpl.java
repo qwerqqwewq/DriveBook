@@ -69,11 +69,16 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public int regist(String name, String pwd) {
-        Admin admin = new Admin();
-        admin.setName(name);
-        admin.setPwd(pwd);
-        admin.setRegistDate(CurrentDate.getCurrentDate());
-        return adminDao.insertAdmin(admin);
+        Admin check = adminDao.selectByName(name);
+        if ( check == null ) {
+            Admin admin = new Admin();
+            admin.setName(name);
+            admin.setPwd(pwd);
+            admin.setRegistDate(CurrentDate.getCurrentDate());
+            return adminDao.insertAdmin(admin);
+        } else {
+            return 0;
+        }
     }
 
 }

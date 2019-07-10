@@ -2,14 +2,14 @@ package com.zte.drive.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.zte.drive.entity.Subject;
-import com.zte.drive.entity.Type;
 import com.zte.drive.entity.Video;
-import com.zte.drive.service.TypeService;
+import com.zte.drive.service.SubjectService;
 import com.zte.drive.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
@@ -29,7 +29,7 @@ public class VideoController {
     @Autowired
     private VideoService videoService;
     @Autowired
-    private TypeService typeService;
+    private SubjectService subjectService;
 
     @RequestMapping("/upload")
     private String uploadPage() {
@@ -37,9 +37,9 @@ public class VideoController {
         return "video/upload";
     }
 
-    @ModelAttribute("types")
-    List<Type> getTypes() {
-        return typeService.findAll();
+    @ModelAttribute("subjects")
+    List<Subject> getTypes() {
+        return subjectService.findAll();
     }
 
     @RequestMapping("/all")
@@ -51,7 +51,7 @@ public class VideoController {
         return JSON.toJSONString(map);
     }
 
-    @RequestMapping("/{id}")
+    @RequestMapping("/get/{id}")
     @ResponseBody
     Object getOne(@PathVariable("id") Integer id) {
         Map map = new HashMap(1);
@@ -89,7 +89,7 @@ public class VideoController {
         video.setIntro(intro);
         video.setContext(context);
         video.setTitle(title);
-        String src = "/drive/fileupload/video" + subdir;
+        String src = "/drive/fileupload/video" + subdir +"/" +  filename;
 
         video.setSrc(src);
         status = videoService.addVideo(video);
@@ -102,6 +102,13 @@ public class VideoController {
         }
 
         return JSON.toJSONString(map);
+    }
+
+    @RequestMapping("/{sid}")
+    ModelAndView getVideoBySubject(@PathVariable("sid") Integer sid) {
+        ModelAndView mav = new ModelAndView("video/subject");
+        mav.addObject("videos", videoService.findBySubject(new Subject(sid, null)));
+        return mav;
     }
 
 }

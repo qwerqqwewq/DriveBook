@@ -2,11 +2,11 @@ package com.zte.drive.controller;
 
 import com.zte.drive.entity.Admin;
 import com.zte.drive.service.AdminService;
+import com.zte.drive.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,6 +17,7 @@ import java.util.List;
  * Date:2019-07-03 11:17
  * Description:<描述>
  */
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -33,11 +34,13 @@ public class AdminController {
     private String checkLogin(HttpServletRequest req, HttpSession session) {
         String username=req.getParameter("name");
         String pwd=req.getParameter("pwd");
-//      System.out.print(username);
-//      System.out.print(pwd);
-        // 获取用户
-        Admin admin = adminService.checkLogin(username, pwd);
+
+        String MD5Pwd = MD5Util.MD5Encode(pwd);
+
+        // 获取管理员
+        Admin admin = adminService.checkLogin(username, MD5Pwd);
         // System.out.print(user);
+
         if ( admin != null ) {
             session.setAttribute("admin", admin);
             return "admin/success";
@@ -51,16 +54,21 @@ public class AdminController {
     }
 
     @RequestMapping("/regist/do")
-    @ResponseBody
     private String doRegist(HttpServletRequest req, HttpSession session) {
         // 获取用户名和密码
         String name = req.getParameter("name");
         String pwd = req.getParameter("pwd");
         // 调用Service层进行注册
-        int result = adminService.regist(name, pwd);
-        Admin admin = adminService.findByName(name);
-        session.setAttribute("admin", admin);
-        return "admin/success";
+        String MD5Pwd = MD5Util.MD5Encode(pwd);
+        int result = adminService.regist(name, MD5Pwd);
+        if ( result > 0 ) {
+            Admin admin = adminService.findByName(name);
+            session.setAttribute("admin", admin);
+            return "/admin/login";
+        }
+        else {
+            return "/admin/fail";
+        }
     }
 
 

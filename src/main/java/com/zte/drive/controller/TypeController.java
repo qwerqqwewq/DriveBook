@@ -74,9 +74,6 @@ public class TypeController {
         map.put("type", type);
         return JSON.toJSONString(map);
     }
-
-
-
 }
 
 
