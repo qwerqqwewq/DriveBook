@@ -7,9 +7,7 @@
         .c{
             background-image:url('${pageContext.request.contextPath}/images/bg3.jpg');
             background-size:cover;
-
         }
-
     </style>
 </head>
 <body   class="c">
