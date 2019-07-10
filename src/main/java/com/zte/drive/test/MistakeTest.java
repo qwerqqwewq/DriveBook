@@ -3,7 +3,6 @@ package com.zte.drive.test;
 import com.zte.drive.dao.MistakeDao;
 import com.zte.drive.entity.Mistake;
 import com.zte.drive.entity.Question;
-import com.zte.drive.entity.Type;
 import com.zte.drive.entity.User;
 import com.zte.drive.utils.CurrentDate;
 import org.springframework.context.ApplicationContext;
@@ -22,15 +21,15 @@ public class MistakeTest {
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext(path);
         mistakeDao=(MistakeDao)context.getBean("mistakeDao");
-        //insert();
-        //delete();
-        //deleteall();
-         //selectall();
-        //selectById();
-        //selectByContent();
-        //selectByType();
-        //selectByDate();
+        insert();
+        selectall();
+        selectById();
+        selectByContent();
+        selectByType();
+        selectByDate();
         selectByqid();
+        delete();
+        deleteall();
     }
 
     /**
@@ -39,15 +38,15 @@ public class MistakeTest {
     public static void insert(){
         Mistake mistake=new Mistake();
         User user=new User();
-        user.setId(1);
+        user.setId(2);
         Question question=new Question();
-        question.setId(2);
+        question.setId(3);
         mistake.setUser(user);
         mistake.setQuestion(question);
         mistake.setCreateDate(createDate);
         int row=mistakeDao.insert(mistake);
-        System.out.print("测试插入"+row);
-        System.out.print("测试结果"+mistake);
+        System.out.println("测试插入"+row);
+        System.out.println("测试结果"+mistake);
     }
 
     /**
@@ -55,10 +54,10 @@ public class MistakeTest {
      */
     public static void delete(){
        User user=new User();
-        user.setId(1);
-        Integer id=1;
+        user.setId(2);
+        Integer id=2;
         int row=mistakeDao.delete(user,id);
-        System.out.print("测试删除"+row);
+        System.out.println("测试删除"+row);
     }
 
     /**
@@ -66,9 +65,9 @@ public class MistakeTest {
      */
     public static void deleteall(){
         User user=new User();
-        user.setId(1);
+        user.setId(2);
         int row=mistakeDao.deleteall(user);
-        System.out.print("测试删除"+row);
+        System.out.println("测试删除"+row);
     }
 
     /**
@@ -76,9 +75,9 @@ public class MistakeTest {
      */
      public static void selectall(){
          User user=new User();
-         user.setId(1);
+         user.setId(2);
          List<Mistake> list=mistakeDao.selectall(user);
-         System.out.print("测试查询"+list);
+         System.out.println("测试查询"+list);
          }
 
     /**
@@ -89,7 +88,7 @@ public class MistakeTest {
         user.setId(2);
         Integer id=3;
         Mistake mistake=mistakeDao.selectById(user,id);
-        System.out.print("测试结果为"+mistake);
+        System.out.println("测试结果为"+mistake);
     }
 
     /**
@@ -100,7 +99,7 @@ public class MistakeTest {
         user.setId(2);
         String content="S";
         List<Mistake> list=mistakeDao.selectByContent(user, content);
-        System.out.print("测试查询"+list);
+        System.out.println("测试查询"+list);
     }
 
     /**
@@ -112,7 +111,7 @@ public class MistakeTest {
          user.setId(2);
          String type="科目二";
          List<Mistake> mistakes=mistakeDao.selectByType(user,type);
-         System.out.print("测试查询"+mistakes);
+         System.out.println("测试查询"+mistakes);
      }
 
     /**
@@ -120,10 +119,10 @@ public class MistakeTest {
      */
     public static void selectByDate(){
         User user=new User();
-        user.setId(1);
+        user.setId(2);
         Integer num=1;
         List<Mistake> list=mistakeDao.selectByTime(user,num);
-        System.out.print("测试查询"+list);
+        System.out.println("测试查询"+list);
     }
 
     /**
@@ -131,9 +130,9 @@ public class MistakeTest {
      */
     public static void selectByqid(){
         User user=new User();
-        user.setId(1);
-        Integer qid=2;
+        user.setId(2);
+        Integer qid=3;
         Mistake mistake=mistakeDao.selectByqid(user,qid);
-        System.out.print("测试查询"+mistake);
-        }
+        System.out.println("测试查询"+mistake);
     }
+}

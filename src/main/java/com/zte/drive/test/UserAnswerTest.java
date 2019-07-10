@@ -21,7 +21,7 @@ public class UserAnswerTest {
         User user = new User();
         user.setId(2);
         Question question = new Question();
-        question.setId(1);
+        question.setId(3);
 
         // 测试insert(UserAnswer userAnswer);
         UserAnswer userAnswer1 = new UserAnswer();
@@ -75,8 +75,8 @@ public class UserAnswerTest {
         System.out.println(userAnswer4);
 
         // 测试Integer selectQuesitonNum(User user);
-        int result = userAnswerDao.selectQuesitonNum(user);
-        System.out.println("答题数为："+ result);
+//        int result = userAnswerDao.selectQuesitonNum(user);
+//        System.out.println("答题数为："+ result);
 
     }
 }

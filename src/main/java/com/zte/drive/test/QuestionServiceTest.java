@@ -5,6 +5,8 @@ import com.zte.drive.entity.Question;
 import com.zte.drive.entity.Subject;
 import com.zte.drive.entity.Type;
 import com.zte.drive.vo.QuestionVO;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,22 +20,22 @@ public class QuestionServiceTest {
     private static QuestionDao questionDao;
 
     public static void main(String[] args) {
-//        ApplicationContext context = new ClassPathXmlApplicationContext("spring-dao.xml");
-//        questionDao = (QuestionDao) context.getBean("questionDao");
-        //成功
-//        addTest();
-//        updateTest();
-
-        //成功
-//        deleteTest();
-        //成功
-//        selectById();
-//        selectByTypeTest();
-//        selectAllTest();
-//        selectBySubjectTest();
-
-        //成功
-//        checkAnswerTest();
+        ApplicationContext context = new ClassPathXmlApplicationContext("spring-dao.xml");
+        questionDao = (QuestionDao) context.getBean("questionDao");
+//        成功
+        addTest();
+        updateTest();
+//
+//        成功
+        deleteTest();
+//        成功
+        selectById();
+        selectByTypeTest();
+        selectAllTest();
+        selectBySubjectTest();
+//
+//        成功
+        checkAnswerTest();
 
         Question question = new Question();
         List<Type> types = new ArrayList<>();

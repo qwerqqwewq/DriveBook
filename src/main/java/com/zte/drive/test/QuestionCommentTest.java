@@ -27,11 +27,11 @@ public class QuestionCommentTest {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-dao.xml");
         QuestionCommentDao questionCommentDao = (QuestionCommentDao) context.getBean("questionCommentDao");
         User user = new User();
-        user.setId(1);
+        user.setId(2);
         Question question = new Question();
-        question.setId(1);
+        question.setId(3);
         QuestionComment questionComment = new QuestionComment();
-        questionComment.setId(7);
+        questionComment.setId(1);
 
 
         // 测试int insert(QuestionComment questioncomment);
