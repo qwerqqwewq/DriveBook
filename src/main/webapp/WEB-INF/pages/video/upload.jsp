@@ -3,7 +3,12 @@
 <html>
 <head>
     <title>上传视频</title>
-
+    <style>
+        .c{
+            background-image:url('${pageContext.request.contextPath}/images/bg3.jpg');
+            background-size:cover;
+        }
+    </style>
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
     <script>
         $(function () {
@@ -36,7 +41,7 @@
         });
     </script>
 </head>
-<body>
+<body   class="c">
     <form id="uploadForm" enctype="multipart/form-data" method="post" >
         <input type="file" name="uploadFile"> <br>
         视频标题<input type="text" name="title">
