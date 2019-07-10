@@ -207,6 +207,7 @@ public class QuestionController {
     }
 
     @RequestMapping("/get/{id}")
+    @ResponseBody
     Object singleObject(@PathVariable("id") Integer id) {
         QuestionVO questionVO = questionService.findById(id);
 
