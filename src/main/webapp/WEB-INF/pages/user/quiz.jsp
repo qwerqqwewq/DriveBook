@@ -124,6 +124,31 @@
                 comment(null,val);
             });
 
+            $("#addCollection").click(function () {
+                var qid = <c:out value="${question.id}" />;
+                var uid = <c:out value="${sessionScope.user.id}" />;
+                $.ajax({
+                    url:'/drive/fav/add',
+                    type:'post',
+                    datatype:'json',
+                    data:
+                    {
+                        'questionId':qid,
+                        'uid':uid
+                    },
+                    success:function(data) {
+                        if(data.status>0) {
+                            alert("收藏成功");
+                        }else {
+                            alert("已经在收藏夹里啦~");
+                        }
+                    },
+                    error: function () {
+                        alert("收藏失败！请检查网络设置！");
+                    }
+                });
+            });
+
 
         });
 
@@ -325,6 +350,10 @@
             ${question.resolve}
         </div>
     </div><br><br>
+
+    <div>
+        <button class="button" id="addCollection">添加到收藏夹</button>
+    </div>
 
     <div id = "myComment" style="display:none">
         <b>我的评论</b><br>
