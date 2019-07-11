@@ -4,19 +4,48 @@
 <head>
     <title>正在回答题目</title>
     <style>
+        .c{
+            background-image:url('${pageContext.request.contextPath}/images/bg5.jpg');
+            background-size:cover;
+        }
+        .button{
+            background-color: #2D64B3;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 5px;
+            margin:10px 5px 15px 20px;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        }
+        .quiz{
+            text-align: left;
+            margin: 50px 50px 50px 50px;
+        }
         .content{
-
+            font-size: 14pt;
         }
 
         .type{
             font-size : 14pt;
-            font-weight : bold;
             font-style : normal;
         }
 
         .sub{
             font-size : 10pt;
             font-weight: normal;
+        }
+
+        .text{
+            border:0;
+            border-radius:5px;
+            background-color:white;
+            width: 355px;
+            height: 50px;
+            padding: 10px;
+            resize: none;
         }
 
         .bold{
@@ -166,7 +195,7 @@
                         //如果评论个数不为0
                         var comments = data.comments;
                         //添加回复ta按钮模板，commentButtonTemplate cbtnt
-                        var cbtnt = $("<button>回复ta</button>");
+                        var cbtnt = $("<button class='button'>回复ta</button>");
                         //点击时创建文本框，同时添加到某个对象下，评论的question的id为pid
                         //通过cbtnt.click(data,createTextArea);
 
@@ -178,13 +207,13 @@
                             var comment = comments[i];
                             //添加内容
                             var pp = $("<div></div>");
-                            var user = $("<span></span>").html(comment.user.name+"在"
+                            var user = $("<span></span>").html(comment.user.name+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
                                                                 +comment.commentDate+
-                                                                "时候，评论了<br>");
-                            var cc = $("<span></span>").html(comment.content);
+                                                                "<br>");
+                            var cc = $("<span></span>").html(comment.content+"<br>");
                             //添加元素
-                            pp.append(user);
                             pp.append(cc);
+                            pp.append(user);
                             pp.addClass("type");
 
                             //创建它的评论选框
@@ -193,7 +222,7 @@
                             var tt = $("<textarea name='"+i+"subContent'>输入评论内容</textarea>");
 
                             //提交评论按钮
-                            var ttsubmit = $("<button>提交评论</button>");
+                            var ttsubmit = $("<button class='button'>提交评论</button>");
                             ttsubmit.attr("onclick","makeComment("+comment.id+",this)");
 
 
@@ -207,9 +236,6 @@
                             //创建按钮
                             var cbtn = cbtnt.clone();
                             cbtn.attr("onclick", "show(this)");
-
-
-
                             pp.append(cbtn);
 
 
@@ -224,15 +250,15 @@
                                 //显示子评论
                                 var subComment = subComments[j];
                                 var subUser = $("<span></span>").html(subComment.user.name
-                                        +"在"
+                                        +"  "
                                         +subComment.commentDate
-                                        +"时候，评论了"
+                                        +"  "
                                         +subComment.questionComment.user.name
                                         +"<br>");
-                                var scc = $("<span></span>").html(subComment.content);
+                                var scc = $("<span></span>").html(subComment.content+"<br>");
                                 var sc = $("<div></div>");
-                                sc.append(subUser);
                                 sc.append(scc);
+                                sc.append(subUser);
                                 //创建它的评论选框
                                 var scommentArea = $("<div id='"+i+"ca'></div>").addClass("commentArea");
 
@@ -267,45 +293,45 @@
 
     </script>
 </head>
-<body>
-<div style="width: 100%;height: 50px;font-size:15px;color: #000;line-height: 50px;padding-left: 20px;">
-    <div style="color:#FFF;background: red;width: 22px;height: 22px;border-radius:11px;line-height:22px;font-size:13px; text-align: center;">
-        <img src="${pageContext.request.contextPath}/css/t.jpg" style="color:#FFF;background: red;width: 22px;height: 22px;border-radius:11px;line-height:22px;font-size:13px; text-align: center;" />
-    </div>
-    <c:forEach items="${question.types}" var="type">
-        <span class="type">${type.type}</span>
+<body class="c">
+<div class="quiz">
+    <div style="width: 100%;height: 50px;font-size:15px;color: #000;line-height: 50px; text-align: center;padding-left: 20px;">
+        <c:forEach items="${question.types}" var="type">
+            <span class="type">${type.type}</span>
+        </c:forEach>
+        <div style="color:#FFF;background: red;width: 22px;height: 22px;border-radius:11px;line-height:22px;font-size:13px; text-align: center;">
+            <img src="${pageContext.request.contextPath}/css/t.jpg" style="color:#FFF;background: red;width: 22px;height: 22px;border-radius:11px;line-height:22px;font-size:13px; text-align: center;" />
+        </div>
+    </div><br>
+    <p class="content"><b>第${num}题</b>${question.content}</p>
+    <c:forEach items="${question.optionList}" var="option" varStatus="vs">
+        <div>
+            <input <c:if test="${!isSingle}">type="checkbox" </c:if>
+                   <c:if test="${isSingle}">type="radio" </c:if>
+                   name="answer"
+                   value="${vs.count}"><span>${option}<br><br></span>
+            </input>
+        </div>
     </c:forEach>
+    <button id="btn" class="button">确定</button>
 
-</div>
-<p class="content">第${num}题、${question.content}</p>
-<c:forEach items="${question.optionList}" var="option" varStatus="vs">
-    <div>
-        <input <c:if test="${!isSingle}">type="checkbox" </c:if>
-               <c:if test="${isSingle}">type="radio" </c:if>
-               name="answer"
-               value="${vs.count}"><span>${option}</span>
-        </input>
+    <div id="answersAndResolve" style="display:none">
+        题目答案<br>
+        <c:forEach items="${question.answerList}" var="answer">
+            <span style="color:#dd0000">${question.optionList[answer-1]}</span><br>
+        </c:forEach><br><br>
+        <b style="font-size: 20px">题目解析</b><br>
+        <div>
+            ${question.resolve}
+        </div>
+    </div><br><br>
+
+    <div id = "myComment" style="display:none">
+        <b>我的评论</b><br>
+        <textarea id="CContent" class="text"></textarea><br>
+        <button id="commentIt" class="button">发出评论</button>
     </div>
-</c:forEach>
-<button id="btn">确定</button>
-
-<div id="answersAndResolve" style="display:none">
-    题目答案<br>
-    <c:forEach items="${question.answerList}" var="answer">
-        <span>${question.optionList[answer-1]}</span><br>
-    </c:forEach>
-    题目解析<br>
-    <div>
-        ${question.resolve}
-    </div>
+    <div id="comments"></div>
 </div>
-
-<div id = "myComment" style="display:none">
-    我的评论
-    <textarea id="CContent"></textarea>
-    <button id="commentIt">发出评论</button>
-</div>
-<div id="comments"></div>
-
 </body>
 </html>
