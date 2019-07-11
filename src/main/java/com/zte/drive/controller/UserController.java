@@ -78,6 +78,13 @@ public class UserController {
         // 获取用户名和密码
         String name = req.getParameter("name");
         String pwd = req.getParameter("pwd");
+        if ( name.length() == 0 || pwd.length() == 0  ) {
+            status = 2;
+            msg = "未输入用户名或密码！";
+            map.put("status", status);
+            map.put("msg", msg);
+            return JSON.toJSONString(map);
+        }
         // 调用Service层进行注册
         int result = userService.regist(name, pwd);
         // 用户名已存在
