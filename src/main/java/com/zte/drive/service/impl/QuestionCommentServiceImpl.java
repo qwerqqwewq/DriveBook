@@ -65,6 +65,7 @@ public class QuestionCommentServiceImpl implements QuestionCommentService {
             while (!queue.isEmpty()) {
                 //拿走队头
                 QuestionComment first = queue.remove();
+
                 //查找队头的所有直接子评论
                 List<QuestionComment> commentsOfFirst = questionCommentDao.selectByComment(first);
                 //将他们添加到队伍中
@@ -74,7 +75,6 @@ public class QuestionCommentServiceImpl implements QuestionCommentService {
                 //如果队列里还有元素则重复这项操作
             }
             //所有子评论都已经加入
-
             //将子评论集合设置
             rootNode.setCommentNumber(set.size());
 

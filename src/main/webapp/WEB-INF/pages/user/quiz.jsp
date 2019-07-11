@@ -38,6 +38,17 @@
                 <c:redirect url="${pageContext.request.contextPath}" />
 
             </c:if>
+            $(":not(.commentArea,.commentArea *,button:visible)").click(function (event) {
+                event.stopPropagation();
+                console.log($(this));
+                $(".commentArea").hide();
+                $("button:hidden").show();
+            });
+            $("#comments").on("click","button,textArea",function(e){
+                console.log($(this));
+                e.stopPropagation();
+            });
+
             $("#btn").click(function () {
                 var qid = <c:out value="${question.id}" />;
                 var uid = <c:out value="${sessionScope.user.id}" />;
@@ -62,12 +73,14 @@
                     },
                     success : function(data) {
                         if(data.correct) {
-                            whenCorrect();
                             alert("回答正确");
+
                         }else {
                             alert("回答错误");
-
                         }
+                        whenCorrect();
+
+                        afterSumbmit();
                     },
                     error : function(){
                         alert("插入失败！");
@@ -84,6 +97,12 @@
 
 
         });
+
+        function afterSumbmit() {
+            $("#btn").hide();
+            $("#answersAndResolve").show();
+
+        }
 
         function comment(pid,val) {
             var qid = <c:out value="${question.id}" />;
@@ -102,9 +121,13 @@
                 success:function(data) {
                     if(data.status>0) {
                         alert("评论成功");
+                        $("#comments").children().remove();
                     }else {
                         alert("评论失败");
                     }
+                    whenCorrect();
+
+
                 },
                 error: function () {
                     alert("评论失败！请检查网络设置！");
@@ -122,6 +145,7 @@
 
         function show(self) {
             console.log($(self));
+            $(".commentArea").hide();
             $(self).siblings(".commentArea").show();
             $(self).hide();
         }
@@ -145,6 +169,8 @@
                         var cbtnt = $("<button>回复ta</button>");
                         //点击时创建文本框，同时添加到某个对象下，评论的question的id为pid
                         //通过cbtnt.click(data,createTextArea);
+
+                        console.log(comments);
 
                         for(var i = 0;i<comments.length;i++) {
                             console.log(comments[i]);
@@ -181,6 +207,9 @@
                             //创建按钮
                             var cbtn = cbtnt.clone();
                             cbtn.attr("onclick", "show(this)");
+
+
+
                             pp.append(cbtn);
 
 
@@ -188,19 +217,42 @@
                             //子评论贴在sub下
                             var sub;
                             if(subComments.length>0) {
-                                sub = $("<div></div>").html("ta的评论：").addClass("sub");
+                                sub = $("<div></div>").html("ta的楼下：").addClass("sub");
                                 pp.append(sub);
                             }
                             for(var j=0;j<subComments.length;j++) {
                                 //显示子评论
                                 var subComment = subComments[j];
-                                var subUser = $("<span></span>").html(subComment.user.name+"在"
-                                        +comment.commentDate+
-                                        "时候，评论了<br>");
+                                var subUser = $("<span></span>").html(subComment.user.name
+                                        +"在"
+                                        +subComment.commentDate
+                                        +"时候，评论了"
+                                        +subComment.questionComment.user.name
+                                        +"<br>");
                                 var scc = $("<span></span>").html(subComment.content);
                                 var sc = $("<div></div>");
                                 sc.append(subUser);
                                 sc.append(scc);
+                                //创建它的评论选框
+                                var scommentArea = $("<div id='"+i+"ca'></div>").addClass("commentArea");
+
+                                var stt = $("<textarea name='"+i+"subContent'>输入评论内容</textarea>");
+
+                                //提交评论按钮
+                                var sttsubmit = $("<button>提交评论</button>");
+                                sttsubmit.attr("onclick","makeComment("+subComment.id+",this)");
+
+
+
+                                //append
+                                scommentArea.append(stt);
+                                scommentArea.append(sttsubmit);
+                                scommentArea.hide();
+                                //创建按钮
+                                var scbtn = cbtnt.clone();
+                                scbtn.attr("onclick", "show(this)");
+                                sc.append(scbtn);
+                                sc.append(scommentArea);
                                 sub.append(sc);
                             }
                             $("#comments").append(pp);
@@ -231,13 +283,24 @@
         <input <c:if test="${!isSingle}">type="checkbox" </c:if>
                <c:if test="${isSingle}">type="radio" </c:if>
                name="answer"
-               value="${vs.count}">${option}
+               value="${vs.count}"><span>${option}</span>
         </input>
     </div>
 </c:forEach>
 <button id="btn">确定</button>
 
-<div id = "myComment" style="visibility: hidden">
+<div id="answersAndResolve" style="display:none">
+    题目答案<br>
+    <c:forEach items="${question.answerList}" var="answer">
+        <span>${question.optionList[answer-1]}</span><br>
+    </c:forEach>
+    题目解析<br>
+    <div>
+        ${question.resolve}
+    </div>
+</div>
+
+<div id = "myComment" style="display:none">
     我的评论
     <textarea id="CContent"></textarea>
     <button id="commentIt">发出评论</button>
