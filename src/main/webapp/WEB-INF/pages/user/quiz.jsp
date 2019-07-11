@@ -3,9 +3,10 @@
 <html>
 <head>
     <title>正在回答题目</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
     <style>
         .c{
-            background-image:url('${pageContext.request.contextPath}/images/bg5.jpg');
+            background-image:url('${pageContext.request.contextPath}/images/bg7.jpg');
             background-size:cover;
         }
         .button{
