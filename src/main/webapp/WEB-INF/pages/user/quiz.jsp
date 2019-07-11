@@ -71,7 +71,7 @@
                 event.stopPropagation();
                 console.log($(this));
                 $(".commentArea").hide();
-                $("button:hidden").show();
+                $("button:hidden:not(#btn)").show();
             });
             $("#comments").on("click","button,textArea",function(e){
                 console.log($(this));
