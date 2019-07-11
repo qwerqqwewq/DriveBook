@@ -36,7 +36,7 @@ public class QuizController {
         mav.addObject("question", question);
         mav.addObject("num", num);
         for (Type type : question.getTypes()) {
-            if ("单选题".equals(type.getType())) {
+            if ("单选题".equals(type.getType())||"判断题".equals(type.getType())) {
                 mav.addObject("isSingle", true);
                 break;
             }else if ("多选题".equals(type.getType())) {

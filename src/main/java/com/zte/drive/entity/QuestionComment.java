@@ -1,9 +1,6 @@
 package com.zte.drive.entity;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Set;
 
 /**
@@ -115,18 +112,10 @@ public class QuestionComment implements Comparable<QuestionComment>,Serializable
 
     @Override
     public int compareTo(QuestionComment o) {
-        if (o == null || o.getCommentDate() == null) {
+        if (o == null) {
             return 1;
         }
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        try {
-            Date d1 = sdf.parse(this.getCommentDate());
-            Date d2 = sdf.parse(o.getCommentDate());
-            return (int) ((d1.getTime() - d2.getTime())/(24*3600*1000));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return 0;
+        return this.getId() - o.getId();
     }
 
     @Override
