@@ -9,6 +9,54 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <style>
+        .c{
+            background-image:url('${pageContext.request.contextPath}/images/bg3.jpg');
+            background-size:cover;
+        }
+        .insert{
+            margin:100px
+        }
+        .subject{
+            font-size:16px;
+            text-align:left;
+        }
+        .content{
+            font-size:16px;
+            text-align:left;
+        }
+        .button{
+            background-color: #2D64B3;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin:10px 5px 15px 20px;
+        }
+        .type{
+            text-align: left;
+        }
+        .input{
+            padding: 12px 20px;
+            margin: 8px 0;
+            border: none;
+            border-bottom: 2px solid black;
+        }
+        .options{
+            font-size: 16px;
+            text-align: left;
+        }
+        .resolve{
+            text-align: left;
+        }
+        .submit{
+            text-align: left;
+        }
+
+    </style>
     <title>插入试题</title>
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
     <base href="<%=basePath%>">
@@ -28,7 +76,7 @@
     <script>
         $(document).ready(function(){
             $("#btn1").click(function(){
-                var tr = "<tr><td></td><td><input name='options' type='text'/></td><td> <input type='checkbox' name='isAnswer' /> </td><td><input type=\"button\" onclick=\"del(this);\" value=\"删除\"></td></tr>";
+                var tr = "<tr><td></td><td><input name='options' class='input' type='text'/></td><td> <input type='checkbox' name='isAnswer' /> </td><td><input type=\"button\" class='button' onclick=\"del(this);\" value=\"删除\"></td></tr>";
                 $("#tab").append(tr);
                 flush();
             });
@@ -153,49 +201,65 @@
 
 
 </head>
-<body>
+<body   class="c">
+
+<div class="insert">
+    <div class="subject">
+        <b>科目类别</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="subjectId" value="1">科目一   <input type="radio" name="subjectId" value="4">科目四
+    </div><br><br>
+
+    <div class="type">
+        <b>所属题目类型</b>
+        <span><p>
+            <c:forEach items="${types}" var="type">
+
+                ${type.type}<input type="checkbox" name="tid" value="${type.id}">
+
+            </c:forEach>
+        </span></p>
+    </div><br><br>
+
+    <div class="content">
+        <b>题目内容</b><br>
+        <script id="content" name="content" type="text/plain">
+        </script>
+        <script type="text/javascript">
+            var ue = UE.getEditor('content');
+            var ue = UE.getEditor('content');
+            //实例化编辑器到id为 container 的 dom 容器上：
+            //设置编辑器内容：
+            ue.ready(function() {
+                ue.setContent('<p>在此输入题目正文</p>');
+            });
+            //获取编辑器html内容：
+            ue.ready(function() {
+                var html = ue.getContent();
+            });
+
+        </script>
+    </div><br><br>
 
 
 
-科目类别<input type="radio" name="subjectId" value="1">科目一   <input type="radio" name="subjectId" value="4">科目四<br>
-题目内容<br>
-<script id="content" name="content" type="text/plain">
-</script>
-<script type="text/javascript">
-    var ue = UE.getEditor('content');
-    var ue = UE.getEditor('content');
-    //实例化编辑器到id为 container 的 dom 容器上：
-    //设置编辑器内容：
-    ue.ready(function() {
-        ue.setContent('<p>在此输入题目正文</p>');
-    });
-    //获取编辑器html内容：
-    ue.ready(function() {
-        var html = ue.getContent();
-    });
+    <div class="options">
+        <b>题目选项</b>    <button id="btn1" class="button" >添加一行</button>
+        <table  id="tab" style="text-align: center;">
+                <th>序号</th>
+                <th>选项内容</th>
+                <th>是否是答案</th>
+                <th>操作</th>
+        </table>
+    </div><br><br>
 
-</script>
-<br>
-所属题目类型<br>
-<span><p>
-    <c:forEach items="${types}" var="type">
+    <div class="resolve">
+    <b>题目解析</b><br>
+    <textarea cols="40" rows="10" style="overflow: hidden" name="resolve" ></textarea>
+    </div><br>
 
-        ${type.type}<input type="checkbox" name="tid" value="${type.id}">
-
-    </c:forEach>
-</span></p><br>
-
-题目选项    <button id="btn1" >添加一行</button>
-<table id="tab">
-        <th>序号</th>
-        <th>选项内容</th>
-        <th>是否是答案</th>
-        <th>操作</th>
-</table>
-题目解析<br>
-<textarea cols="40" rows="20" style="overflow: hidden" name="resolve" ></textarea>
-<br>
-<button id="btn2" >提交</button>
-
+    <div class="submit">
+        <button id="btn2" class="button">提交</button>
+    </div>
+</div>
 </body>
 </html>

@@ -4,6 +4,31 @@
 <head>
     <title>上传图片</title>
 
+    <style>
+        .c{
+            background-image:url('${pageContext.request.contextPath}/images/bg3.jpg');
+            background-size:cover;
+        }
+        .upload{
+            text-align:center;
+            margin:250px auto;
+            width:400px;
+            height:100px;
+            font-size:16px
+        }
+        .button{
+            background-color: #2D64B3;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin:10px 5px 15px 20px;
+        }
+
+    </style>
     <script src="/js/jquery-2.1.4.min.js"></script>
     <script>
         $(function () {
@@ -36,10 +61,12 @@
         });
     </script>
 </head>
-<body>
-<form id="uploadForm" enctype="multipart/form-data" method="post" >
-    <input type="file" name="uploadFile"> <br>
-    <button id="uploadBtn">上传选择图片</button>
-</form>
+<body class="c">
+<div class="upload">
+    <form id="uploadForm" enctype="multipart/form-data" method="post" >
+        <input type="file" name="uploadFile"> <br>
+        <button id="uploadBtn" class="button">上传所选择的图片</button>
+    </form>
+</div>
 </body>
 </html>

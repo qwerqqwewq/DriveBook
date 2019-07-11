@@ -61,9 +61,5 @@ public class UserTest {
         for (User user : users2) {
             System.out.println(user);
         }
-
-
     }
-
-
 }
