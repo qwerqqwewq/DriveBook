@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -145,6 +146,8 @@ public class MistakeController {
         int status;
         String msg;
         Map map=new HashMap<>();
+        List<Integer> qid=new ArrayList<>();
+
         //Integer pageSize=1;
         //每页显示一条记录
         //分页查询
@@ -157,7 +160,10 @@ public class MistakeController {
             List<Mistake> list=mistakeService.findall(user);
             map.put("status",status);
             map.put("msg",msg);
-            map.put("list",list);
+            for(Mistake mistake:list){
+               qid.add(mistake.getQuestion().getId());
+            }
+            map.put("qid",qid);
             return JSON.toJSONString(map);
         }
         //PageInfo<Mistake> pageInfo=new PageInfo<Mistake>(list);
@@ -178,6 +184,8 @@ public class MistakeController {
         String msg;
         int status;
         Map map=new HashMap<>();
+        List<Integer> qid=new ArrayList<>();
+
         Integer uid=Integer.valueOf(req.getParameter("uid"));
         User user=userService.findById(uid);
         Integer id=Integer.valueOf(req.getParameter("id"));
@@ -187,13 +195,14 @@ public class MistakeController {
             Mistake mistake=mistakeService.findById(user,id);
             map.put("status",status);
             map.put("msg",msg);
-            map.put("mistake",mistake);
+            qid.add(mistake.getQuestion().getId());
+            map.put("qid",qid);
             return JSON.toJSONString(map);
         }else{
             status=0;
             msg="查询失败";
             map.put("status",status);
-            map.put("msg",msg);
+            map.put("msg", msg);
             return JSON.toJSONString(map);
         }
     }
@@ -207,6 +216,8 @@ public class MistakeController {
         int status;
         String msg;
         Map map=new HashMap<>();
+        List<Integer> qid=new ArrayList<>();
+
         Integer uid=Integer.valueOf(req.getParameter("uid"));
         User user=userService.findById(uid);
         //Integer pageSize=1;
@@ -218,7 +229,10 @@ public class MistakeController {
             List<Mistake> list = mistakeService.findByContent(user, content);
             map.put("status", status);
             map.put("msg", msg);
-            map.put("list", list);
+            for(Mistake mistake:list){
+                qid.add(mistake.getQuestion().getId());
+            }
+            map.put("qid",qid);
             return JSON.toJSONString(map);
         }
         //PageInfo<Mistake> pageInfo1=new PageInfo<Mistake>(list1);
@@ -242,6 +256,7 @@ public class MistakeController {
           Integer status;
           String msg;
           Map map=new HashMap<>();
+        List<Integer> qid=new ArrayList<>();
           Integer uid=Integer.valueOf(req.getParameter("uid"));
            User user=userService.findById(uid);
            String typename=req.getParameter("name");
@@ -251,7 +266,10 @@ public class MistakeController {
                List<Mistake> list=mistakeService.findByType(user,typename);
                map.put("status",status);
                map.put("msg",msg);
-               map.put("list",list);
+               for(Mistake mistake:list){
+                   qid.add(mistake.getQuestion().getId());
+               }
+               map.put("qid",qid);
                return JSON.toJSONString(map);
            }else{
                status=0;
@@ -272,6 +290,7 @@ public class MistakeController {
         String msg;
         int status;
         Map map=new HashMap<>();
+        List<Integer> qid=new ArrayList<>();
         Integer uid=Integer.valueOf(req.getParameter("uid"));
         Integer num=Integer.valueOf(req.getParameter("num"));
         User user=userService.findById(uid);
@@ -281,7 +300,10 @@ public class MistakeController {
             List<Mistake> list=mistakeService.findByTime(user,num);
             map.put("status",status);
             map.put("msg",msg);
-            map.put("list",list);
+            for(Mistake mistake:list){
+                qid.add(mistake.getQuestion().getId());
+            }
+            map.put("qid",qid);
             return JSON.toJSONString(map);
         }else{
             status=0;
