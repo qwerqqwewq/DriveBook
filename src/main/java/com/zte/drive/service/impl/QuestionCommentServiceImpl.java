@@ -78,6 +78,12 @@ public class QuestionCommentServiceImpl implements QuestionCommentService {
             //将子评论集合设置
             rootNode.setCommentNumber(set.size());
 
+            if (num <= 0) {
+                rootNode.setComments(set);
+                continue;
+            }
+
+
             //由于传到前台时，根节点的所有评论不能全传，因此只选择其中五个
             Set<QuestionComment> setNew = new TreeSet();
             int i = 0;

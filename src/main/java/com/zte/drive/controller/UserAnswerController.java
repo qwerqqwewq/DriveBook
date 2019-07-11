@@ -175,6 +175,23 @@ public class UserAnswerController {
 
         int status = userAnswerService.add(userAnswer);
         Map map = new HashMap<>(1);
+
+        boolean isCorrect = questionService.checkAnswer(question.getId(), Arrays.asList(answers));
+        if (isCorrect) {
+            map.put("correct", true);
+        } else {
+            map.put("correct", false);
+
+            // 回答错误，将该题加入错题集
+            Mistake mistake = new Mistake();
+            mistake.setUser(user);
+            mistake.setCreateDate(CurrentDate.getCurrentDate());
+            mistake.setQuestion(question);
+            if (mistakeService.findByqid(user, qid) == null) {
+                int result = mistakeService.add(mistake);
+            }
+        }
+
         map.put("status", status);
         return JSON.toJSONString(map);
     }
