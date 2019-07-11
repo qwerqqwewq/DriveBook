@@ -164,7 +164,7 @@ public class QuestionController {
     @RequestMapping("/getIds")
     @ResponseBody
     Object getIds(@RequestParam(value = "subjectId",required = false)Integer subjectId,/*科目id*/
-                  @RequestParam(value = "tid[]",required = false)Integer[] tid/*类型的id值数组*/,
+                  @RequestParam(value = "tid",required = false)Integer tid/*类型的id值数组*/,
                   @RequestParam(value = "exam",required = false,defaultValue = "false")Boolean needDash,
                   @RequestParam(value = "num",required = false) Integer num) {
         Map map = new HashMap(2);
@@ -181,9 +181,7 @@ public class QuestionController {
                 set.addAll(questionService.findBySubject(new Subject(subjectId, null)));
             }
             if (tid != null) {
-                for (int i = 0; i < tid.length; i++) {
-                    set.addAll(questionService.findByType(new Type(tid[i], null)));
-                }
+                set.retainAll(questionService.findByType(new Type(tid, null)));
             }
             for (QuestionVO questionVO : set) {
                 integers.add(questionVO.getId());
@@ -191,7 +189,7 @@ public class QuestionController {
         }
         if (needDash) {
             Collections.shuffle(integers);
-            integers.subList(0, num > integers.size() ? integers.size() : num);
+            integers = integers.subList(0, num > integers.size() ? integers.size() : num);
         }
 
         map.put("qids", integers);
