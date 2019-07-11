@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -140,6 +141,7 @@ public class FavoritesController {
         int status;
         String msg;
         Map map=new HashMap<>();
+        List<Integer> qid=new ArrayList<>();
         //Integer pageSize=1;
         //每页显示一条记录
         //分页查询
@@ -152,7 +154,10 @@ public class FavoritesController {
             map.put("status",status);
             map.put("msg",msg);
              List<Favorites> list=favoritesService.find(user);
-             map.put("list",list);
+            for(Favorites favorites:list){
+                qid.add(favorites.getQuestion().getId());
+            }
+             map.put("qid",qid);
             return JSON.toJSONString(map);
         }
         //PageInfo<Favorites> pageInfo=new PageInfo<Favorites>(list);
@@ -175,6 +180,7 @@ public class FavoritesController {
         int status;
         String msg;
         Map map=new HashMap<>();
+        List<Integer> qid=new ArrayList<>();
         Integer num=Integer.valueOf(req.getParameter("num"));
         Integer uid=Integer.valueOf(req.getParameter("uid"));
         User user=userService.findById(uid);
@@ -184,7 +190,10 @@ public class FavoritesController {
             List<Favorites> list=favoritesService.findByNum(user,num);
             map.put("status",status);
             map.put("msg",msg);
-            map.put("list",list);
+            for(Favorites favorites:list){
+                qid.add(favorites.getQuestion().getId());
+            }
+            map.put("qid",qid);
             return JSON.toJSONString(map);
         }else{
             status=0;
