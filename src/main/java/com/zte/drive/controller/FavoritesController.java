@@ -1,8 +1,6 @@
 package com.zte.drive.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.zte.drive.entity.Favorites;
 import com.zte.drive.entity.Question;
 import com.zte.drive.entity.User;
@@ -18,12 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.jar.JarEntry;
 
 /**
  * @author wzj
@@ -147,6 +143,7 @@ public class FavoritesController {
         //分页查询
         //PageHelper.startPage(pageNo, pageSize);
         Integer uid=Integer.valueOf(req.getParameter("uid"));
+        System.out.print("favFind uid"+ uid);
         User user=userService.findById(uid);
         if(favoritesService.find(user)!=null){
             status=1;
@@ -158,6 +155,7 @@ public class FavoritesController {
                 qid.add(favorites.getQuestion().getId());
             }
              map.put("qid",qid);
+            System.out.println("return" + JSON.toJSONString(map));
             return JSON.toJSONString(map);
         }
         //PageInfo<Favorites> pageInfo=new PageInfo<Favorites>(list);
@@ -167,6 +165,8 @@ public class FavoritesController {
             msg="查询失败";
             map.put("status",status);
             map.put("msg",msg);
+            System.out.println("return" + JSON.toJSONString(map));
+
             return JSON.toJSONString(map);
         }
     }

@@ -3,12 +3,15 @@ package com.zte.drive.controller;
 import com.zte.drive.entity.Type;
 import com.zte.drive.service.QuestionService;
 import com.zte.drive.service.UserAnswerService;
+import com.zte.drive.service.UserService;
 import com.zte.drive.vo.QuestionVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * @author lxj
@@ -22,6 +25,8 @@ public class QuizController {
     QuestionService questionService;
     @Autowired
     UserAnswerService userAnswerService;
+    @Autowired
+    UserService userService;
     /**
      * 跳转到答题界面
      * @param qid 题目id
@@ -30,7 +35,11 @@ public class QuizController {
      */
     @RequestMapping("/{id}")
     ModelAndView startQuiz(@PathVariable("id") Integer qid,
-                           Integer num) {
+                           Integer num,
+                           Integer uid,
+                           HttpSession session) {
+        session.setAttribute("user",userService.findById(uid));
+        System.out.println("session"+session.getAttribute("user"));
         ModelAndView mav = new ModelAndView("user/quiz");
         QuestionVO question = questionService.findById(qid);
         mav.addObject("question", question);

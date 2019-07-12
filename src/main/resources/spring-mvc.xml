@@ -45,11 +45,11 @@
        
        <mvc:interceptors>
               <mvc:interceptor>
-                     <mvc:mapping path="/fav/**"/>
-                     <mvc:mapping path="/mistake/**" />
+                     <!--<mvc:mapping path="/fav/**"/>-->
+                     <!--<mvc:mapping path="/mistake/**" />-->
                      <mvc:mapping path="/userAnswer/**" />
                      <mvc:mapping path="/type/**" />
-                     <mvc:mapping path="/quiz/**" />
+                     <!--<mvc:mapping path="/quiz/**" />-->
                      <mvc:mapping path="/questionComment/insert/do" />
                      <mvc:mapping path="/questionComment/delete/{id}" />
 
