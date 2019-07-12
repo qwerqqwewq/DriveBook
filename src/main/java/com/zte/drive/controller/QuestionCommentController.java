@@ -93,6 +93,7 @@ public class QuestionCommentController {
         } else {
             map.put("msg", "暂无评论");
         }
+        System.out.println(JSON.toJSONString(map));
         return JSON.toJSONString(map);
 
     }
